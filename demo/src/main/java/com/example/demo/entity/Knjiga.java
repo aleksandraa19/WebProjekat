@@ -16,10 +16,10 @@ public class Knjiga  implements Serializable{
     //naslovna fotografija nez tip
 
     @Column
-    private Long ISBN;
+    private String ISBN;
 
     @Column
-    private int DatumObjavljivanja;  //ili mzd string
+    private String DatumObjavljivanja;
 
     @Column
     private int brStrana;
@@ -27,10 +27,73 @@ public class Knjiga  implements Serializable{
     @Column
     private String opis;
 
-    @Column
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Zanr zanr;
 
     @Column
     private double ocena;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNaslov() {
+        return Naslov;
+    }
+
+    public void setNaslov(String naslov) {
+        Naslov = naslov;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
+    }
+
+    public String getDatumObjavljivanja() {
+        return DatumObjavljivanja;
+    }
+
+    public void setDatumObjavljivanja(String datumObjavljivanja) {
+        DatumObjavljivanja = datumObjavljivanja;
+    }
+
+    public int getBrStrana() {
+        return brStrana;
+    }
+
+    public void setBrStrana(int brStrana) {
+        this.brStrana = brStrana;
+    }
+
+    public String getOpis() {
+        return opis;
+    }
+
+    public void setOpis(String opis) {
+        this.opis = opis;
+    }
+
+    public Zanr getZanr() {
+        return zanr;
+    }
+
+    public void setZanr(Zanr zanr) {
+        this.zanr = zanr;
+    }
+
+    public double getOcena() {
+        return ocena;
+    }
+
+    public void setOcena(double ocena) {
+        this.ocena = ocena;
+    }
 }

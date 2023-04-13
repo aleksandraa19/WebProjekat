@@ -2,10 +2,13 @@ package com.example.demo.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
+import java.text.DateFormat;
 
 enum Uloga {CITALAC, AUTOR, ADMINISTRATOR}
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Korisnik  implements Serializable {
 
     @Id
@@ -18,10 +21,10 @@ public class Korisnik  implements Serializable {
     @Column
     private String prezime;
 
-    @Column
+    @Column(unique = true)
     private String korisnickoIme;  //jedinstven
 
-    @Column
+    @Column(unique = true)
     private String mejlAdresa;  //jedinstven
 
 
@@ -29,7 +32,7 @@ public class Korisnik  implements Serializable {
     private String lozinka;
 
     @Column
-    private Long datumRodjenja;  //long  ili string
+    private String datumRodjenja;
 
     //profilna slika nez tip
 
@@ -40,6 +43,89 @@ public class Korisnik  implements Serializable {
     @Column
     private Uloga uloga;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public String getIme() {
+        return ime;
+    }
+
+    public void setIme(String ime) {
+        this.ime = ime;
+    }
+
+    public String getPrezime() {
+        return prezime;
+    }
+
+    public void setPrezime(String prezime) {
+        this.prezime = prezime;
+    }
+
+    public String getKorisnickoIme() {
+        return korisnickoIme;
+    }
+
+    public void setKorisnickoIme(String korisnickoIme) {
+        this.korisnickoIme = korisnickoIme;
+    }
+
+    public String getMejlAdresa() {
+        return mejlAdresa;
+    }
+
+    public void setMejlAdresa(String mejlAdresa) {
+        this.mejlAdresa = mejlAdresa;
+    }
+
+    public String getLozinka() {
+        return lozinka;
+    }
+
+    public void setLozinka(String lozinka) {
+        this.lozinka = lozinka;
+    }
+
+    public String getDatumRodjenja() {
+        return datumRodjenja;
+    }
+
+    public void setDatumRodjenja(String datumRodjenja) {
+        this.datumRodjenja = datumRodjenja;
+    }
+
+    public String getOpis() {
+        return opis;
+    }
+
+    public void setOpis(String opis) {
+        this.opis = opis;
+    }
+
+    public Uloga getUloga() {
+        return uloga;
+    }
+
+    public void setUloga(Uloga uloga) {
+        this.uloga = uloga;
+    }
+
+    @Override
+    public String toString() {
+        return "Korisnik{" +
+                "id=" + id +
+                ", ime='" + ime + '\'' +
+                ", prezime='" + prezime + '\'' +
+                ", korisnickoIme='" + korisnickoIme + '\'' +
+                ", mejlAdresa='" + mejlAdresa + '\'' +
+                ", datumRodjenja='" + datumRodjenja + '\'' +
+                ", opis='" + opis + '\'' +
+                ", uloga=" + uloga +
+                '}';
+    }
 }

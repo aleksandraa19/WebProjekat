@@ -17,16 +17,62 @@ public class Zahtev implements Serializable{
     private String email;
 
     @Column
-    private Long telefon;
+    private String telefon;
 
     @Column
     private String poruka;
 
     @Column
-    private Long Datum;
+    private String Datum;
 
     @Column
     private Status status;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefon() {
+        return telefon;
+    }
+
+    public void setTelefon(String telefon) {
+        this.telefon = telefon;
+    }
+
+    public String getPoruka() {
+        return poruka;
+    }
+
+    public void setPoruka(String poruka) {
+        this.poruka = poruka;
+    }
+
+    public String getDatum() {
+        return Datum;
+    }
+
+    public void setDatum(String datum) {
+        Datum = datum;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }
