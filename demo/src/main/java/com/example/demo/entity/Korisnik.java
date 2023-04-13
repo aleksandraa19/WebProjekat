@@ -8,7 +8,7 @@ import java.text.DateFormat;
 enum Uloga {CITALAC, AUTOR, ADMINISTRATOR}
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Korisnik  implements Serializable {
 
     @Id
@@ -41,6 +41,7 @@ public class Korisnik  implements Serializable {
 
 
     @Column
+    @Enumerated(value = EnumType.STRING)
     private Uloga uloga;
 
     public Long getId() {

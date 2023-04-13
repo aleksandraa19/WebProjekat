@@ -26,6 +26,7 @@ public class Zahtev implements Serializable{
     private String Datum;
 
     @Column
+    @Enumerated(value = EnumType.STRING)
     private Status status;
 
     public Long getId() {
