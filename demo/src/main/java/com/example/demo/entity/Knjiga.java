@@ -11,7 +11,7 @@ public class Knjiga  implements Serializable{
     private Long id;
 
     @Column
-    private String Naslov;
+    private String naslov;
 
     //naslovna fotografija nez tip
 
@@ -19,7 +19,7 @@ public class Knjiga  implements Serializable{
     private String ISBN;
 
     @Column
-    private String DatumObjavljivanja;
+    private String datumObjavljivanja;
 
     @Column
     private int brStrana;
@@ -42,11 +42,11 @@ public class Knjiga  implements Serializable{
     }
 
     public String getNaslov() {
-        return Naslov;
+        return naslov;
     }
 
     public void setNaslov(String naslov) {
-        Naslov = naslov;
+        naslov = naslov;
     }
 
     public String getISBN() {
@@ -58,11 +58,11 @@ public class Knjiga  implements Serializable{
     }
 
     public String getDatumObjavljivanja() {
-        return DatumObjavljivanja;
+        return datumObjavljivanja;
     }
 
-    public void setDatumObjavljivanja(String datumObjavljivanja) {
-        DatumObjavljivanja = datumObjavljivanja;
+    public void setDatumObjavljivanja(String DatumObjavljivanja) {
+        datumObjavljivanja = DatumObjavljivanja;
     }
 
     public int getBrStrana() {
@@ -95,5 +95,19 @@ public class Knjiga  implements Serializable{
 
     public void setOcena(double ocena) {
         this.ocena = ocena;
+    }
+
+    @Override
+    public String toString() {
+        return "Knjiga{" +
+                "id=" + id +
+                ", naslov='" + naslov + '\'' +
+                ", ISBN='" + ISBN + '\'' +
+                ", datumObjavljivanja='" + datumObjavljivanja + '\'' +
+                ", brStrana=" + brStrana +
+                ", opis='" + opis + '\'' +
+                ", zanr=" + zanr +
+                ", ocena=" + ocena +
+                '}';
     }
 }

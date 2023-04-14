@@ -15,6 +15,7 @@ public class Autor  extends Korisnik implements Serializable{
     private boolean aktivnost;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "knjiga_id")
     private Set<Knjiga> spisakKnjiga = new HashSet<Knjiga>();
 
     public boolean isAktivnost() {
