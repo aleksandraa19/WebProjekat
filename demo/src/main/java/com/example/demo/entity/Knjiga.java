@@ -28,6 +28,7 @@ public class Knjiga  implements Serializable{
     private String opis;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "zanr_id")
     private Zanr zanr;
 
     @Column
@@ -106,7 +107,7 @@ public class Knjiga  implements Serializable{
                 ", datumObjavljivanja='" + datumObjavljivanja + '\'' +
                 ", brStrana=" + brStrana +
                 ", opis='" + opis + '\'' +
-                ", zanr=" + zanr +
+                ", zanr=" + zanr.getNaziv() +
                 ", ocena=" + ocena +
                 '}';
     }
