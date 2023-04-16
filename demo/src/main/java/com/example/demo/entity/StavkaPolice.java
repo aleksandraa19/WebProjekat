@@ -43,4 +43,6 @@ public class StavkaPolice implements Serializable{
     public void setRecenzije(Set<Recenzija> recenzije) {
         this.recenzije = recenzije;
     }
+
+
 }

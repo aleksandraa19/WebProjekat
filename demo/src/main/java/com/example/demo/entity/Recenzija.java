@@ -20,6 +20,7 @@ public class Recenzija implements Serializable {
     private String datumRecenzije;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "korisnik_id")
     private Korisnik korisnik;
 
     public Long getId() {
@@ -60,5 +61,16 @@ public class Recenzija implements Serializable {
 
     public void setKorisnik(Korisnik korisnik) {
         this.korisnik = korisnik;
+    }
+
+    @Override
+    public String toString() {
+        return "Recenzija{" +
+                "id=" + id +
+                ", ocena=" + ocena +
+                ", text='" + text + '\'' +
+                ", datumRecenzije='" + datumRecenzije + '\'' +
+                ", korisnik=" + korisnik +
+                '}';
     }
 }

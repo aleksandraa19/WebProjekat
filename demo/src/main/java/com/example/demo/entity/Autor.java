@@ -1,10 +1,7 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 import javax.persistence.*;
 
 
@@ -15,7 +12,7 @@ public class Autor  extends Korisnik implements Serializable{
     private boolean aktivnost;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "knjiga_id")
+    @JoinColumn(name = "autor_id")
     private Set<Knjiga> spisakKnjiga = new HashSet<Knjiga>();
 
     public boolean isAktivnost() {
@@ -39,10 +36,15 @@ public class Autor  extends Korisnik implements Serializable{
 
     @Override
     public String toString() {
-        return "Autor{" +
-                "id=" + getId() +
+        String s =  "Autor{" +
+                "id = " + getId() +
+                ", ime =" + getIme() +
                 ", aktivnost=" + aktivnost +
-                ", spisakKnjiga=" + spisakKnjiga +
-                '}';
+                ", spisakKnjiga=";
+        /*for(Knjiga k: spisakKnjiga){
+            s += k.toString();
+        }*/
+                s+='}';
+        return s;
     } //pozvati toString iz Korisnika
 }

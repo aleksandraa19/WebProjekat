@@ -23,7 +23,7 @@ public class Zahtev implements Serializable{
     private String poruka;
 
     @Column
-    private String Datum;
+    private String datum;
 
     @Column
     @Enumerated(value = EnumType.STRING)
@@ -62,11 +62,11 @@ public class Zahtev implements Serializable{
     }
 
     public String getDatum() {
-        return Datum;
+        return datum;
     }
 
-    public void setDatum(String datum) {
-        Datum = datum;
+    public void setDatum(String Datum) {
+        datum = Datum;
     }
 
     public Status getStatus() {
@@ -75,5 +75,18 @@ public class Zahtev implements Serializable{
 
     public void setStatus(Status status) {
         this.status = status;
+
+    }
+
+    @Override
+    public String toString() {
+        return "Zahtev{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", telefon='" + telefon + '\'' +
+                ", poruka='" + poruka + '\'' +
+                ", datum='" + datum + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

@@ -5,10 +5,21 @@ INSERT INTO KORISNIK(ime, prezime, korisnicko_ime, mejl_adresa, lozinka, datum_r
 INSERT INTO ZANR(naziv) VALUES ('fantazija');
 INSERT INTO ZANR(naziv) VALUES ('istorijska fikcija');
 
-INSERT INTO KNJIGA(naslov, ISBN, datum_objavljivanja, br_strana, opis, zanr_id, ocena) VALUES ('Hari Poter', '132437727', '1.1.1997.',345, 'opis', 1, 9.6);
-INSERT INTO KNJIGA(naslov, ISBN, datum_objavljivanja, br_strana, opis, zanr_id, ocena) VALUES ('Na Drini cuprija', '239439389', '12.3.1945.',366, 'opis2', 2, 10);
+INSERT INTO AUTOR(aktivnost, id) VALUES (0, 2);
 
---INSERT INTO AUTOR(aktivnost, knjiga_id) VALUES (0, 2);
+INSERT INTO KNJIGA(naslov, ISBN, datum_objavljivanja, br_strana, opis, zanr_id, ocena, autor_id) VALUES ('Hari Poter', '132437727', '1.1.1997.',345, 'opis', 1, 9.6, 2);
+INSERT INTO KNJIGA(naslov, ISBN, datum_objavljivanja, br_strana, opis, zanr_id, ocena, autor_id) VALUES ('Na Drini cuprija', '239439389', '12.3.1945.',366, 'opis2', 2, 10, 2);
+
+INSERT INTO POLICA(naziv, oznaka) VALUES ('polica1', 1);
+INSERT INTO POLICA(naziv, oznaka) VALUES ('polica2', 0);
+
+INSERT INTO STAVKA_POLICE(knjiga_id, polica_id) VALUES (1, 1);
+INSERT INTO STAVKA_POLICE(knjiga_id, polica_id) VALUES (2, 2);
+
+INSERT INTO ZAHTEV(email, telefon, poruka, datum, status) VALUES ('@gmail.com', '060000111222', '', '16.4.2023.', 'ODOBREN');
+
+INSERT INTO RECENZIJA(ocena, text, datum_recenzije, korisnik_id, stavka_id) VALUES (10, 'text1', '16.4.2023.', 1, 2);
+
 
 
 
