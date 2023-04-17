@@ -57,11 +57,15 @@ public class Polica implements Serializable {
 
     @Override
     public String toString() {
-        return "Polica{" +
+        String s = "Polica{" +
                 "id=" + id +
                 ", naziv='" + naziv + '\'' +
-                ", oznaka=" + oznaka +
-                ", stavkaPolice=" + stavkaPolice +
-                '}';
+                ", oznaka=" + oznaka;
+               // ", stavkaPolice=";
+       /* for(StavkaPolice sp: stavkaPolice){
+            s += sp.toString();
+        }*/
+                s+='}';
+        return s;
     }
 }

@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 
 @Entity
-public class Autor  extends Korisnik implements Serializable{
+public class Autor extends Korisnik implements Serializable{
 
     @Column
     private boolean aktivnost;
@@ -36,15 +36,16 @@ public class Autor  extends Korisnik implements Serializable{
 
     @Override
     public String toString() {
-        String s =  "Autor{" +
-                "id = " + getId() +
-                ", ime =" + getIme() +
-                ", aktivnost=" + aktivnost +
-                ", spisakKnjiga=";
-        /*for(Knjiga k: spisakKnjiga){
-            s += k.toString();
-        }*/
-                s+='}';
-        return s;
-    } //pozvati toString iz Korisnika
+        return "Korisnik{" +
+                "id=" + getId() +
+                ", ime='" + getIme() + '\'' +
+                ", prezime='" + getPrezime() + '\'' +
+                ", korisnickoIme='" + getKorisnickoIme() + '\'' +
+                ", mejlAdresa='" + getMejlAdresa() + '\'' +
+                ", datumRodjenja='" + getDatumRodjenja() + '\'' +
+                ", opis='" + getOpis() + '\'' +
+                ", uloga=" + getUloga() +
+                "= { aktivnost = "+ aktivnost +
+                "} }";
+    }
 }

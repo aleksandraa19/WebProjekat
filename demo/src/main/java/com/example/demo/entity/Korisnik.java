@@ -34,7 +34,7 @@ public class Korisnik  implements Serializable {
     @Column
     private String datumRodjenja;
 
-    //profilna slika nez tip
+    //profilna slika
 
     @Column
     private String opis;
