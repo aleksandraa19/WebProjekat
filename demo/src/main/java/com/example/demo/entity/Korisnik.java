@@ -11,9 +11,9 @@ enum Uloga {CITALAC, AUTOR, ADMINISTRATOR}
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Korisnik  implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
 
     @Column
     private String ime;
@@ -21,7 +21,8 @@ public class Korisnik  implements Serializable {
     @Column
     private String prezime;
 
-    @Column(unique = true)
+    @Id
+    @Column
     private String korisnickoIme;  //jedinstven
 
     @Column(unique = true)
@@ -34,7 +35,8 @@ public class Korisnik  implements Serializable {
     @Column
     private String datumRodjenja;
 
-    //profilna slika
+//    @Column
+//    private String profilnaSlika;
 
     @Column
     private String opis;
@@ -44,13 +46,13 @@ public class Korisnik  implements Serializable {
     @Enumerated(value = EnumType.STRING)
     private Uloga uloga;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public String getIme() {
         return ime;
@@ -119,8 +121,8 @@ public class Korisnik  implements Serializable {
     @Override
     public String toString() {
         return "Korisnik{" +
-                "id=" + id +
-                ", ime='" + ime + '\'' +
+                //"id=" + id +
+                "ime='" + ime + '\'' +
                 ", prezime='" + prezime + '\'' +
                 ", korisnickoIme='" + korisnickoIme + '\'' +
                 ", mejlAdresa='" + mejlAdresa + '\'' +

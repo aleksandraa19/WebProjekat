@@ -11,7 +11,7 @@ public class Autor extends Korisnik implements Serializable{
     @Column
     private boolean aktivnost;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "autor_id")
     private Set<Knjiga> spisakKnjiga = new HashSet<Knjiga>();
 
@@ -37,8 +37,8 @@ public class Autor extends Korisnik implements Serializable{
     @Override
     public String toString() {
         return "Korisnik{" +
-                "id=" + getId() +
-                ", ime='" + getIme() + '\'' +
+                //"id=" + getId() +
+                "ime='" + getIme() + '\'' +
                 ", prezime='" + getPrezime() + '\'' +
                 ", korisnickoIme='" + getKorisnickoIme() + '\'' +
                 ", mejlAdresa='" + getMejlAdresa() + '\'' +
@@ -46,6 +46,7 @@ public class Autor extends Korisnik implements Serializable{
                 ", opis='" + getOpis() + '\'' +
                 ", uloga=" + getUloga() +
                 "= { aktivnost = "+ aktivnost +
+                ", spisak knjiga = " + spisakKnjiga +
                 "} }";
     }
 }

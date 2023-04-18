@@ -16,7 +16,7 @@ public class StavkaPolice implements Serializable{
     @JoinColumn(name = "knjiga_id")
     private Knjiga knjiga;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "stavka_id")
     private Set<Recenzija> recenzije = new HashSet<>();
 
@@ -49,7 +49,7 @@ public class StavkaPolice implements Serializable{
         return "StavkaPolice{" +
                 "id=" + id +
                 ", knjiga=" + knjiga.toString() +
-                //", recenzije=" + recenzije +
+                ", recenzije=" + recenzije +
                 '}';
     }
 }

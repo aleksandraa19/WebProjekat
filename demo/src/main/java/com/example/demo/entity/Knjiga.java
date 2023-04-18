@@ -14,6 +14,8 @@ public class Knjiga  implements Serializable{
     private String naslov;
 
     //naslovna fotografija nez tip
+//    @Column
+//    private String naslovnaFotografija;
 
     @Column(unique = true)
     private String ISBN;
