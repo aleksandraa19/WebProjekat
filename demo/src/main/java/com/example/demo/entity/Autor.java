@@ -15,6 +15,18 @@ public class Autor extends Korisnik implements Serializable{
     @JoinColumn(name = "autor_id")
     private Set<Knjiga> spisakKnjiga = new HashSet<Knjiga>();
 
+    @OneToOne
+    @JoinColumn(name = "autor_id")
+    private Zahtev zahtevZaAktivacijuNaloga;
+
+    public Zahtev getZahtevZaAktivacijuNaloga() {
+        return zahtevZaAktivacijuNaloga;
+    }
+
+    public void setZahtevZaAktivacijuNaloga(Zahtev zahtevZaAktivacijuNaloga) {
+        this.zahtevZaAktivacijuNaloga = zahtevZaAktivacijuNaloga;
+    }
+
     public boolean isAktivnost() {
         return aktivnost;
     }
@@ -30,9 +42,6 @@ public class Autor extends Korisnik implements Serializable{
     public void setSpisakKnjiga(Set<Knjiga> spisakKnjiga) {
         this.spisakKnjiga = spisakKnjiga;
     }
-
-    //ova klasa mora biti dete korisnika treba da dodamo metodu i listu
-
 
     @Override
     public String toString() {

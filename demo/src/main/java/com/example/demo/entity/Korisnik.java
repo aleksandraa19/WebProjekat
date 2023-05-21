@@ -4,6 +4,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.text.DateFormat;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
 
 enum Uloga {CITALAC, AUTOR, ADMINISTRATOR}
 
@@ -11,9 +15,9 @@ enum Uloga {CITALAC, AUTOR, ADMINISTRATOR}
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Korisnik  implements Serializable {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private String ime;
@@ -21,8 +25,8 @@ public class Korisnik  implements Serializable {
     @Column
     private String prezime;
 
-    @Id
-    @Column
+
+    @Column(unique = true)
     private String korisnickoIme;  //jedinstven
 
     @Column(unique = true)
@@ -33,10 +37,16 @@ public class Korisnik  implements Serializable {
     private String lozinka;
 
     @Column
-    private String datumRodjenja;
+    private LocalDate datumRodjenja;
 
-//    @Column
-//    private String profilnaSlika;
+    @Column
+    private String profilnaSlika;
+
+    //lista polica da se doda
+    @OneToMany(fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
+    @JoinColumn(name = "korisnik_id")
+    private Set<Polica> listaPolica = new HashSet<>();
+
 
     @Column
     private String opis;
@@ -46,13 +56,13 @@ public class Korisnik  implements Serializable {
     @Enumerated(value = EnumType.STRING)
     private Uloga uloga;
 
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getIme() {
         return ime;
@@ -94,11 +104,11 @@ public class Korisnik  implements Serializable {
         this.lozinka = lozinka;
     }
 
-    public String getDatumRodjenja() {
+    public LocalDate getDatumRodjenja() {
         return datumRodjenja;
     }
 
-    public void setDatumRodjenja(String datumRodjenja) {
+    public void setDatumRodjenja(LocalDate datumRodjenja) {
         this.datumRodjenja = datumRodjenja;
     }
 
@@ -118,15 +128,32 @@ public class Korisnik  implements Serializable {
         this.uloga = uloga;
     }
 
+    public String getProfilnaSlika() {
+        return profilnaSlika;
+    }
+
+    public void setProfilnaSlika(String profilnaSlika) {
+        this.profilnaSlika = profilnaSlika;
+    }
+
+    public Set<Polica> getListaPolica() {
+        return listaPolica;
+    }
+
+    public void setListaPolica(Set<Polica> listaPolica) {
+        this.listaPolica = listaPolica;
+    }
+
     @Override
     public String toString() {
         return "Korisnik{" +
-                //"id=" + id +
+                "id=" + id +
                 "ime='" + ime + '\'' +
                 ", prezime='" + prezime + '\'' +
                 ", korisnickoIme='" + korisnickoIme + '\'' +
                 ", mejlAdresa='" + mejlAdresa + '\'' +
                 ", datumRodjenja='" + datumRodjenja + '\'' +
+                ", lista polica= " + listaPolica +  '\'' +
                 ", opis='" + opis + '\'' +
                 ", uloga=" + uloga +
                 '}';

@@ -1,7 +1,9 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.persistence.*;
+
 
 @Entity
 public class Knjiga  implements Serializable{
@@ -13,15 +15,14 @@ public class Knjiga  implements Serializable{
     @Column
     private String naslov;
 
-    //naslovna fotografija nez tip
-//    @Column
-//    private String naslovnaFotografija;
+    @Column
+    private String naslovnaFotografija;
 
     @Column(unique = true)
     private String ISBN;
 
     @Column
-    private String datumObjavljivanja;
+    private LocalDate datumObjavljivanja;
 
     @Column
     private int brStrana;
@@ -60,11 +61,11 @@ public class Knjiga  implements Serializable{
         this.ISBN = ISBN;
     }
 
-    public String getDatumObjavljivanja() {
+    public LocalDate getDatumObjavljivanja() {
         return datumObjavljivanja;
     }
 
-    public void setDatumObjavljivanja(String DatumObjavljivanja) {
+    public void setDatumObjavljivanja(LocalDate DatumObjavljivanja) {
         datumObjavljivanja = DatumObjavljivanja;
     }
 

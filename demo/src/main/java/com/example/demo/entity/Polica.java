@@ -19,8 +19,10 @@ public class Polica implements Serializable {
     @Column
     private boolean oznaka;  //true - jeste, false - nije
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "polica_id")
+    @ManyToMany
+    @JoinTable( name = "police",
+            joinColumns = @JoinColumn(name = "stavka_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "stavkaPolice_id", referencedColumnName = "id"))
     private Set<StavkaPolice> stavkaPolice = new HashSet<>();
 
     public Long getId() {
@@ -61,7 +63,7 @@ public class Polica implements Serializable {
                 "id=" + id +
                 ", naziv='" + naziv + '\'' +
                 ", oznaka=" + oznaka;
-               // ", stavkaPolice=";
+               //", stavkaPolice=";
        /* for(StavkaPolice sp: stavkaPolice){
             s += sp.toString();
         }*/

@@ -12,11 +12,11 @@ public class StavkaPolice implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "knjiga_id")
     private Knjiga knjiga;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) //one to one
     @JoinColumn(name = "stavka_id")
     private Set<Recenzija> recenzije = new HashSet<>();
 
