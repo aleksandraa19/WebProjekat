@@ -47,6 +47,10 @@ public class Korisnik  implements Serializable {
     @JoinColumn(name = "korisnik_id")
     private Set<Polica> listaPolica = new HashSet<>();
 
+    /*private Polica WantToRead= new Polica("Want to read", true);
+    private Polica CurrentlyReading= new Polica("Currently reading", true);
+    private Polica Read = new Polica("Read", true);*/
+
 
     @Column
     private String opis;

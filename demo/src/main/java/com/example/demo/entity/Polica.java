@@ -25,6 +25,10 @@ public class Polica implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "stavkaPolice_id", referencedColumnName = "id"))
     private Set<StavkaPolice> stavkaPolice = new HashSet<>();
 
+    public Polica(String naziv, boolean oznaka){
+        this.naziv = naziv;
+        this.oznaka = oznaka;
+    }
     public Long getId() {
         return id;
     }
