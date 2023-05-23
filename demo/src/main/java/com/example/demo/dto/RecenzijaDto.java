@@ -1,12 +1,20 @@
 package com.example.demo.dto;
 
 import com.example.demo.entity.Korisnik;
+import com.example.demo.entity.Recenzija;
 
 public class RecenzijaDto {
     private double ocena;
     private String text;
     private String datumRecenzije;
     private Korisnik korisnik;
+
+    public RecenzijaDto(Recenzija recenzija) {
+        this.ocena = recenzija.getOcena();
+        this.text = recenzija.getText();
+        this.datumRecenzije = recenzija.getDatumRecenzije();
+        this.korisnik = recenzija.getKorisnik();
+    }
 
     public double getOcena() {
         return ocena;
