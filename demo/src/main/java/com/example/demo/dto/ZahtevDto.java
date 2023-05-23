@@ -1,6 +1,6 @@
 package com.example.demo.dto;
 
-import com.example.demo.entity.Status;
+//import com.example.demo.entity.Status;
 
 public class ZahtevDto {
 
@@ -8,5 +8,5 @@ public class ZahtevDto {
     private String telefon;
     private String poruka;
     private String datum;
-    private Status status;
+    //private Status status;
 }

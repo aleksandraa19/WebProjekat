@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-private enum Uloga {CITALAC, AUTOR, ADMINISTRATOR}
+enum Uloga {CITALAC, AUTOR, ADMINISTRATOR}
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

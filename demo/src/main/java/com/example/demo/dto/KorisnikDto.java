@@ -1,7 +1,7 @@
 package com.example.demo.dto;
 
 import com.example.demo.entity.Polica;
-import com.example.demo.entity.Uloga;
+//import com.example.demo.entity.Uloga;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;
@@ -29,7 +29,7 @@ public class KorisnikDto {
 
     private String opis;
 
-    private Uloga uloga;
+    //private Uloga uloga;
 
     public String getIme() {
         return ime;
@@ -87,11 +87,11 @@ public class KorisnikDto {
         this.opis = opis;
     }
 
-    public Uloga getUloga() {
-        return uloga;
-    }
-
-    public void setUloga(Uloga uloga) {
-        this.uloga = uloga;
-    }
+//    public Uloga getUloga() {
+//        return uloga;
+//    }
+//
+//    public void setUloga(Uloga uloga) {
+//        this.uloga = uloga;
+//    }
 }
