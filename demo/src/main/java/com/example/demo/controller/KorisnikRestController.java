@@ -43,5 +43,4 @@ public class KorisnikRestController {
         session.setAttribute("korisnik", registrovan);
         return ResponseEntity.ok("Korisnik je registrovan");
     }
-
 }

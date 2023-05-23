@@ -19,6 +19,16 @@ public class RegistracijaDto {
 
     private String profilnaSlika;
 
+    public RegistracijaDto(String ime, String prezime, String korisnickoIme, String mejlAdresa, String lozinka1, LocalDate datumRodjenja, String profilnaSlika) {
+        this.ime = ime;
+        this.prezime = prezime;
+        this.korisnickoIme = korisnickoIme;
+        this.mejlAdresa = mejlAdresa;
+        this.lozinka1 = lozinka1;
+        this.datumRodjenja = datumRodjenja;
+        this.profilnaSlika = profilnaSlika;
+    }
+
     public String getIme() {
         return ime;
     }
