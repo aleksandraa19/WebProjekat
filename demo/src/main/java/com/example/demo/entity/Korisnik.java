@@ -58,6 +58,7 @@ public class Korisnik  implements Serializable {
         listaPolica.add(p3);
 
     }
+    
 
     @Column
     private String opis;

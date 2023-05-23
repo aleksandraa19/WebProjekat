@@ -11,11 +11,23 @@ public class RegistracijaDto {
 
     private String mejlAdresa;
 
-    private String lozinka;
+    private String lozinka1;
+
+    private String lozinka2;
 
     private LocalDate datumRodjenja;
 
     private String profilnaSlika;
+
+    public RegistracijaDto(String ime, String prezime, String korisnickoIme, String mejlAdresa, String lozinka1, LocalDate datumRodjenja, String profilnaSlika) {
+        this.ime = ime;
+        this.prezime = prezime;
+        this.korisnickoIme = korisnickoIme;
+        this.mejlAdresa = mejlAdresa;
+        this.lozinka1 = lozinka1;
+        this.datumRodjenja = datumRodjenja;
+        this.profilnaSlika = profilnaSlika;
+    }
 
     public String getIme() {
         return ime;
@@ -49,12 +61,20 @@ public class RegistracijaDto {
         this.mejlAdresa = mejlAdresa;
     }
 
-    public String getLozinka() {
-        return lozinka;
+    public String getLozinka1() {
+        return lozinka1;
     }
 
-    public void setLozinka(String lozinka) {
-        this.lozinka = lozinka;
+    public void setLozinka1(String lozinka) {
+        this.lozinka1 = lozinka;
+    }
+
+    public String getLozinka2() {
+        return lozinka2;
+    }
+
+    public void setLozinka2(String lozinka2) {
+        this.lozinka2 = lozinka2;
     }
 
     public LocalDate getDatumRodjenja() {
