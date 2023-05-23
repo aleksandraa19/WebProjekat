@@ -43,7 +43,7 @@ public class Korisnik  implements Serializable {
     private String profilnaSlika;
 
     //lista polica da se doda
-    @OneToMany(fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade =  CascadeType.ALL)
     @JoinColumn(name = "korisnik_id")
     private Set<Polica> listaPolica = new HashSet<>();
 
