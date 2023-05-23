@@ -8,4 +8,5 @@ import java.util.List;
 public interface KorisnikRepository  extends JpaRepository<Korisnik, String>{
 
     List<Korisnik> findAll();
+    Korisnik save(Korisnik k);
 }

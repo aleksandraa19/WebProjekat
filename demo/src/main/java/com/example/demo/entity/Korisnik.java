@@ -59,7 +59,7 @@ public class Korisnik  implements Serializable {
 
     }
 
-
+    public Korisnik(){}
     @Column
     private String opis;
 

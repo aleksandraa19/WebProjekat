@@ -11,7 +11,9 @@ public class RegistracijaDto {
 
     private String mejlAdresa;
 
-    private String lozinka;
+    private String lozinka1;
+
+    private String lozinka2;
 
     private LocalDate datumRodjenja;
 
@@ -49,12 +51,20 @@ public class RegistracijaDto {
         this.mejlAdresa = mejlAdresa;
     }
 
-    public String getLozinka() {
-        return lozinka;
+    public String getLozinka1() {
+        return lozinka1;
     }
 
-    public void setLozinka(String lozinka) {
-        this.lozinka = lozinka;
+    public void setLozinka1(String lozinka) {
+        this.lozinka1 = lozinka;
+    }
+
+    public String getLozinka2() {
+        return lozinka2;
+    }
+
+    public void setLozinka2(String lozinka2) {
+        this.lozinka2 = lozinka2;
     }
 
     public LocalDate getDatumRodjenja() {
