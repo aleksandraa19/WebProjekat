@@ -26,12 +26,13 @@ public class KorisnikDto {
 
     public KorisnikDto(){}
 
-    public KorisnikDto(String ime,String prezime,String korisnickoIme,LocalDate datumRodjenja,String profilnaSlika){
+    public KorisnikDto(String ime,String prezime,String korisnickoIme,LocalDate datumRodjenja,String profilnaSlika,Set<Polica> listaPolica){
         this.ime = ime;
         this.prezime = prezime;
         this.korisnickoIme = korisnickoIme;
         this.datumRodjenja = datumRodjenja;
         this.profilnaSlika = profilnaSlika;
+        this.listaPolica = listaPolica;
     }
 
 
@@ -41,6 +42,7 @@ public class KorisnikDto {
         this.korisnickoIme = korisnik.getKorisnickoIme();
         this.datumRodjenja = korisnik.getDatumRodjenja();
         this.profilnaSlika = korisnik.getProfilnaSlika();
+        this.listaPolica = korisnik.getListaPolica();
 
     }
 

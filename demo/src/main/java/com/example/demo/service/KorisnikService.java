@@ -29,6 +29,17 @@ public class KorisnikService {
     }
 
 
+    public Korisnik findOne(String username){
+        Korisnik korisnik = korisnikRepository.getByKorisnickoIme(username);
+
+        if(korisnik == null){
+            return null;
+        }
+
+        return korisnik;
+    }
+
+
 
 
 }

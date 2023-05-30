@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.LoginDto;
+import com.example.demo.service.PolicaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,8 @@ public class KorisnikRestController {
 
     @Autowired
     private KorisnikService korisnikService;
+
+
 
     @PostMapping("api/login")
     public ResponseEntity<String> login(@RequestBody LoginDto loginDto,HttpSession session){
@@ -50,6 +53,20 @@ public class KorisnikRestController {
 
         session.invalidate();
         return new ResponseEntity("Successfully logged out", HttpStatus.OK);
+
+    }
+
+
+    @GetMapping("/api/korisnici/{korisnickoIme}")
+    public Korisnik getKorisnik(@PathVariable(name = "korisnickoIme")String korisnickoIme){
+
+        Korisnik korisnik = korisnikService.findOne(korisnickoIme);
+
+        if(korisnik == null){
+            return null;
+        }
+
+        return korisnik;
 
     }
 

@@ -49,9 +49,21 @@ public class Korisnik  implements Serializable {
 
     public  void napraviPrimarne(){
         boolean oznaka = true;
-        Polica p1 = new Polica("Want to Read",oznaka);
+        /*Polica p1 = new Polica("Want to Read",oznaka);
         Polica p2 = new Polica("Currently Reading",oznaka);
-        Polica p3 = new Polica("Read",oznaka);
+        Polica p3 = new Polica("Read",oznaka);*/
+
+        Polica p1 = new Polica();
+        p1.setNaziv("Want to Read");
+        p1.setOznaka(oznaka);
+
+        Polica p2 =  new Polica();
+        p2.setNaziv("Currently Reading");
+        p2.setOznaka(oznaka);
+
+        Polica p3 = new Polica();
+        p3.setNaziv("Read");
+        p3.setOznaka(oznaka);
 
         listaPolica.add(p1);
         listaPolica.add(p2);

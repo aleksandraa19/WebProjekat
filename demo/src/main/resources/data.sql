@@ -14,12 +14,11 @@ INSERT INTO KNJIGA(naslov, ISBN, datum_objavljivanja, br_strana, opis, zanr_id, 
 --INSERT INTO POLICA(naziv, oznaka) VALUES ('polica1', 1);
 --INSERT INTO POLICA(naziv, oznaka) VALUES ('polica2', 0);
 
---INSERT INTO STAVKA_POLICE(knjiga_id, polica_id) VALUES (1, 1);
---INSERT INTO STAVKA_POLICE(knjiga_id, polica_id) VALUES (2, 2);
+--INSERT INTO STAVKA_POLICE(knjiga_id, polica_id) VALUES (1  ,0);
+--INSERT INTO STAVKA_POLICE(knjiga_id, polica_id) VALUES (2, 1);
 
---INSERT INTO ZAHTEV(email, telefon, poruka, datum, status) VALUES ('@gmail.com', '060000111222', '', '16.4.2023.', 'ODOBREN');
-
---INSERT INTO RECENZIJA(ocena, text, datum_recenzije, korisnik_id, stavka_id) VALUES (10, 'text1', '16.4.2023.', 'milosm' , 2);
+--INSERT INTO ZAHTEV(email, telefon, poruka, datum, status) VALUES ('@gmail.com', '060000111222', '', '2021-03-11', 'ODOBREN');
+--INSERT INTO RECENZIJA(ocena, text, datum_recenzije, korisnik_id, stavka_id) VALUES (10, 'text1', '16.4.2023.', 0 , 2);
 
 
 
