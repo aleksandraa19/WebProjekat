@@ -16,4 +16,19 @@ public class KorisnikService {
         return korisnikRepository.findAll();
     }
 
+
+    public Korisnik login(String korisnickoIme, String sifra){
+        Korisnik korisnik = korisnikRepository.getByKorisnickoIme(korisnickoIme);
+
+
+
+        if(korisnik == null || !korisnik.getLozinka().equals(sifra)){
+            return null;
+        }
+        return korisnik;
+    }
+
+
+
+
 }

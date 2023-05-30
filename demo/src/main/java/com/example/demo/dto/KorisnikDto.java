@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import com.example.demo.entity.Korisnik;
 import com.example.demo.entity.Polica;
 //import com.example.demo.entity.Uloga;
 
@@ -23,9 +24,25 @@ public class KorisnikDto {
 
     private Set<Polica> listaPolica = new HashSet<>();
 
-    /*private Polica WantToRead= new Polica("Want to read", true);
-    private Polica CurrentlyReading= new Polica("Currently reading", true);
-    private Polica Read = new Polica("Read", true);*/
+    public KorisnikDto(){}
+
+    public KorisnikDto(String ime,String prezime,String korisnickoIme,LocalDate datumRodjenja,String profilnaSlika){
+        this.ime = ime;
+        this.prezime = prezime;
+        this.korisnickoIme = korisnickoIme;
+        this.datumRodjenja = datumRodjenja;
+        this.profilnaSlika = profilnaSlika;
+    }
+
+
+    public KorisnikDto(Korisnik korisnik){
+        this.ime = korisnik.getIme();
+        this.prezime = korisnik.getPrezime();
+        this.korisnickoIme = korisnik.getKorisnickoIme();
+        this.datumRodjenja = korisnik.getDatumRodjenja();
+        this.profilnaSlika = korisnik.getProfilnaSlika();
+
+    }
 
     private String opis;
 

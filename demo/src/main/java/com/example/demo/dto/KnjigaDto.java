@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import com.example.demo.entity.Knjiga;
 import com.example.demo.entity.Zanr;
 
 import javax.persistence.*;
@@ -14,6 +15,32 @@ public class KnjigaDto {
     private String opis;
     private Zanr zanr;
     private double ocena;
+
+
+    public KnjigaDto(){}
+
+    public KnjigaDto(String naslov, String naslovnaFotografija,String ISBN,LocalDate datumObjavljivanja,int brStrana,String opis,Zanr zanr,double ocena){
+        this.naslov = naslov;
+        this.naslovnaFotografija = naslovnaFotografija;
+        this.ISBN = ISBN;
+        this.datumObjavljivanja = datumObjavljivanja;
+        this.brStrana = brStrana;
+        this.opis = opis;
+        this.zanr = zanr;
+        this.ocena = ocena;
+
+    }
+
+    public KnjigaDto(Knjiga k){
+        this.naslov = k.getNaslov();
+        this.naslovnaFotografija = k.getNaslovnaFotografija();
+        this.ISBN = k.getISBN();
+        this.datumObjavljivanja = k.getDatumObjavljivanja();
+        this.brStrana = k.getBrStrana();
+        this.opis = k.getOpis();
+        this.zanr = k.getZanr();
+        this.ocena = k.getOcena();
+    }
 
     public String getNaslov() {
         return naslov;

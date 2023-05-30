@@ -101,6 +101,14 @@ public class Knjiga  implements Serializable{
         this.ocena = ocena;
     }
 
+    public String getNaslovnaFotografija() {
+        return naslovnaFotografija;
+    }
+
+    public void setNaslovnaFotografija(String naslovnaFotografija) {
+        this.naslovnaFotografija = naslovnaFotografija;
+    }
+
     @Override
     public String toString() {
         return "Knjiga{" +
