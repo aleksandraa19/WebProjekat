@@ -39,7 +39,9 @@ public class KorisnikRestController {
             return new ResponseEntity("Greska prilikom unosa lozinke", HttpStatus.CONFLICT);
         }
         //korisnikService.saveKorisnik();
-        Korisnik registrovan = korisnikService.registracija(registracijaDto.getKorisnickoIme(), registracijaDto.getIme(), registracijaDto.getPrezime(), registracijaDto.getLozinka1(), registracijaDto.getMejlAdresa(), registracijaDto.getDatumRodjenja(),registracijaDto.getProfilnaSlika());
+        Korisnik registrovan = null;
+        registrovan = korisnikService.registracija(registracijaDto.getKorisnickoIme(), registracijaDto.getIme(), registracijaDto.getPrezime(), registracijaDto.getLozinka1(), registracijaDto.getMejlAdresa(), registracijaDto.getDatumRodjenja(),registracijaDto.getProfilnaSlika());
+        korisnikService.saveKorisnik(registrovan);
         session.setAttribute("korisnik", registrovan);
         return ResponseEntity.ok("Korisnik je registrovan");
     }
