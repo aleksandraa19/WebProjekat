@@ -22,7 +22,7 @@ public class ZanrRestController {
     @Autowired
     private ZanrService zanrService;
 
-    @GetMapping("api/zanrovi/")
+    @GetMapping("api/zanrovi")
     public ResponseEntity<List<ZanrDto>> getZanrovi(){
         List<ZanrDto> trazeni = new ArrayList<>();
         List<Zanr> zanrovi = zanrService.findAll();

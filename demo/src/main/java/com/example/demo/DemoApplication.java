@@ -81,6 +81,7 @@ public class DemoApplication implements CommandLineRunner {
 		System.out.println("Testiranje klase Recenzija:");
 		//Recenzija r1 = this.recenzijaRepository.findRecenzijaByDatumRecenzije("16.4.2023.");
 		Recenzija r1 = new Recenzija(10, "text1", "2023-16-04", lista_korisnika.get(1));
+		//this.recenzijaRepository.save(r1);
 		System.out.println(r1);
 
 		//stavka police

@@ -21,7 +21,7 @@ public class RecenzijaRestController {
     @Autowired
     private RecenzijaService recenzijaService;
 
-    @GetMapping("api/recenzije/")
+    @GetMapping("api/recenzije")
     public ResponseEntity<List<RecenzijaDto>> getRecenzije(){
         List<Recenzija> recenzije = recenzijaService.findAll();
         List<RecenzijaDto> recenzijaDtoList = new ArrayList<>();
