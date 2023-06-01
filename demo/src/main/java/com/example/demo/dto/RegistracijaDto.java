@@ -1,6 +1,8 @@
 package com.example.demo.dto;
 
 
+import com.example.demo.entity.Korisnik;
+
 import java.time.LocalDate;
 
 public class RegistracijaDto {
@@ -27,6 +29,16 @@ public class RegistracijaDto {
         this.lozinka1 = lozinka1;
         this.datumRodjenja = datumRodjenja;
         this.profilnaSlika = profilnaSlika;
+    }
+    public RegistracijaDto(Korisnik k){
+        this.ime = k.getIme();
+        this.prezime = k.getPrezime();
+        this.korisnickoIme = k.getKorisnickoIme();
+        this.mejlAdresa = k.getMejlAdresa();
+        this.lozinka1 = k.getLozinka();
+        this.lozinka2 = k.getLozinka();
+        this.datumRodjenja = k.getDatumRodjenja();
+        this.profilnaSlika = k.getProfilnaSlika();
     }
 
     public String getIme() {

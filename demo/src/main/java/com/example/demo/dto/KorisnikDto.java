@@ -31,6 +31,16 @@ public class KorisnikDto {
 
     //private Uloga uloga;
 
+    public KorisnikDto(String ime, String prezime, String korisnickoIme, LocalDate datumRodjenja, String profilnaSlika, Set<Polica> listaPolica, String opis) {
+        this.ime = ime;
+        this.prezime = prezime;
+        this.korisnickoIme = korisnickoIme;
+        this.datumRodjenja = datumRodjenja;
+        this.profilnaSlika = profilnaSlika;
+        this.listaPolica = listaPolica;
+        this.opis = opis;
+    }
+
     public String getIme() {
         return ime;
     }
