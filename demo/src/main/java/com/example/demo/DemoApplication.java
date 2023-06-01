@@ -68,10 +68,10 @@ public class DemoApplication implements CommandLineRunner {
 		System.out.println();
 		System.out.println("Testiranje klase Polica:");
 		List<Polica> lista_polica = this.policaRepository.findAll();
-		Polica p1 = new Polica("polica3",true);
-		Polica p2 = new Polica("polica4",false);
-		lista_polica.add(p1);
-		lista_polica.add(p2);
+//		Polica p1 = new Polica("polica3",true);
+//		Polica p2 = new Polica("polica4",false);
+//		lista_polica.add(p1);
+//		lista_polica.add(p2);
 		for(Polica p: lista_polica){
 			System.out.println(p);
 		}
