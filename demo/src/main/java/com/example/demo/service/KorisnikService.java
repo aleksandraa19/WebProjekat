@@ -16,6 +16,7 @@ public class KorisnikService {
     public List<Korisnik> findAll(){
         return korisnikRepository.findAll();
     }
+
     public Korisnik saveKorisnik(Korisnik k) { return korisnikRepository.save(k);}
     public Korisnik registracija(String korisnickoIme, String ime, String prezime, String lozinka1, String mejl, LocalDate datumRodjenja, String profilnaSlika){
         Korisnik k = new Korisnik();
@@ -29,4 +30,33 @@ public class KorisnikService {
         korisnikRepository.save(k);
         return k;
     }
+
+
+
+    public Korisnik login(String korisnickoIme, String sifra){
+        Korisnik korisnik = korisnikRepository.getByKorisnickoIme(korisnickoIme);
+
+
+
+        if(korisnik == null || !korisnik.getLozinka().equals(sifra)){
+            return null;
+        }
+        return korisnik;
+    }
+
+
+    public Korisnik findOne(String username){
+        Korisnik korisnik = korisnikRepository.getByKorisnickoIme(username);
+
+        if(korisnik == null){
+            return null;
+        }
+
+        return korisnik;
+    }
+
+
+
+
+
 }

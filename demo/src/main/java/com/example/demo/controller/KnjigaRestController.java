@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.KnjigaDto;
+
 import com.example.demo.entity.Zanr;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,5 +36,38 @@ public class KnjigaRestController {
         }
         return ResponseEntity.ok(trazene);
     }
+
+    @GetMapping("/api/knjige/{naslov}")
+    public ResponseEntity<KnjigaDto> getKnjigaPoNaslovu(@PathVariable(name = "naslov")String naslov){
+
+        Knjiga k = knjigaService.getKnjigaByName(naslov);
+
+        if(k == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        KnjigaDto dto = new KnjigaDto(k);
+        return ResponseEntity.ok(dto);
+
+    }
+
+    @GetMapping("/api/knjige")
+    public ResponseEntity<List<KnjigaDto>> getKnjige(){
+
+        List<Knjiga> listaknjiga = knjigaService.findAll();
+
+        if(listaknjiga.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+
+        List<KnjigaDto> dtos = new ArrayList<>();
+        for(Knjiga k: listaknjiga){
+            KnjigaDto dto = new KnjigaDto(k);
+            dtos.add(dto);
+        }
+        return ResponseEntity.ok(dtos);
+    }
+
+
 
 }
