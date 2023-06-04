@@ -2,8 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.KnjigaDto;
 
+import com.example.demo.dto.KorisnikDto;
+import com.example.demo.entity.Korisnik;
 import com.example.demo.entity.Zanr;
 
+import com.example.demo.service.PolicaService;
+import com.example.demo.service.StavkaPoliceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +28,11 @@ public class KnjigaRestController {
     @Autowired
     private KnjigaService knjigaService;
 
+    @Autowired
+    private PolicaService policaService;
+
+
+
     @GetMapping("/api/knjiga/{zanr}")
     public ResponseEntity<List<KnjigaDto>> getKnjiga(@PathVariable(name = "zanr")Zanr zanr, HttpSession session){
         List<Knjiga> knjige = knjigaService.findAll();
@@ -41,6 +50,7 @@ public class KnjigaRestController {
     public ResponseEntity<KnjigaDto> getKnjigaPoNaslovu(@PathVariable(name = "naslov")String naslov){
 
         Knjiga k = knjigaService.getKnjigaByName(naslov);
+
 
         if(k == null){
             return ResponseEntity.notFound().build();
@@ -67,6 +77,9 @@ public class KnjigaRestController {
         }
         return ResponseEntity.ok(dtos);
     }
+
+
+
 
 
 

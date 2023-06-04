@@ -13,18 +13,21 @@ INSERT INTO KNJIGA(naslov, ISBN, datum_objavljivanja, br_strana, opis, zanr_id, 
 INSERT INTO KNJIGA(naslov, ISBN, datum_objavljivanja, br_strana, opis, zanr_id, ocena, autor_id) VALUES ('Na Drini cuprija', '239439389', '1945-03-12',366, 'opis2', 2, 10, 1);
 
 
--- INSERT INTO POLICA(naziv, oznaka) VALUES ('polica1', 1);
--- INSERT INTO POLICA(naziv, oznaka) VALUES ('polica2', 0);
+ INSERT INTO POLICA(naziv, oznaka) VALUES ('polica1', 0);
+ INSERT INTO POLICA(naziv, oznaka) VALUES ('polica2', 0);
 
 
--- INSERT INTO STAVKA_POLICE(knjiga_id, polica_id) VALUES (1, 1);
--- INSERT INTO STAVKA_POLICE(knjiga_id, polica_id) VALUES (2, 2);
+INSERT INTO STAVKA_POLICE(knjiga_id) VALUES (1);
+INSERT INTO STAVKA_POLICE(knjiga_id) VALUES (2);
+
+INSERT INTO POLICE(polica_id,stavka_police_id) VALUES (1,1);
+INSERT INTO POLICE(polica_id,stavka_police_id) VALUES (1,2);
 
 INSERT INTO ZAHTEV(email, telefon, poruka, datum, status) VALUES ('@gmail.com', '060000111222', '', '2023-16-04', 'ODOBREN');
 
---INSERT INTO RECENZIJA(ocena, text, datum_recenzije, korisnik_id, stavka_id) VALUES (10, 'text1', '2023-16-04', 'milosm' , 2);
-
-
+INSERT INTO RECENZIJA(ocena, text, datum_recenzije, korisnik_id, stavka_id) VALUES (10, 'text1', '2023-16-04', 1 , 2);
+INSERT INTO RECENZIJA(ocena, text, datum_recenzije, korisnik_id, stavka_id) VALUES (8, 'fngcfb', '2000-08-11', 1, 2);
+INSERT INTO RECENZIJA(ocena, text, datum_recenzije, korisnik_id, stavka_id) VALUES (10, 'text1', '1987-23-09', 1 , 2);
 
 
 

@@ -77,7 +77,29 @@ public class KorisnikService {
         return korisnik;
     }
 
+    public boolean dodajPolicu(Long id,Polica polica){
 
+        List<Korisnik> korisniks = korisnikRepository.findAll();
+
+        for(Korisnik k: korisniks){
+            if(k.getId() == id){
+
+               Set<Polica> policas = k.getListaPolica();
+
+               for(Polica p: policas){
+                   if(p.getNaziv().equals(polica.getNaziv())){
+                       return false;
+                   }
+
+               }
+
+                k.getListaPolica().add(polica);
+                korisnikRepository.save(k);
+
+            }
+        }
+        return true;
+    }
 
 
 

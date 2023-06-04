@@ -16,4 +16,28 @@ public class PolicaService {
     public List<Polica> findAll(){
         return policaRepository.findAll();
     }
+
+    public Polica savePolica(Polica p){return policaRepository.save(p);}
+
+
+    public Polica  napraviPolicu(String naziv){
+
+       /* List<Polica> policas = policaRepository.findAll();
+
+        for(Polica po: policas){
+            if(po.getNaziv().equals(naziv)){
+                return null;
+            }
+
+        }*/
+
+        Polica p = new Polica();
+        p.setNaziv(naziv);
+        p.setOznaka(false);
+        policaRepository.save(p);
+        return p;
+    }
+
+
+
 }
