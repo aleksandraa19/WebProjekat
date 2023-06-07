@@ -73,7 +73,7 @@ public class KorisnikRestController {
     }
 
     @PostMapping("api/logout")
-    public ResponseEntity Logout(HttpSession session){
+    public ResponseEntity<String> Logout(HttpSession session){
 
         Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
 
@@ -101,6 +101,25 @@ public class KorisnikRestController {
     }
 
 
+    @PutMapping("/api/korisnik/azurirajime/{ime}")
+    public ResponseEntity<String> AzurirajIme(@PathVariable(name = "ime") String ime,HttpSession session){
+
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+        Long userId = null;
+
+        if(loggedKorisnik == null){
+            //return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nema sesije. Ulogujte se!!",HttpStatus.UNAUTHORIZED);
+        }else{
+            userId = loggedKorisnik.getId();
+        }
+
+        korisnikService.AzurirajIme(ime,userId);
+
+        return ResponseEntity.ok("Ime je azurirano");
+
+
+    }
 
 
 

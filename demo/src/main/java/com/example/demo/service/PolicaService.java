@@ -38,6 +38,21 @@ public class PolicaService {
         return p;
     }
 
+    public boolean obrisiPolicu(Long id){
+
+      List<Polica> police =  policaRepository.findAll();
+
+        for(Polica p: police){
+            if(p.getId() == id){
+                    policaRepository.deleteById(p.getId());
+                    return true;
+            }
+
+        }
+        return false;
+
+    }
+
 
 
 }

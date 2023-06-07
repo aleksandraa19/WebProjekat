@@ -58,4 +58,40 @@ public class PolicaRestController {
 
 
     }
+
+
+    @DeleteMapping("/api/police/brisi")
+    public ResponseEntity<String> brisipolice(@RequestBody PolicaDto policaDto, HttpSession session){
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+        Long userId = null;
+
+        if(loggedKorisnik == null){
+            //return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nema sesije. Ulogujte se!!",HttpStatus.UNAUTHORIZED);
+        }else{
+            userId = loggedKorisnik.getId();
+        }
+
+        Polica polica = korisnikService.obrisiPolicuizListe(userId, policaDto.getNaziv());
+
+        if(polica == null){
+            return new ResponseEntity<>("Polica ne postoji ili pokusavate da uklonite primarnu policu",HttpStatus.BAD_REQUEST);
+        }
+
+
+        boolean daLi = policaService.obrisiPolicu(polica.getId());
+
+        if(daLi == false){
+            return new ResponseEntity<>("Polica nije uklonjena iz baze",HttpStatus.CONFLICT);
+        }
+
+        return ResponseEntity.ok("Polica je obrisana");
+
+
+
+
+    }
+
+
+
 }

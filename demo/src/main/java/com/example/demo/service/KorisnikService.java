@@ -102,5 +102,44 @@ public class KorisnikService {
     }
 
 
+    public Polica obrisiPolicuizListe(Long id, String naziv){
+
+        List<Korisnik> korisniks = korisnikRepository.findAll();
+
+        for(Korisnik k: korisniks){
+            if(k.getId() == id){
+                Set<Polica> policas = k.getListaPolica();
+
+                for(Polica p: policas){
+                    if(p.getNaziv().equals(naziv) && p.getOznaka()== false){
+                        k.getListaPolica().remove(p);
+                        return p;
+                    }
+
+                }
+
+
+            }
+
+
+        }
+        return null;
+
+    }
+
+
+    public void AzurirajIme(String ime,Long id){
+
+        List<Korisnik> korisniks = korisnikRepository.findAll();
+
+        for(Korisnik k: korisniks){
+            if(k.getId() == id){
+                k.setIme(ime);
+                korisnikRepository.save(k);
+            }
+        }
+    }
+
+
 
 }
