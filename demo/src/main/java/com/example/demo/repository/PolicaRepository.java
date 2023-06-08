@@ -8,4 +8,6 @@ import java.util.List;
 public interface PolicaRepository  extends JpaRepository<Polica, Long>{
 
     List<Polica> findAll();
+
+    Polica save(Polica polica);
 }
