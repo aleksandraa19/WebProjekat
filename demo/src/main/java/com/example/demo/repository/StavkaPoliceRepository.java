@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.Knjiga;
 import com.example.demo.entity.StavkaPolice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,4 +13,5 @@ public interface StavkaPoliceRepository  extends JpaRepository<StavkaPolice, Lon
     List<StavkaPolice> findAll();
 
     List<StavkaPolice> findByKnjigaId(Long id);
+
 }
