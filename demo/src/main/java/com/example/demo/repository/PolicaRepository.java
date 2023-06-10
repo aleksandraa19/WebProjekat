@@ -10,7 +10,15 @@ public interface PolicaRepository  extends JpaRepository<Polica, Long>{
 
     List<Polica> findAll();
 
+
     Polica save(Polica polica);
 
     List<Polica> findByKorisnik(Korisnik korisnik);
+
+
+    void deleteById(Long id);
+
+
+
+
 }

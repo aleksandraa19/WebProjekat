@@ -7,7 +7,9 @@ public class RecenzijaDto {
     private double ocena;
     private String text;
     private String datumRecenzije;
+
     private Korisnik korisnik;
+
 
     public RecenzijaDto(Recenzija recenzija) {
         this.ocena = recenzija.getOcena();
