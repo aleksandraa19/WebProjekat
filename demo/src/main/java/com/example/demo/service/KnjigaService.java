@@ -36,4 +36,14 @@ public class KnjigaService {
         }
         return null;
     }
+    public Knjiga getKnjigaById(Long id){
+        List<Knjiga> knjige = findAll();
+
+        for (Knjiga k : knjige) {
+            if (k.getId() == id) {
+                return k;
+            }
+        }
+        return null;
+    }
 }

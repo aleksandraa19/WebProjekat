@@ -24,6 +24,7 @@ public class KorisnikDto {
 
     private Set<Polica> listaPolica = new HashSet<>();
 
+    //private Uloga uloga;
     public KorisnikDto(){}
 
     public KorisnikDto(String ime,String prezime,String korisnickoIme,LocalDate datumRodjenja,String profilnaSlika,Set<Polica> listaPolica){

@@ -20,5 +20,4 @@ public class AutorRestController {
     @Autowired
     private AutorService autorService;
 
-
 }

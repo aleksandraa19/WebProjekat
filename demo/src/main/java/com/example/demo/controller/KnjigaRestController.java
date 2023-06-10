@@ -57,17 +57,21 @@ public class KnjigaRestController {
         return ResponseEntity.ok(trazene);
     }
     @PostMapping("/api/dodajKnjiguNaPolicu")
-    public ResponseEntity<String> dodajKnjigu(@RequestBody KnjigaDto knjiga, @RequestBody PolicaDto polica, HttpSession session) {
+    public ResponseEntity<String> dodajKnjigu(Long knjigaId, Long policaId, HttpSession session) {
         Korisnik citalac = (Korisnik) session.getAttribute("korisnik");
         if (citalac == null) {
             System.out.println("Nema sesije");
             return ResponseEntity.badRequest().build();
         }
-        boolean primarna = policaService.daLiJePrimarna(polica);
+        if(!(citalac.getUloga() == Uloga.CITALAC || citalac.getUloga() == Uloga.AUTOR)){
+            return ResponseEntity.badRequest().body("Ne mozete pristupiti, niste citalac!");
+        }
+        boolean primarna = policaService.daLiJePrimarna(policaId);
         //List<Knjiga> knjige = knjigaService.findByKorisnik(citalac);
         Set<Polica> police = policaService.findByKorisnik(citalac);
         Set<StavkaPolice> stavke = null;
-
+        Knjiga knjiga = knjigaService.getKnjigaById(knjigaId);
+        Polica polica = policaService.findById(policaId);
         if(primarna){
             for(Polica p: police){
                if (p.getNaziv().equals("Read") || p.getNaziv().equals("Want to Read") || p.getNaziv().equals("Currently Reading")){
@@ -99,19 +103,6 @@ public class KnjigaRestController {
         }
         return ResponseEntity.ok("Knjiga ne postoji.");
     }
-
-//        for (Knjiga k: knjige){
-//            if(k.getNaslov().equals(knjiga.getNaslov())){
-//                for(Polica p: police) {
-//                    if (p.getNaziv().equals("Read") || p.getNaziv().equals("Want to Read") || p.getNaziv().equals("Currently Reading")) {
-//                        if(stavke.contains(p.getStavkaPolice()))
-//                            return ResponseEntity.ok("Knjiga je vec dodata na primarnu");
-//                    }
-//                }
-//            } else {
-//                //knjigaService.
-//            }
-//        }
 
 
     @GetMapping("/api/knjige/{naslov}")

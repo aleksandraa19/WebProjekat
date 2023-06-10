@@ -12,6 +12,7 @@ import com.example.demo.entity.Polica;
 import com.example.demo.repository.PolicaRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -33,27 +34,26 @@ public class PolicaService {
         Set<Polica> police = korisnik.getListaPolica();
         return police;
     }
+    public Polica findById(Long pId){
+        List<Polica> police = policaRepository.findAll();
+        for(Polica polica:police){
+            if(polica.getId() == pId){
+                return polica;
+            }
+        }
+        return null;
+    }
 
     public Polica save(Polica p) { return policaRepository.save(p); }
 
-    public void dodajKnjiguNaPolicu(KnjigaDto knjiga, Korisnik korisnik, PolicaDto polica){
-        Knjiga novaKnjiga = null;
-        novaKnjiga.setZanr(knjiga.getZanr());
-        novaKnjiga.setISBN(knjiga.getISBN());
-        novaKnjiga.setNaslov(knjiga.getNaslov());
-        novaKnjiga.setOcena(knjiga.getOcena());
-        novaKnjiga.setBrStrana(knjiga.getBrStrana());
-        novaKnjiga.setDatumObjavljivanja(knjiga.getDatumObjavljivanja());
-        novaKnjiga.setNaslovnaFotografija(knjiga.getNaslovnaFotografija());
-        novaKnjiga.setOpis(knjiga.getOpis());
-
+    public void dodajKnjiguNaPolicu(Knjiga knjiga, Korisnik korisnik, Polica polica){
         Set<Polica> lista = korisnik.getListaPolica();
         Set<StavkaPolice> stavke = null;
         for(Polica p: lista){
-            if(p.getNaziv().equals(polica.getNaziv())){
+            if(p.getNaziv().equals(polica.getNaziv())) {
                 stavke = p.getStavkaPolice();
                 StavkaPolice novaStavka = null;
-                novaStavka.setKnjiga(novaKnjiga);
+                novaStavka.setKnjiga(knjiga);
                 stavkaPoliceService.save(novaStavka);
                 stavke.add(novaStavka);
                 p.setStavkaPolice(stavke);
@@ -61,7 +61,7 @@ public class PolicaService {
             } else{
                 //pravimo novu policu
                 StavkaPolice novaStavka = null;
-                novaStavka.setKnjiga(novaKnjiga);
+                novaStavka.setKnjiga(knjiga);
                 stavkaPoliceService.save(novaStavka);
                 stavke.add(novaStavka);
                 Polica novaPolica = null;
@@ -72,8 +72,50 @@ public class PolicaService {
                 lista.add(novaPolica);
             }
         }
+//        Knjiga novaKnjiga = null;
+//        novaKnjiga.setZanr(knjiga.getZanr());
+//        novaKnjiga.setISBN(knjiga.getISBN());
+//        novaKnjiga.setNaslov(knjiga.getNaslov());
+//        novaKnjiga.setOcena(knjiga.getOcena());
+//        novaKnjiga.setBrStrana(knjiga.getBrStrana());
+//        novaKnjiga.setDatumObjavljivanja(knjiga.getDatumObjavljivanja());
+//        novaKnjiga.setNaslovnaFotografija(knjiga.getNaslovnaFotografija());
+//        novaKnjiga.setOpis(knjiga.getOpis());
+//
+//        Set<Polica> lista = korisnik.getListaPolica();
+//        Set<StavkaPolice> stavke = null;
+//        for(Polica p: lista){
+//            if(p.getNaziv().equals(polica.getNaziv())){
+//                stavke = p.getStavkaPolice();
+//                StavkaPolice novaStavka = null;
+//                novaStavka.setKnjiga(novaKnjiga);
+//                stavkaPoliceService.save(novaStavka);
+//                stavke.add(novaStavka);
+//                p.setStavkaPolice(stavke);
+//                save(p);
+//            } else{
+//                //pravimo novu policu
+//                StavkaPolice novaStavka = null;
+//                novaStavka.setKnjiga(novaKnjiga);
+//                stavkaPoliceService.save(novaStavka);
+//                stavke.add(novaStavka);
+//                Polica novaPolica = null;
+//                novaPolica.setStavkaPolice(stavke);
+//                novaPolica.setNaziv(polica.getNaziv());
+//                save(novaPolica);
+//                //novaPolica.setOznaka(polica.getOznaka());
+//                lista.add(novaPolica);
+//            }
+//        }
     }
-    public boolean daLiJePrimarna(PolicaDto p){
+    public boolean daLiJePrimarna(Long pId){
+        List<Polica> police = policaRepository.findAll();
+        Polica p = null;
+        for(Polica polica:police){
+            if(polica.getId() == pId){
+                p = polica;
+            }
+        }
         if (p.getNaziv().equals("Read") || p.getNaziv().equals("Want to Read") || p.getNaziv().equals("Currently Reading")){
             return true;
         }
