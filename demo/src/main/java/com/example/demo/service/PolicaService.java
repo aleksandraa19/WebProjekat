@@ -21,6 +21,8 @@ public class PolicaService {
         return policaRepository.findAll();
     }
 
+    public List<Polica> findByKorisnik(Korisnik korisnik) {return policaRepository.findByKorisnik(korisnik); }
+
     public Polica save(Polica p) { return policaRepository.save(p); }
 
     public void dodajKnjiguNaPolicu(Knjiga knjiga, Korisnik korisnik, Polica polica){

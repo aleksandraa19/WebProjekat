@@ -17,9 +17,6 @@ public class KnjigaService {
     public List<Knjiga> findAll(){
         return knjigaRepository.findAll();
     }
-<<<<<<< Updated upstream
-}
-=======
 
     public List<Knjiga> findByKorisnik(Korisnik korisnik) { return knjigaRepository.findByKorisnik(korisnik); }
     public Knjiga getKnjigaByName(String name){
@@ -33,7 +30,8 @@ public class KnjigaService {
         }
         return null;
     }
-    public dodajNaPrimarnu(Knjiga knjiga)
+    public dodajNaPrimarnu(Knjiga knjiga){
+//djajdjk
+    }
 
 }
->>>>>>> Stashed changes

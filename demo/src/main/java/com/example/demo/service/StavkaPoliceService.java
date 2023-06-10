@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.KnjigaDto;
 import com.example.demo.entity.Knjiga;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ public class StavkaPoliceService {
 
     public List<StavkaPolice> findAll(){
         return stavkaPoliceRepository.findAll();
+    }
+    public  List<StavkaPolice> findByKnjigaId(Long id){
+        return stavkaPoliceRepository.findByKnjigaId(id);
     }
 //    public StavkaPolice dodajKnjigu(Knjiga knjiga){
 //
