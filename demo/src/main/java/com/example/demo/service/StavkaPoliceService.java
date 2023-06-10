@@ -29,7 +29,7 @@ public class StavkaPoliceService {
 //    public StavkaPolice dodajKnjigu(Knjiga knjiga){
 //
 //    }
-
+    public StavkaPolice save(StavkaPolice sp){ return stavkaPoliceRepository.save(sp);}
 
    public List<StavkaPolice> dobaviStavku(Long knjigaId){
         return stavkaPoliceRepository.findByKnjigaId(knjigaId);

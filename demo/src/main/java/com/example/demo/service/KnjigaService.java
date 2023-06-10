@@ -21,10 +21,9 @@ public class KnjigaService {
         return knjigaRepository.findAll();
     }
 
-
-    public List<Knjiga> findByKorisnik(Korisnik korisnik) {
-        return knjigaRepository.findByKorisnik(korisnik);
-    }
+//    public List<Knjiga> findByKorisnik(Korisnik korisnik) {
+//        return knjigaRepository.findByKorisnik(korisnik);
+//    }
 
     public Knjiga getKnjigaByName(String name) {
 
