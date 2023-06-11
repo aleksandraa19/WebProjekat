@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.AzuriranaKnjigaDto;
 import com.example.demo.entity.Korisnik;
 import com.example.demo.entity.Zanr;
+import com.example.demo.repository.ZanrRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.Knjiga;
@@ -12,22 +14,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class KnjigaService {
 
     @Autowired
     private KnjigaRepository knjigaRepository;
+    @Autowired
+    private ZanrService zanrService;
 
     public List<Knjiga> findAll() {
         return knjigaRepository.findAll();
     }
 
 
+
+
     /*public List<Knjiga> findByKorisnik(Korisnik korisnik) {
         return knjigaRepository.findByKorisnik(korisnik);
     }*/
-
 
     public Knjiga getKnjigaByName(String name) {
 
@@ -57,8 +63,8 @@ public class KnjigaService {
 
     }
 
-    public void save(Knjiga k){
-        knjigaRepository.save(k);
+    public Knjiga save(Knjiga k){
+        return knjigaRepository.save(k);
     }
 
     public Knjiga getKnjigaById(Long id){
@@ -72,4 +78,19 @@ public class KnjigaService {
         return null;
     }
 
+    public Knjiga updateKnjigaAdmin(Long knjigaId, AzuriranaKnjigaDto updateKnjigaDto) {
+        Optional<Knjiga> knjiga = knjigaRepository.findById(knjigaId);
+        knjiga.get().setNaslov(updateKnjigaDto.getNaslov());
+        knjiga.get().setNaslovnaFotografija(updateKnjigaDto.getNaslovnaFotografija());
+
+        String updatedISBN = updateKnjigaDto.getISBN();
+        if (updatedISBN != null && !updatedISBN.isEmpty()) {
+            knjiga.get().setISBN(updatedISBN);
+        }
+        knjiga.get().setDatumObjavljivanja(updateKnjigaDto.getDatumObjavljivanja());
+        knjiga.get().setBrStrana(updateKnjigaDto.getBrojStrana());
+        knjiga.get().setOpis(updateKnjigaDto.getOpis());
+        knjiga.get().setZanr(zanrService.findById(updateKnjigaDto.getZanrId()));
+        return save(knjiga.get());
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.AzuriranaRecenzijaDto;
 import com.example.demo.dto.RecenzijaDto;
 import com.example.demo.entity.Knjiga;
 import com.example.demo.entity.Korisnik;
@@ -26,31 +27,33 @@ public class RecenzijaRestController {
     @Autowired
     private KnjigaService knjigaService;
 
-    @GetMapping("api/recenzije")
-    public ResponseEntity<List<RecenzijaDto>> getRecenzije(){
-        List<Recenzija> recenzije = recenzijaService.findAll();
-        List<RecenzijaDto> recenzijaDtoList = new ArrayList<>();
-        for(Recenzija r: recenzije){
-            RecenzijaDto dto = new RecenzijaDto(r);
-            recenzijaDtoList.add(dto);
-        }
-        return ResponseEntity.ok(recenzijaDtoList);
+    @GetMapping("/api/recenzije")
+    public ResponseEntity<List<RecenzijaDto>> getRecenzije(HttpSession session){
+        List<RecenzijaDto> dtos = recenzijaService.findAll();
+        return ResponseEntity.ok(dtos);
+    }
+    @GetMapping("api/recenzije/{recenzijaId}")
+    public ResponseEntity<RecenzijaDto> getRecenzijapoId(@PathVariable(name = "recenzijaId") Long id){
+        Recenzija recenzija = recenzijaService.findById(id);
+        RecenzijaDto dto = new RecenzijaDto(recenzija.getId(), recenzija.getOcena(), recenzija.getText(), recenzija.getDatumRecenzije(), recenzija.getKorisnik());
+        return ResponseEntity.ok(dto);
     }
 
-    @PostMapping("/api/recenzije/dodajRecenziju/{knjigaId}")
-    public ResponseEntity<String> dodajRecenziju (@PathVariable(name = "knjigaId")Long id,@PathVariable(name =  "policaNaziv")String naziv, HttpSession session){
+    @PostMapping("/api/recenzije/dodajRecenziju")
+    public ResponseEntity<String> dodajRecenziju (@RequestBody RecenzijaDto recenzijaDto, HttpSession session) {
         Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
         if (korisnik == null) {
             System.out.println("Nema sesije");
             return ResponseEntity.badRequest().build();
         }
-        Knjiga knjiga = knjigaService.getKnjigaById(id);
-        if(naziv.equals("Read")){
-            //dodaj
-            return ResponseEntity.ok("Recenzija dodata");
-        } else{
-            return ResponseEntity.badRequest().body("Recenzija se moze dodati ako je knjiga na Read polici.");
-        }
+        recenzijaService.dodajRecenziju(recenzijaDto);
+        return ResponseEntity.ok("Recenzija je dodata!");
+    }
+
+    @PutMapping("/api/recenzija/{recenzijaId}/azuriranje")
+    public ResponseEntity<?> azurirajRecenziju(@PathVariable Long recenzijaId, @RequestBody AzuriranaRecenzijaDto dto){
+        recenzijaService.azuriraj(recenzijaId,dto);
+        return ResponseEntity.ok("Azuriranje uspelo!");
     }
 
 }

@@ -1,14 +1,11 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.KnjigaDto;
+import com.example.demo.dto.*;
 
-import com.example.demo.dto.KorisnikDto;
 import com.example.demo.entity.Korisnik;
 import com.example.demo.entity.Zanr;
 
 
-import com.example.demo.dto.LoginDto;
-import com.example.demo.dto.PolicaDto;
 import com.example.demo.entity.*;
 
 import com.example.demo.service.KorisnikService;
@@ -46,7 +43,7 @@ public class KnjigaRestController {
 
 
     @GetMapping("/api/knjiga/{zanr}")
-    public ResponseEntity<List<KnjigaDto>> getKnjiga(@PathVariable(name = "zanr")Zanr zanr, HttpSession session){
+    public ResponseEntity<List<KnjigaDto>> getKnjigaZanr(@PathVariable(name = "zanr")Zanr zanr, HttpSession session){
         List<Knjiga> knjige = knjigaService.findAll();
         List<KnjigaDto> trazene = new ArrayList<>();
         for(Knjiga k: knjige){
@@ -66,7 +63,7 @@ public class KnjigaRestController {
             System.out.println("Nema sesije");
             return ResponseEntity.badRequest().build();
         }
-        if(!(citalac.getUloga() == Uloga.CITALAC || citalac.getUloga() == Uloga.AUTOR)){
+        if(!(citalac.getUloga() == Korisnik.Uloga.CITALAC || citalac.getUloga() == Korisnik.Uloga.AUTOR)){
             return ResponseEntity.badRequest().body("Ne mozete pristupiti, niste citalac, ni autor!");
         }
         //return ResponseEntity.ok("Knjiga je vec dodata");
@@ -129,7 +126,16 @@ public class KnjigaRestController {
         }
         return ResponseEntity.ok(dtos);
     }
-
+    @PutMapping("api/knjiga/{id}/update_knjiga")
+    public ResponseEntity<?> updateKnjigaAdminAutor(@RequestBody AzuriranaKnjigaDto azuriranaKnjigaDto, @PathVariable("id") Long knjigaId, HttpSession session) {
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("employee");
+        if(loggedKorisnik.getUloga() == Korisnik.Uloga.ADMINISTRATOR || loggedKorisnik.getUloga() == Korisnik.Uloga.AUTOR){
+            knjigaService.updateKnjigaAdmin(knjigaId, azuriranaKnjigaDto);
+            return new ResponseEntity<>("Knjiga azurirana", HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("Niste administrator", HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
 

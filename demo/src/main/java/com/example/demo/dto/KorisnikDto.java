@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class KorisnikDto {
+    private Long id;
     private String ime;
 
     private String prezime;
@@ -24,16 +25,19 @@ public class KorisnikDto {
 
     private Set<Polica> listaPolica = new HashSet<>();
 
-    //private Uloga uloga;
+    private String opis;
+
+    private Korisnik.Uloga uloga;
     public KorisnikDto(){}
 
-    public KorisnikDto(String ime,String prezime,String korisnickoIme,LocalDate datumRodjenja,String profilnaSlika,Set<Polica> listaPolica){
+    public KorisnikDto(String ime,String prezime,String korisnickoIme,LocalDate datumRodjenja,String profilnaSlika,Set<Polica> listaPolica, Korisnik.Uloga uloga){
         this.ime = ime;
         this.prezime = prezime;
         this.korisnickoIme = korisnickoIme;
         this.datumRodjenja = datumRodjenja;
         this.profilnaSlika = profilnaSlika;
         this.listaPolica = listaPolica;
+        this.uloga = uloga;
     }
 
 
@@ -44,10 +48,8 @@ public class KorisnikDto {
         this.datumRodjenja = korisnik.getDatumRodjenja();
         this.profilnaSlika = korisnik.getProfilnaSlika();
         this.listaPolica = korisnik.getListaPolica();
-
+        this.uloga = korisnik.getUloga();
     }
-
-    private String opis;
 
     //private Uloga uloga;
 
@@ -117,11 +119,11 @@ public class KorisnikDto {
         this.opis = opis;
     }
 
-//    public Uloga getUloga() {
-//        return uloga;
-//    }
-//
-//    public void setUloga(Uloga uloga) {
-//        this.uloga = uloga;
-//    }
+    public Korisnik.Uloga getUloga() {
+        return uloga;
+    }
+
+    public void setUloga(Korisnik.Uloga uloga) {
+        this.uloga = uloga;
+    }
 }

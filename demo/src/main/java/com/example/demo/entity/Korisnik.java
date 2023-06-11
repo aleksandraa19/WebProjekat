@@ -11,7 +11,7 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Korisnik  implements Serializable {
-
+    public enum Uloga {CITALAC, AUTOR, ADMINISTRATOR};
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -75,7 +75,7 @@ public class Korisnik  implements Serializable {
 
     @Column
     @Enumerated(value = EnumType.STRING)
-    private Uloga uloga;
+    public Uloga uloga;
 
     public Long getId() {
         return id;

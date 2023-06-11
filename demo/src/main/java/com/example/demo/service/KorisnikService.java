@@ -48,6 +48,7 @@ public class KorisnikService {
         k.setMejlAdresa(mejl);
         k.setDatumRodjenja(datumRodjenja);
         k.setProfilnaSlika(profilnaSlika);
+        k.setUloga(Korisnik.Uloga.CITALAC);
         k.napraviPrimarne();
         korisnikRepository.save(k);
         return k;
@@ -66,6 +67,15 @@ public class KorisnikService {
 
     public Korisnik findOne(String username){
         Korisnik korisnik = korisnikRepository.getByKorisnickoIme(username);
+
+        if(korisnik == null){
+            return null;
+        }
+
+        return korisnik;
+    }
+    public Korisnik findById(Long id){
+        Korisnik korisnik = korisnikRepository.findById(id);
 
         if(korisnik == null){
             return null;

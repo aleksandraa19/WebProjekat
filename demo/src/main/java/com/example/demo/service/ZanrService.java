@@ -19,4 +19,6 @@ public class ZanrService {
         return zanrRepository.findAll();
     }
 
+    public Zanr findById(Long id) { return zanrRepository.findZanrById(id);}
+
 }

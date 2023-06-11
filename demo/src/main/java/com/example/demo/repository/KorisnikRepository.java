@@ -12,6 +12,7 @@ public interface KorisnikRepository  extends JpaRepository<Korisnik, String>{
 
     Korisnik save(Korisnik k);
 
+    Korisnik findById(Long id);
 
     Korisnik getByKorisnickoIme(String korisnickoIme);
 

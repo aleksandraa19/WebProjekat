@@ -16,4 +16,6 @@ public class ZahtevService {
         return zahtevRepository.findAll();
     }
 
+    public Zahtev save(Zahtev z) { return zahtevRepository.save(z); }
+
 }

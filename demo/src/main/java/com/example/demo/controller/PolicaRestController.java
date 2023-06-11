@@ -101,12 +101,30 @@ public class PolicaRestController {
 
         return ResponseEntity.ok("Polica je obrisana");
 
-
-
-
     }
+    @GetMapping("/api/getpolice")
+    public ResponseEntity<List<PolicaDto>> getPolice(HttpSession session) {
+        List<Polica> policeList = policaService.findAll();
+        List<PolicaDto> dtos = new ArrayList<>();
 
+        for (Polica polica : policeList) {
+            PolicaDto dto = new PolicaDto(polica);
+            dtos.add(dto);
+        }
+        return ResponseEntity.ok(dtos);
+    }
+    @GetMapping("/api/getpolice/{korisnikId}")
+    public ResponseEntity<List<PolicaDto>> getKorisnikovePolice(HttpSession session, @PathVariable Long korisnikId) {
+        Korisnik k = korisnikService.findById(korisnikId);
+        Set<Polica> policeList = policaService.findByKorisnik(k);
+        List<PolicaDto> dtos = new ArrayList<>();
 
+        for (Polica polica : policeList) {
+            PolicaDto dto = new PolicaDto(polica);
+            dtos.add(dto);
+        }
+        return ResponseEntity.ok(dtos);
+    }
 
 
 }

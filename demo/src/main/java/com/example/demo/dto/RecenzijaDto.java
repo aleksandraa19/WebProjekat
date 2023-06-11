@@ -3,19 +3,31 @@ package com.example.demo.dto;
 import com.example.demo.entity.Korisnik;
 import com.example.demo.entity.Recenzija;
 
+import java.time.LocalDate;
+
 public class RecenzijaDto {
+    private Long id;
     private double ocena;
     private String text;
-    private String datumRecenzije;
+    private LocalDate datumRecenzije;
 
     private Korisnik korisnik;
 
 
-    public RecenzijaDto(Recenzija recenzija) {
-        this.ocena = recenzija.getOcena();
-        this.text = recenzija.getText();
-        this.datumRecenzije = recenzija.getDatumRecenzije();
-        this.korisnik = recenzija.getKorisnik();
+    public RecenzijaDto(Long id, double ocena, String tekst, LocalDate datum, Korisnik korisnik) {
+        this.id = id;
+        this.ocena = ocena;
+        this.text = tekst;
+        this.datumRecenzije = datum;
+        this.korisnik = korisnik;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public double getOcena() {
@@ -34,11 +46,11 @@ public class RecenzijaDto {
         this.text = text;
     }
 
-    public String getDatumRecenzije() {
+    public LocalDate getDatumRecenzije() {
         return datumRecenzije;
     }
 
-    public void setDatumRecenzije(String datumRecenzije) {
+    public void setDatumRecenzije(LocalDate datumRecenzije) {
         this.datumRecenzije = datumRecenzije;
     }
 

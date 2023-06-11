@@ -43,7 +43,7 @@ public class AutorRestController {
 
         }
 
-        if(loggedKorisnik.getUloga() != Uloga.AUTOR){
+        if(loggedKorisnik.getUloga() != Korisnik.Uloga.AUTOR){
             return new ResponseEntity("Nemate odobrenje za ovu radnju,samo autor moze da dodati knjigu!!", HttpStatus.BAD_REQUEST);
         }
 

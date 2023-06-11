@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ZanrRepository  extends JpaRepository<Zanr, Long>{
     public List<Zanr> findAll();
+    public Zanr findZanrById(Long id);
 }

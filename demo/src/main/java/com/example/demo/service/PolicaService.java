@@ -2,14 +2,12 @@ package com.example.demo.service;
 
 import com.example.demo.dto.KnjigaDto;
 import com.example.demo.dto.PolicaDto;
-import com.example.demo.entity.Knjiga;
-import com.example.demo.entity.Korisnik;
-import com.example.demo.entity.StavkaPolice;
+import com.example.demo.dto.RecenzijaDto;
+import com.example.demo.entity.*;
 import com.example.demo.repository.StavkaPoliceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
-import com.example.demo.entity.Polica;
 import com.example.demo.repository.PolicaRepository;
 
 import javax.swing.text.ChangedCharSetException;
