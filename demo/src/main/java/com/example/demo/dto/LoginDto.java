@@ -1,11 +1,12 @@
 package com.example.demo.dto;
 
+import com.example.demo.entity.Korisnik;
+
 public class LoginDto {
 
     private String korisnickoIme;
 
     private String lozinka;
-
 
     public LoginDto() {
     }

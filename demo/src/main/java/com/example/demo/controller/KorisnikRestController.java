@@ -28,31 +28,47 @@ public class KorisnikRestController {
     private KorisnikService korisnikService;
 
 
+//    @PostMapping("api/registracija")
+//    public ResponseEntity<String> registracija(@RequestBody RegistracijaDto registracijaDto, HttpSession session){
+//        if(registracijaDto.getIme().isEmpty() || registracijaDto.getPrezime().isEmpty() || registracijaDto.getMejlAdresa().isEmpty() || registracijaDto.getKorisnickoIme().isEmpty() || registracijaDto.getLozinka1().isEmpty() || registracijaDto.getLozinka2().isEmpty()){
+//            return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
+//        }
+//        List<Korisnik> sviKorisnici = korisnikService.findAll();
+//        for(Korisnik k: sviKorisnici){
+//            if(k.getKorisnickoIme().equals(registracijaDto.getKorisnickoIme())){
+//                return new ResponseEntity("Korisnik pod tim korisnickim imenom vec postoji!", HttpStatus.BAD_REQUEST);
+//            }
+//            if(k.getMejlAdresa().equals(registracijaDto.getMejlAdresa())){
+//                return new ResponseEntity("Korisnik sa mejl adresom vec postoji!", HttpStatus.BAD_REQUEST);
+//            }
+//        }
+//        if(!registracijaDto.getLozinka1().equals(registracijaDto.getLozinka2())){
+//            return new ResponseEntity("Greska prilikom unosa lozinke", HttpStatus.CONFLICT);
+//        }
+//        //korisnikService.saveKorisnik();
+//        Korisnik registrovan = null;
+//        registrovan = korisnikService.registracija(registracijaDto.getKorisnickoIme(), registracijaDto.getIme(), registracijaDto.getPrezime(), registracijaDto.getLozinka1(), registracijaDto.getMejlAdresa(), registracijaDto.getDatumRodjenja(),registracijaDto.getProfilnaSlika());
+//        korisnikService.saveKorisnik(registrovan);
+//        session.setAttribute("korisnik", registrovan);
+//        return ResponseEntity.ok("Korisnik je registrovan");
+//    }
     @PostMapping("api/registracija")
-    public ResponseEntity<String> registracija(@RequestBody RegistracijaDto registracijaDto, HttpSession session){
-        if(registracijaDto.getIme().isEmpty() || registracijaDto.getPrezime().isEmpty() || registracijaDto.getMejlAdresa().isEmpty() || registracijaDto.getKorisnickoIme().isEmpty() || registracijaDto.getLozinka1().isEmpty() || registracijaDto.getLozinka2().isEmpty()){
-            return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
-        }
-        List<Korisnik> sviKorisnici = korisnikService.findAll();
-        for(Korisnik k: sviKorisnici){
-            if(k.getKorisnickoIme().equals(registracijaDto.getKorisnickoIme())){
-                return new ResponseEntity("Korisnik pod tim korisnickim imenom vec postoji!", HttpStatus.BAD_REQUEST);
-            }
-            if(k.getMejlAdresa().equals(registracijaDto.getMejlAdresa())){
-                return new ResponseEntity("Korisnik sa mejl adresom vec postoji!", HttpStatus.BAD_REQUEST);
-            }
-        }
-        if(!registracijaDto.getLozinka1().equals(registracijaDto.getLozinka2())){
-            return new ResponseEntity("Greska prilikom unosa lozinke", HttpStatus.CONFLICT);
-        }
-        //korisnikService.saveKorisnik();
-        Korisnik registrovan = null;
-        registrovan = korisnikService.registracija(registracijaDto.getKorisnickoIme(), registracijaDto.getIme(), registracijaDto.getPrezime(), registracijaDto.getLozinka1(), registracijaDto.getMejlAdresa(), registracijaDto.getDatumRodjenja(),registracijaDto.getProfilnaSlika());
-        korisnikService.saveKorisnik(registrovan);
-        session.setAttribute("korisnik", registrovan);
-        return ResponseEntity.ok("Korisnik je registrovan");
-    }
+    public ResponseEntity<?> registerUser(@RequestBody RegistracijaDto registerDto){
 
+        if(korisnikService.existsMail(registerDto.getMejlAdresa())){
+            return new ResponseEntity<>("Mail je zauzet!", HttpStatus.BAD_REQUEST);
+        }
+        if(korisnikService.existsKorisnickoIme(registerDto.getKorisnickoIme())){
+            return new ResponseEntity<>("Korisnicko ime je zauzeto!", HttpStatus.BAD_REQUEST);
+        }
+        if(korisnikService.existsLozinka(registerDto.getLozinka1())){
+            return new ResponseEntity<>("Loznika je zauzeta!", HttpStatus.BAD_REQUEST);
+        }
+        korisnikService.create(registerDto);
+        //policaService.main3();
+
+        return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+    }
 
 
     @PostMapping("api/login")

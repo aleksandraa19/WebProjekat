@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.dto.DodatZanrDto;
 import com.example.demo.dto.ZanrDto;
+import com.example.demo.entity.Korisnik;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +34,16 @@ public class ZanrRestController {
             trazeni.add(dto);
         }
         return ResponseEntity.ok(trazeni);
+    }
+
+    @PostMapping("/api/dodajZanr")
+    public ResponseEntity<?> dodajZanr(@RequestBody DodatZanrDto zanrAddDto, HttpSession session) {
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+        if(loggedKorisnik.getUloga() == Korisnik.Uloga.ADMINISTRATOR){
+            zanrService.kreiraj(zanrAddDto);
+            return new ResponseEntity<>("Zanr added seccessfully", HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("You are not administrator", HttpStatus.BAD_REQUEST);
+        }
     }
 }
