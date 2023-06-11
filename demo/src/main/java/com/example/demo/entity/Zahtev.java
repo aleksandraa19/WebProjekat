@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 public class Zahtev implements Serializable{
-
+    //public enum Status {NACEKANJU, ODOBREN, ODBIJEN}
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +25,7 @@ public class Zahtev implements Serializable{
 
     @Column
     @Enumerated(value = EnumType.STRING)
-    private Status status;
+    public Status status;
 
     public Long getId() {
         return id;

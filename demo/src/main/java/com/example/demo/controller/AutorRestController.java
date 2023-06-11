@@ -21,10 +21,8 @@ import java.util.List;
 
 @RestController
 public class AutorRestController {
-
     @Autowired
     private AutorService autorService;
-
     @Autowired
     private KnjigaService knjigaService;
 
@@ -37,14 +35,14 @@ public class AutorRestController {
 
         if(loggedKorisnik == null){
             //return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
-            return new ResponseEntity<>("Nema sesije. Ulogujte se!!",HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Nema sesije. Ulogujte se!",HttpStatus.UNAUTHORIZED);
         }else{
             userId = loggedKorisnik.getId();
 
         }
 
         if(loggedKorisnik.getUloga() != Korisnik.Uloga.AUTOR){
-            return new ResponseEntity("Nemate odobrenje za ovu radnju,samo autor moze da dodati knjigu!!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Nemate odobrenje, samo autor moze da dodati knjigu!", HttpStatus.BAD_REQUEST);
         }
 
 
@@ -54,17 +52,13 @@ public class AutorRestController {
         boolean daLi = autorService.sadrzi(k,userId);
 
         if (daLi){
-            return new ResponseEntity("Ovu knjigu ste vec dodali!!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Ovu knjigu ste vec dodali!", HttpStatus.BAD_REQUEST);
         }
 
         knjigaService.save(k);
         autorService.dodadKnjiguUListu(k,userId);
 
-        return ResponseEntity.ok("Kreirali ste novu knjigu, Hvala vam na poverenju!!");
-
+        return ResponseEntity.ok("Kreirali ste novu knjigu!");
 
     }
-
-
-
 }
