@@ -141,5 +141,90 @@ public class KorisnikService {
     }
 
 
+    public void AzurirajPrezime(String prezime,Long id){
+        List<Korisnik> korisniks = korisnikRepository.findAll();
+
+        for(Korisnik k: korisniks){
+            if(k.getId() == id){
+                k.setPrezime(prezime);
+                korisnikRepository.save(k);
+            }
+        }
+
+
+    }
+
+
+    public void DodajDatum(LocalDate datum, Long id){
+        List<Korisnik> korisniks = korisnikRepository.findAll();
+
+        for(Korisnik k: korisniks){
+            if(k.getId() == id){
+                k.setDatumRodjenja(datum);
+                korisnikRepository.save(k);
+            }
+        }
+
+
+    }
+
+    public void DodajOpis(String opis, Long id){
+        List<Korisnik> korisniks = korisnikRepository.findAll();
+
+        for(Korisnik k: korisniks){
+            if(k.getId() == id){
+                k.setOpis(opis);
+                korisnikRepository.save(k);
+            }
+        }
+
+    }
+
+
+    public void MenjajSifru(String sifra, Long id){
+        List<Korisnik> korisniks = korisnikRepository.findAll();
+
+        for(Korisnik k: korisniks){
+            if(k.getId() == id){
+                k.setLozinka(sifra);
+                korisnikRepository.save(k);
+            }
+        }
+
+
+    }
+
+    public void MenjajMejl(String mejl,Long id){
+        List<Korisnik> korisniks = korisnikRepository.findAll();
+
+        for(Korisnik k: korisniks){
+            if(k.getId() == id){
+                k.setMejlAdresa(mejl);
+                korisnikRepository.save(k);
+            }
+        }
+
+
+
+    }
+
+    public boolean proveriSifru(String sifra, Long id){
+
+        List<Korisnik> korisniks = korisnikRepository.findAll();
+
+        for(Korisnik k: korisniks){
+            if(k.getId() == id){
+                if(k.getLozinka().equals(sifra)){
+                    return true;
+                }
+
+            }
+        }
+
+        return false;
+
+    }
+
+
 
 }

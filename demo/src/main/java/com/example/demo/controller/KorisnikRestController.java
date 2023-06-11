@@ -17,6 +17,7 @@ import com.example.demo.service.KorisnikService;
 
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,6 +106,7 @@ public class KorisnikRestController {
     public ResponseEntity<String> AzurirajIme(@PathVariable(name = "ime") String ime,HttpSession session){
 
         Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+
         Long userId = null;
 
         if(loggedKorisnik == null){
@@ -115,11 +117,148 @@ public class KorisnikRestController {
         }
 
         korisnikService.AzurirajIme(ime,userId);
-
         return ResponseEntity.ok("Ime je azurirano");
+
+    }
+
+    @PutMapping("/api/korisnik/azurirajPrezime/{prezime}")
+    public ResponseEntity<String> AzurirajPrezime(@PathVariable(name = "prezime")String prezime, HttpSession session){
+
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+
+        Long userId = null;
+
+        if(loggedKorisnik == null){
+            //return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nema sesije. Ulogujte se!!",HttpStatus.UNAUTHORIZED);
+        }else{
+            userId = loggedKorisnik.getId();
+        }
+
+        korisnikService.AzurirajPrezime(prezime,userId);
+        return ResponseEntity.ok("Prezime je azurirano");
 
 
     }
+
+
+    @PostMapping("/api/korisnik/dodajRodjendan/{datumRodjenja}")
+    public ResponseEntity<String> DodajRodjendan(@PathVariable(name = "datumRodjenja")String datumRodjenja, HttpSession session){
+
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+
+        Long userId = null;
+
+        if(loggedKorisnik == null){
+            //return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nema sesije. Ulogujte se!!",HttpStatus.UNAUTHORIZED);
+        }else{
+            userId = loggedKorisnik.getId();
+
+        }
+
+        LocalDate datum = LocalDate.parse(datumRodjenja);
+
+        korisnikService.DodajDatum(datum,userId);
+        return ResponseEntity.ok("Datum rodjenja je dodat!!");
+
+    }
+
+    @PostMapping("/api/korisnik/dodajOpis/{opis}")
+    public ResponseEntity<String> dodajOpis(@PathVariable(name = "opis")String opis, HttpSession session){
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+
+        Long userId = null;
+
+        if(loggedKorisnik == null){
+            //return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nema sesije. Ulogujte se!!",HttpStatus.UNAUTHORIZED);
+        }else{
+            userId = loggedKorisnik.getId();
+
+        }
+
+        korisnikService.DodajOpis(opis,userId);
+        return ResponseEntity.ok("Opis je dodat");
+
+
+
+    }
+
+
+    @PutMapping("/api/korisnik/AzuriranjeSifre")
+    public ResponseEntity<String> AzurirajSifru(@RequestParam String sifra, @RequestParam String trenutnaLozinka,HttpSession session){
+
+
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+
+        Long userId = null;
+
+        if(loggedKorisnik == null){
+            //return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nema sesije. Ulogujte se!!",HttpStatus.UNAUTHORIZED);
+        }else{
+            userId = loggedKorisnik.getId();
+
+        }
+
+        if(sifra.isEmpty() ){
+            return new ResponseEntity("Niste uneli novu sifru", HttpStatus.BAD_REQUEST);
+        }else if(trenutnaLozinka.isEmpty()){
+            return new ResponseEntity("Unesite trenutnu sifru!", HttpStatus.BAD_REQUEST);
+        }
+
+        boolean daLi = korisnikService.proveriSifru(trenutnaLozinka,userId);
+
+
+        if(daLi){
+            korisnikService.MenjajSifru(sifra,userId);
+            return ResponseEntity.ok("Sifra je promenjena.");
+        }
+
+        return new ResponseEntity("Losa trenutna sifra. Pokusajte ponovo!" , HttpStatus.FORBIDDEN);
+
+    }
+
+
+   @PutMapping("/api/korisnik/menjajMejl")
+    public ResponseEntity<String> promenaMejla(@RequestParam String mejl, @RequestParam String trenutnasifra,HttpSession session){
+
+
+       Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+
+       Long userId = null;
+
+       if(loggedKorisnik == null){
+           //return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
+           return new ResponseEntity<>("Nema sesije. Ulogujte se!!",HttpStatus.UNAUTHORIZED);
+       }else{
+           userId = loggedKorisnik.getId();
+
+       }
+
+       if(mejl.isEmpty() ){
+           return new ResponseEntity("Niste uneli novi mejl!", HttpStatus.BAD_REQUEST);
+       }else if(trenutnasifra.isEmpty()){
+           return new ResponseEntity("Unesite trenutnu sifru!", HttpStatus.BAD_REQUEST);
+       }
+
+
+       boolean daLi = korisnikService.proveriSifru(trenutnasifra,userId);
+
+
+       if(daLi){
+           korisnikService.MenjajMejl(mejl,userId);
+           return ResponseEntity.ok("Mejl je promenjen.");
+       }
+
+
+       return new ResponseEntity("Pogresna trenutna sifra!!" , HttpStatus.FORBIDDEN);
+
+   }
+
+
+
 
 
 

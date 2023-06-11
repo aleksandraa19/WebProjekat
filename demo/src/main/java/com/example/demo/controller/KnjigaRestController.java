@@ -53,7 +53,7 @@ public class KnjigaRestController {
         }
         return ResponseEntity.ok(trazene);
     }
-    @PostMapping("/api/dodajknjigu")
+   /* @PostMapping("/api/dodajknjigu")
     public ResponseEntity<String> dodajKnjigu(@RequestBody KnjigaDto knjiga, @RequestBody PolicaDto polica, HttpSession session) {
         Korisnik citalac = (Korisnik) session.getAttribute("korisnik");
         if (citalac == null) {
@@ -76,7 +76,7 @@ public class KnjigaRestController {
 
         }
         return ResponseEntity.ok("Knjiga je vec dodata");
-    }
+    }*/
 
 //        for (Knjiga k: knjige){
 //            if(k.getNaslov().equals(knjiga.getNaslov())){

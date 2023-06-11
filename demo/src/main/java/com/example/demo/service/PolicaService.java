@@ -22,7 +22,7 @@ public class PolicaService {
     }
 
 
-    public List<Polica> findByKorisnik(Korisnik korisnik) {return policaRepository.findByKorisnik(korisnik); }
+    //public List<Polica> findByKorisnik(Korisnik korisnik) {return policaRepository.findByKorisnik(korisnik); }
 
     public Polica save(Polica p) { return policaRepository.save(p); }
 
