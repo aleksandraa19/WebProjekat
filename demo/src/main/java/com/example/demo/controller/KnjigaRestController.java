@@ -11,9 +11,11 @@ import com.example.demo.dto.LoginDto;
 import com.example.demo.dto.PolicaDto;
 import com.example.demo.entity.*;
 
+import com.example.demo.service.KorisnikService;
 import com.example.demo.service.PolicaService;
 import com.example.demo.service.StavkaPoliceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +38,8 @@ public class KnjigaRestController {
     @Autowired
     private PolicaService policaService;
 
+    @Autowired
+    private KorisnikService korisnikService;
 
     @Autowired
     private StavkaPoliceService stavkaPoliceService;
@@ -53,43 +57,45 @@ public class KnjigaRestController {
         }
         return ResponseEntity.ok(trazene);
     }
-   /* @PostMapping("/api/dodajknjigu")
-    public ResponseEntity<String> dodajKnjigu(@RequestBody KnjigaDto knjiga, @RequestBody PolicaDto polica, HttpSession session) {
+
+
+    @PostMapping("/api/knjiga/{knjigaId}/dodajKnjiguNaPolicu/{policaId}")
+    public ResponseEntity<String> dodajKnjiguNaPolicu(@PathVariable(name = "knjigaId") Long knjigaId,@PathVariable(name = "policaId") Long policaId, HttpSession session) {
         Korisnik citalac = (Korisnik) session.getAttribute("korisnik");
         if (citalac == null) {
             System.out.println("Nema sesije");
             return ResponseEntity.badRequest().build();
         }
-
-        List<Knjiga> knjige = knjigaService.findByKorisnik(citalac);
-        List<Polica> police = policaService.findByKorisnik(citalac);
-        Set<StavkaPolice> stavke = null;
-        for (Polica p : police) {
-            if (p.getNaziv().equals("Read") || p.getNaziv().equals("Want to Read") || p.getNaziv().equals("Currently Reading")) {
-                stavke = p.getStavkaPolice();
-                for (StavkaPolice sp : stavke) {
-                    if (sp.getKnjiga().getNaslov().equals(knjiga.getNaslov())) {
-                        return ResponseEntity.ok("Knjiga je vec dodata na primarnu");
-                    }
-                }
-            }
-
+        if(!(citalac.getUloga() == Uloga.CITALAC || citalac.getUloga() == Uloga.AUTOR)){
+            return ResponseEntity.badRequest().body("Ne mozete pristupiti, niste citalac, ni autor!");
         }
-        return ResponseEntity.ok("Knjiga je vec dodata");
-    }*/
+        //return ResponseEntity.ok("Knjiga je vec dodata");
+        //}
+        boolean primarna = policaService.daLiJePrimarna(policaId);
+        //List<Knjiga> knjige = knjigaService.findByKorisnik(citalac);
+        Set<Polica> police = policaService.findByKorisnik(citalac);
+        Set<StavkaPolice> stavke = null;
+        Knjiga knjiga = knjigaService.getKnjigaById(knjigaId);
+        Polica polica = policaService.findByIdKorisnikove(policaId,police);
 
-//        for (Knjiga k: knjige){
-//            if(k.getNaslov().equals(knjiga.getNaslov())){
-//                for(Polica p: police) {
-//                    if (p.getNaziv().equals("Read") || p.getNaziv().equals("Want to Read") || p.getNaziv().equals("Currently Reading")) {
-//                        if(stavke.contains(p.getStavkaPolice()))
-//                            return ResponseEntity.ok("Knjiga je vec dodata na primarnu");
-//                    }
-//                }
-//            } else {
-//                //knjigaService.
-//            }
-//        }
+
+        if(primarna){
+             Polica nadjena = policaService.findPrimarnu(police,knjiga);
+             if(nadjena == null){
+                 return ResponseEntity.badRequest().body("Greska");
+             }
+             if(nadjena.getId() == policaId){
+                 return ResponseEntity.badRequest().body("Knjiga je vec dodata na policu");
+             }
+             try {
+                policaService.dodajKnjiguNaPolicu(knjigaId,policaId);
+             } catch (ChangeSetPersister.NotFoundException e) {
+                throw new RuntimeException(e);
+             }
+             //policaService.obrisiKnjiguSaPolice(knjigaId,nadjena.getId());
+        }
+        return ResponseEntity.badRequest().body("Knjiga ne postoji u bazi!");
+    }
 
 
     @GetMapping("/api/knjige/{naslov}")

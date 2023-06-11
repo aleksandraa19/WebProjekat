@@ -11,7 +11,7 @@ public interface StavkaPoliceRepository  extends JpaRepository<StavkaPolice, Lon
 
     @Override
     List<StavkaPolice> findAll();
-
+//    StavkaPolice save(StavkaPolice sp);
     List<StavkaPolice> findByKnjigaId(Long id);
 
 }

@@ -28,6 +28,7 @@ public class KnjigaService {
         return knjigaRepository.findByKorisnik(korisnik);
     }*/
 
+
     public Knjiga getKnjigaByName(String name) {
 
         List<Knjiga> knjige = findAll();
@@ -39,6 +40,7 @@ public class KnjigaService {
         }
         return null;
     }
+
 
     public void napraviKnjigu(String naslov, int brstrana, String isbn, Zanr zanr, LocalDate datum, String foto,String opis){
 
@@ -59,5 +61,15 @@ public class KnjigaService {
         knjigaRepository.save(k);
     }
 
+    public Knjiga getKnjigaById(Long id){
+        List<Knjiga> knjige = findAll();
+
+        for (Knjiga k : knjige) {
+            if (k.getId() == id) {
+                return k;
+            }
+        }
+        return null;
+    }
 
 }

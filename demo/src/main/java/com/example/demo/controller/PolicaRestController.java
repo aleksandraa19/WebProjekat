@@ -43,9 +43,6 @@ public class PolicaRestController {
     @Autowired
     private KorisnikService korisnikService;
 
-    /*@PostMapping("api/registracija")
-    public ResponseEntity<String> registracija(@RequestBody RegistracijaDto registracijaDto, HttpSession session)*/
-
 
     @PostMapping("/api/pravipolice")
     public ResponseEntity<String> novePolice(@RequestBody PolicaDto policaDto, HttpSession session){

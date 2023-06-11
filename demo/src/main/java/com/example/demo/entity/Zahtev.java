@@ -4,8 +4,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 
-enum Status{NACEKANJU,ODOBREN,ODBIJEN}
-
 @Entity
 public class Zahtev implements Serializable{
 
