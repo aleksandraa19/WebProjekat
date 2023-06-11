@@ -28,8 +28,10 @@ public class AutorRestController {
     @Autowired
     private KnjigaService knjigaService;
 
-    @PostMapping("/api/autor/dodajKnjige")
-    public ResponseEntity<String> napraviKnjigu(@RequestBody KnjigaDto knjigaDto, HttpSession session){
+
+
+    @PostMapping("/api/autor/kreiranjeKnjige")
+    public ResponseEntity<String> kreirajKnjnigu(@RequestBody KnjigaDto knjigaDto, HttpSession session){
 
         Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
 
@@ -43,24 +45,22 @@ public class AutorRestController {
 
         }
 
-        if(loggedKorisnik.getUloga() != Uloga.AUTOR){
-            return new ResponseEntity("Nemate odobrenje za ovu radnju,samo autor moze da dodati knjigu!!", HttpStatus.BAD_REQUEST);
+        if(!(loggedKorisnik.getUloga() == Uloga.AUTOR)){
+            return new ResponseEntity<>("Nemate odobrenja za ovu radnju!!",HttpStatus.UNAUTHORIZED);
         }
 
-
-        Knjiga k = null;
-        knjigaService.napraviKnjigu(knjigaDto.getNaslov(),knjigaDto.getBrStrana(),knjigaDto.getISBN(),knjigaDto.getZanr(),knjigaDto.getDatumObjavljivanja(),knjigaDto.getNaslovnaFotografija(),knjigaDto.getOpis());
-
-        boolean daLi = autorService.sadrzi(k,userId);
-
-        if (daLi){
-            return new ResponseEntity("Ovu knjigu ste vec dodali!!", HttpStatus.BAD_REQUEST);
+       if(knjigaService.getKnjigaByName(knjigaDto.getNaslov()) != null){
+            return new ResponseEntity<>("Vec ste dodali ovu knjigu, azurirajte ako zelite!!",HttpStatus.UNAUTHORIZED);
         }
 
-        knjigaService.save(k);
-        autorService.dodadKnjiguUListu(k,userId);
+        Long knjigaId = knjigaService.napraviKnjigu(knjigaDto.getNaslov(),knjigaDto.getBrStrana(), knjigaDto.getISBN(), knjigaDto.getDatumObjavljivanja(),knjigaDto.getNaslovnaFotografija(),knjigaDto.getOpis(),knjigaDto.getOcena());
 
-        return ResponseEntity.ok("Kreirali ste novu knjigu, Hvala vam na poverenju!!");
+        Knjiga knjiga = knjigaService.getKnjigaById(knjigaId);
+
+        autorService.dodadKnjiguUListu(knjiga,userId);
+
+
+        return ResponseEntity.ok("Knjiga je napravljena!!");
 
 
     }

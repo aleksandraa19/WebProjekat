@@ -16,4 +16,23 @@ public class ZahtevService {
         return zahtevRepository.findAll();
     }
 
+    public Zahtev findOne(Long id){
+
+        List<Zahtev> zahtevs = findAll();
+
+        for(Zahtev z: zahtevs){
+            if(z.getId() == id){
+                return z;
+            }
+
+        }
+        return null;
+    }
+
+
+
+
+
+    public Zahtev save(Zahtev z){return zahtevRepository.save(z);}
+
 }
