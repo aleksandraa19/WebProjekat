@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.RecenzijaDto;
+import com.example.demo.entity.Knjiga;
+import com.example.demo.entity.Korisnik;
+import com.example.demo.service.KnjigaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,8 @@ public class RecenzijaRestController {
 
     @Autowired
     private RecenzijaService recenzijaService;
+    @Autowired
+    private KnjigaService knjigaService;
 
     @GetMapping("api/recenzije")
     public ResponseEntity<List<RecenzijaDto>> getRecenzije(){
@@ -30,6 +35,22 @@ public class RecenzijaRestController {
             recenzijaDtoList.add(dto);
         }
         return ResponseEntity.ok(recenzijaDtoList);
+    }
+
+    @PostMapping("/api/recenzije/dodajRecenziju/{knjigaId}")
+    public ResponseEntity<String> dodajRecenziju (@PathVariable(name = "knjigaId")Long id,@PathVariable(name =  "policaNaziv")String naziv, HttpSession session){
+        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+        if (korisnik == null) {
+            System.out.println("Nema sesije");
+            return ResponseEntity.badRequest().build();
+        }
+        Knjiga knjiga = knjigaService.getKnjigaById(id);
+        if(naziv.equals("Read")){
+            //dodaj
+            return ResponseEntity.ok("Recenzija dodata");
+        } else{
+            return ResponseEntity.badRequest().body("Recenzija se moze dodati ako je knjiga na Read polici.");
+        }
     }
 
 }

@@ -7,10 +7,12 @@ import com.example.demo.entity.Korisnik;
 import com.example.demo.entity.StavkaPolice;
 import com.example.demo.repository.StavkaPoliceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.Polica;
 import com.example.demo.repository.PolicaRepository;
 
+import javax.swing.text.ChangedCharSetException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -23,6 +25,8 @@ public class PolicaService {
 
     @Autowired
     private StavkaPoliceService stavkaPoliceService;
+    @Autowired
+    private KnjigaService knjigaService;
 
     public List<Polica> findAll(){
         return policaRepository.findAll();
@@ -43,52 +47,65 @@ public class PolicaService {
         }
         return null;
     }
+    public Polica findByIdKorisnikove(Long pId, Set<Polica> korisnikovePolice){
+        for(Polica polica:korisnikovePolice){
+            if(polica.getId() == pId){
+                return polica;
+            }
+        }
+        return null;
+    }
 
     public Polica save(Polica p) { return policaRepository.save(p); }
 
-    public void dodajKnjiguNaPolicu(Knjiga knjiga, Korisnik korisnik, Polica polica){
-        Set<Polica> lista = korisnik.getListaPolica();
+    public Polica findPrimarnu(Set<Polica> korisnikovePolice, Knjiga zadataKnjiga){
         Set<StavkaPolice> stavke = null;
-        for(Polica p: lista){
-            if(p.getNaziv().equals(polica.getNaziv())) {
-                stavke = p.getStavkaPolice();
-                StavkaPolice novaStavka = null;
-                novaStavka.setKnjiga(knjiga);
-                stavkaPoliceService.save(novaStavka);
-                stavke.add(novaStavka);
-                p.setStavkaPolice(stavke);
-                save(p);
-            } else{
-                //pravimo novu policu
-                StavkaPolice novaStavka = null;
-                novaStavka.setKnjiga(knjiga);
-                stavkaPoliceService.save(novaStavka);
-                stavke.add(novaStavka);
-                Polica novaPolica = null;
-                novaPolica.setStavkaPolice(stavke);
-                novaPolica.setNaziv(polica.getNaziv());
-                save(novaPolica);
-                //novaPolica.setOznaka(polica.getOznaka());
-                lista.add(novaPolica);
+        for(Polica p: korisnikovePolice){
+            stavke = p.getStavkaPolice();
+            for(StavkaPolice sp: stavke){
+                if(sp.getKnjiga() == zadataKnjiga){
+                    return p;
+                }
             }
         }
-//        Knjiga novaKnjiga = null;
-//        novaKnjiga.setZanr(knjiga.getZanr());
-//        novaKnjiga.setISBN(knjiga.getISBN());
-//        novaKnjiga.setNaslov(knjiga.getNaslov());
-//        novaKnjiga.setOcena(knjiga.getOcena());
-//        novaKnjiga.setBrStrana(knjiga.getBrStrana());
-//        novaKnjiga.setDatumObjavljivanja(knjiga.getDatumObjavljivanja());
-//        novaKnjiga.setNaslovnaFotografija(knjiga.getNaslovnaFotografija());
-//        novaKnjiga.setOpis(knjiga.getOpis());
+        return null;
+    }
+
+//    public void dodajKnjiguNaPrimarnuPolicu(Polica nadjena, Polica zadata, Knjiga knjiga){
+//        //pravimo stavku sa zadatom policom i knjigom, prolazimo kroz sve stavke nadjene police
+//        //i tu pronalazimo stavku sa knjigom i BRISEMO JE
 //
-//        Set<Polica> lista = korisnik.getListaPolica();
-//        Set<StavkaPolice> stavke = null;
+//        if(zadata.getNaziv().equals("Read")){
+//            StavkaPolice sp = null;
+//            sp.setKnjiga(knjiga);
+//            //recenzijaService.dodajRecenziju();
+//        } else {
+//            for(StavkaPolice sp: )
+//        }
+//    }
+
+    public void dodajKnjiguNaPolicu(Long knjigaId, Long policaId) throws ChangeSetPersister.NotFoundException {
+        Polica polica = findById(policaId);
+        Knjiga knjiga = knjigaService.getKnjigaById(knjigaId);
+        StavkaPolice stavka = new StavkaPolice();
+        stavka.setKnjiga(knjiga);
+        stavkaPoliceService.save(stavka);
+        polica.getStavkaPolice().add(stavka);
+        save(polica);
+    }
+
+    public void obrisiKnjiguSaPolice(Long knjigaId, Long nadjenaId){
+        Polica polica = findById(nadjenaId);
+        Knjiga knjiga = knjigaService.getKnjigaById(knjigaId);
+        //StavkaPolice sp = stavkaPoliceService.findByKnjigaId(knjigaId);
+
+    }
+
 //        for(Polica p: lista){
-//            if(p.getNaziv().equals(polica.getNaziv())){
+//            if(p.getNaziv().equals(polica.getNaziv())) {
 //                stavke = p.getStavkaPolice();
 //                StavkaPolice novaStavka = null;
-//                novaStavka.setKnjiga(novaKnjiga);
+//                novaStavka.setKnjiga(knjiga);
 //                stavkaPoliceService.save(novaStavka);
 //                stavke.add(novaStavka);
 //                p.setStavkaPolice(stavke);
@@ -96,7 +113,7 @@ public class PolicaService {
 //            } else{
 //                //pravimo novu policu
 //                StavkaPolice novaStavka = null;
-//                novaStavka.setKnjiga(novaKnjiga);
+//                novaStavka.setKnjiga(knjiga);
 //                stavkaPoliceService.save(novaStavka);
 //                stavke.add(novaStavka);
 //                Polica novaPolica = null;
@@ -106,8 +123,6 @@ public class PolicaService {
 //                //novaPolica.setOznaka(polica.getOznaka());
 //                lista.add(novaPolica);
 //            }
-//        }
-    }
     public boolean daLiJePrimarna(Long pId){
         List<Polica> police = policaRepository.findAll();
         Polica p = null;

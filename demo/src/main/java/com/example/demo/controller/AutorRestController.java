@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.KnjigaDto;
+import com.example.demo.entity.Korisnik;
+import com.example.demo.entity.Uloga;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,5 +22,6 @@ public class AutorRestController {
 
     @Autowired
     private AutorService autorService;
+
 
 }

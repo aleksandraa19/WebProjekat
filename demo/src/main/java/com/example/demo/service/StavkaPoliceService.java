@@ -12,6 +12,7 @@ import com.example.demo.entity.StavkaPolice;
 import com.example.demo.repository.StavkaPoliceRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class StavkaPoliceService {
@@ -19,16 +20,19 @@ public class StavkaPoliceService {
     @Autowired
     private StavkaPoliceRepository stavkaPoliceRepository;
 
+    @Autowired
+    private KnjigaService knjigaService;
+
+
     public List<StavkaPolice> findAll(){
         return stavkaPoliceRepository.findAll();
     }
 
-    public  List<StavkaPolice> findByKnjigaId(Long id){
-        return stavkaPoliceRepository.findByKnjigaId(id);
-    }
-//    public StavkaPolice dodajKnjigu(Knjiga knjiga){
+//    public  List<StavkaPolice> findByKnjigaId(Long id){
 //
+//        Set<StavkaPolice> stavke =
 //    }
+
     public StavkaPolice save(StavkaPolice sp){ return stavkaPoliceRepository.save(sp);}
 
    public List<StavkaPolice> dobaviStavku(Long knjigaId){
