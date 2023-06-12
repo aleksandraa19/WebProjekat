@@ -6,4 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ZahtevRepository  extends JpaRepository<Zahtev, Long>{
 
     Zahtev findById(long id);
+
+
+
+    Zahtev save(Zahtev z);
 }

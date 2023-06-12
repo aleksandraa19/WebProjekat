@@ -27,16 +27,16 @@ public class AutorRestController {
     private KnjigaService knjigaService;
 
     @PostMapping("/api/autor/dodajKnjige")
-    public ResponseEntity<String> napraviKnjigu(@RequestBody KnjigaDto knjigaDto, HttpSession session){
+    public ResponseEntity<String> napraviKnjigu(@RequestBody KnjigaDto knjigaDto, HttpSession session) {
 
         Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
 
         Long userId = null;
 
-        if(loggedKorisnik == null){
+        if (loggedKorisnik == null) {
             //return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
             return new ResponseEntity<>("Nema sesije. Ulogujte se!",HttpStatus.UNAUTHORIZED);
-        }else{
+        } else {
             userId = loggedKorisnik.getId();
 
         }

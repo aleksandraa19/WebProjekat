@@ -157,6 +157,7 @@ public class KnjigaRestController {
         }
         return ResponseEntity.ok(dtos);
     }
+
     @PutMapping("api/knjiga/{id}/update_knjiga")
     public ResponseEntity<?> updateKnjigaAdminAutor(@RequestBody AzuriranaKnjigaDto azuriranaKnjigaDto, @PathVariable("id") Long knjigaId, HttpSession session) {
         Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
@@ -167,5 +168,41 @@ public class KnjigaRestController {
             return new ResponseEntity<>("Niste administrator", HttpStatus.BAD_REQUEST);
         }
     }
+
+
+//    @PutMapping ("/api/knjiga/azuriranjeKnjige/{knjigaId}")
+//    public ResponseEntity<String> azuriranjeKnjige(@PathVariable(name = "knjigaId")Long knjigaId,@RequestBody KnjigaDto knjigaDto, HttpSession session){
+//        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+//
+//
+//        if(loggedKorisnik == null){
+//            //return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
+//            return new ResponseEntity<>("Nema sesije. Ulogujte se!!",HttpStatus.UNAUTHORIZED);
+//        }
+//
+//        if(!(loggedKorisnik.getUloga() == Uloga.ADMINISTRATOR || loggedKorisnik.getUloga() == Uloga.AUTOR)){
+//            return new ResponseEntity<>("Niste admin ni autor da menjate knjigu!!",HttpStatus.UNAUTHORIZED);
+//        }
+//
+//        Knjiga knjiga = knjigaService.getKnjigaById(knjigaId);
+//
+//        if(!(knjigaDto.getISBN() == null)){
+//            return new ResponseEntity<>("Ne mozete menjati ISBN knjige!!",HttpStatus.BAD_REQUEST);
+//        }
+//
+//        knjiga.setZanr(knjigaDto.getZanr());
+//        knjiga.setNaslov(knjigaDto.getNaslov());
+//        knjiga.setOpis(knjigaDto.getOpis());
+//        knjiga.setDatumObjavljivanja(knjigaDto.getDatumObjavljivanja());
+//        knjiga.setBrStrana(knjigaDto.getBrStrana());
+//        knjiga.setNaslovnaFotografija(knjigaDto.getNaslovnaFotografija());
+//        knjiga.setOcena(knjigaDto.getOcena());
+//
+//        knjigaService.save(knjiga);
+//
+//        return ResponseEntity.ok("Knjiga je azurirana");
+//
+//
+//    }
 
 }

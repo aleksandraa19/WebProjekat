@@ -52,6 +52,7 @@ public class KnjigaService {
     }
 
 
+
     public void napraviKnjigu(String naslov, int brstrana, String isbn, Zanr zanr, LocalDate datum, String foto,String opis){
 
         Knjiga knjiga = new Knjiga();
@@ -69,7 +70,24 @@ public class KnjigaService {
 
     public Knjiga save(Knjiga k){
         return knjigaRepository.save(k);
+
+
+
+    public Long napraviKnjigu(String naslov, int brstrana, String isbn, LocalDate datum, String foto,String opis, double ocena){
+        Knjiga knjiga = new Knjiga();
+        knjiga.setNaslov(naslov);
+        knjiga.setOpis(opis);
+        knjiga.setDatumObjavljivanja(datum);
+        knjiga.setBrStrana(brstrana);
+        knjiga.setNaslovnaFotografija(foto);
+        knjiga.setOcena(ocena);
+        knjiga.setISBN(isbn);
+
+        knjigaRepository.save(knjiga);
+        return knjiga.getId();
     }
+
+
 
     public Knjiga getKnjigaById(Long id){
         List<Knjiga> knjige = findAll();
@@ -97,6 +115,7 @@ public class KnjigaService {
         return false;
     }
 
+
     public Knjiga updateKnjigaAdmin(Long knjigaId, AzuriranaKnjigaDto updateKnjigaDto) {
         Optional<Knjiga> knjiga = knjigaRepository.findById(knjigaId);
         knjiga.get().setNaslov(updateKnjigaDto.getNaslov());
@@ -112,4 +131,11 @@ public class KnjigaService {
         knjiga.get().setZanr(zanrService.findById(updateKnjigaDto.getZanrId()));
         return save(knjiga.get());
     }
+
+
+
+
+
+
+
 }

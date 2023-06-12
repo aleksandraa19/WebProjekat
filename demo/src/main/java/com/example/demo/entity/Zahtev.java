@@ -27,6 +27,17 @@ public class Zahtev implements Serializable{
     @Enumerated(value = EnumType.STRING)
     public Status status;
 
+    @OneToOne
+    private Korisnik korisnik;
+
+    public Korisnik getKorisnik() {
+        return korisnik;
+    }
+
+    public void setKorisnik(Korisnik korisnik) {
+        this.korisnik = korisnik;
+    }
+
     public Long getId() {
         return id;
     }
