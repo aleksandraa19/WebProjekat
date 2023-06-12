@@ -87,4 +87,5 @@ public class Zahtev implements Serializable{
                 ", status=" + status +
                 '}';
     }
+
 }
