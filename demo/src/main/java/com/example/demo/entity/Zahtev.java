@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.persistence.*;
 
 
@@ -21,7 +22,7 @@ public class Zahtev implements Serializable{
     private String poruka;
 
     @Column
-    private String datum;
+    private LocalDate datum;
 
     @Column
     @Enumerated(value = EnumType.STRING)
@@ -70,14 +71,21 @@ public class Zahtev implements Serializable{
         this.poruka = poruka;
     }
 
-    public String getDatum() {
+//    public String getDatum() {
+//        return datum;
+//    }
+//
+//    public void setDatum(String Datum) {
+//        datum = Datum;
+//    }
+    public LocalDate getDatum() {
         return datum;
     }
 
-    public void setDatum(String Datum) {
-        datum = Datum;
-    }
+    public void setDatum(LocalDate datum) {
+        this.datum = datum;
 
+    }
     public Status getStatus() {
         return status;
     }

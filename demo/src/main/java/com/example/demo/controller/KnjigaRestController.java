@@ -64,7 +64,7 @@ public class KnjigaRestController {
             Polica polica = policaService.findById(policaId);
 
             if(policaService.daLiJePrimarna(policaId)){ // Polica je primarna
-                if(knjigaService.findKnjigaOnPrimarnaPolica(loggedKorisnik.getId(), knjigaId)) {
+                if(knjigaService.pronadjiKnjiguNaPrimarnoj(loggedKorisnik.getId(), knjigaId)) {
                     return new ResponseEntity<>("Knjiga vec postoji na nekoj od primarnih polica", HttpStatus.BAD_REQUEST);
                 } else{
                     // Ovde moras paziti da li je stavlja na READ policu
@@ -77,7 +77,7 @@ public class KnjigaRestController {
                     }
                 }
             } else { // Polica nije primarna
-                if(knjigaService.findKnjigaOnPrimarnaPolica(loggedKorisnik.getId(), knjigaId)){
+                if(knjigaService.pronadjiKnjiguNaPrimarnoj(loggedKorisnik.getId(), knjigaId)){
                     policaService.dodajKnjiguNaPolicu(policaId, knjigaId);
                     return new ResponseEntity<>("Knjiga je dodata na policu koja nije primarna", HttpStatus.OK);
                 } else {

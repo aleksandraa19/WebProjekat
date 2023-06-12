@@ -4,6 +4,9 @@ package com.example.demo.dto;
 
 import com.example.demo.entity.Status;
 import com.example.demo.entity.Zahtev;
+import jdk.vm.ci.meta.Local;
+
+import java.time.LocalDate;
 
 public class ZahtevDto {
 
@@ -12,9 +15,8 @@ public class ZahtevDto {
     private String telefon;
     private String poruka;
 
-    //private String datum;
+    private LocalDate datum;
 
-    private String datum;
     //private Status status;
 
 
@@ -51,18 +53,18 @@ public class ZahtevDto {
 //    public void setDatum(String datum) {
 //        this.datum = datum;
 //    }
-    public ZahtevDto(Zahtev z){
+    public ZahtevDto(Zahtev z) {
         ZahtevDto zahtev = null;
         zahtev.setEmail(z.getEmail());
         zahtev.setTelefon(z.getTelefon());
         zahtev.setPoruka(z.getPoruka());
         //zahtev.setStatus(z.getStatus(););
-
-    public String getDatum() {
+    }
+    public LocalDate getDatum() {
         return datum;
     }
 
-    public void setDatum(String datum) {
+    public void setDatum(LocalDate datum) {
         this.datum = datum;
 
     }

@@ -53,7 +53,7 @@ public class KnjigaService {
 
 
 
-    public void napraviKnjigu(String naslov, int brstrana, String isbn, Zanr zanr, LocalDate datum, String foto,String opis){
+    public void kreirajKnjigu(String naslov, int brstrana, String isbn, Zanr zanr, LocalDate datum, String foto,String opis){
 
         Knjiga knjiga = new Knjiga();
         knjiga.setBrStrana(brstrana);
@@ -64,15 +64,13 @@ public class KnjigaService {
         knjiga.setNaslovnaFotografija(foto);
         knjiga.setZanr(zanr);
 
-        //knjigaRepository.save(knjiga);
+        knjigaRepository.save(knjiga);
 
     }
 
-    public Knjiga save(Knjiga k){
+    public Knjiga save(Knjiga k) {
         return knjigaRepository.save(k);
-
-
-
+    }
     public Long napraviKnjigu(String naslov, int brstrana, String isbn, LocalDate datum, String foto,String opis, double ocena){
         Knjiga knjiga = new Knjiga();
         knjiga.setNaslov(naslov);
@@ -99,7 +97,7 @@ public class KnjigaService {
         }
         return null;
     }
-    public boolean findKnjigaOnPrimarnaPolica(Long citalacId, Long knjigaId){
+    public boolean pronadjiKnjiguNaPrimarnoj(Long citalacId, Long knjigaId){
         Korisnik korisnik = korisnikService.findById(citalacId);
         Set<Polica> korisnikovePolice = korisnik.getListaPolica();
 
@@ -125,7 +123,7 @@ public class KnjigaService {
         if (updatedISBN != null && !updatedISBN.isEmpty()) {
             knjiga.get().setISBN(updatedISBN);
         }
-        knjiga.get().setDatumObjavljivanja(updateKnjigaDto.getDatumObjavljivanja());
+        knjiga.get().setDatumObjavljivanja(AzuriranaKnjigaDto.getDatumObjavljivanja());
         knjiga.get().setBrStrana(updateKnjigaDto.getBrojStrana());
         knjiga.get().setOpis(updateKnjigaDto.getOpis());
         knjiga.get().setZanr(zanrService.findById(updateKnjigaDto.getZanrId()));

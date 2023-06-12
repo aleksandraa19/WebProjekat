@@ -47,7 +47,7 @@ public class AutorRestController {
 
 
         Knjiga k = null;
-        knjigaService.napraviKnjigu(knjigaDto.getNaslov(),knjigaDto.getBrStrana(),knjigaDto.getISBN(),knjigaDto.getZanr(),knjigaDto.getDatumObjavljivanja(),knjigaDto.getNaslovnaFotografija(),knjigaDto.getOpis());
+        knjigaService.kreirajKnjigu(knjigaDto.getNaslov(),knjigaDto.getBrStrana(),knjigaDto.getISBN(),knjigaDto.getZanr(),knjigaDto.getDatumObjavljivanja(),knjigaDto.getNaslovnaFotografija(),knjigaDto.getOpis());
 
         boolean daLi = autorService.sadrzi(k,userId);
 
@@ -55,7 +55,7 @@ public class AutorRestController {
             return new ResponseEntity("Ovu knjigu ste vec dodali!", HttpStatus.BAD_REQUEST);
         }
 
-        knjigaService.save(k);
+        //knjigaService.save(k);
         autorService.dodadKnjiguUListu(k,userId);
 
         return ResponseEntity.ok("Kreirali ste novu knjigu!");
