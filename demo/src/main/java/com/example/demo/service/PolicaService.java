@@ -4,6 +4,7 @@ import com.example.demo.dto.KnjigaDto;
 import com.example.demo.dto.PolicaDto;
 import com.example.demo.dto.RecenzijaDto;
 import com.example.demo.entity.*;
+import com.example.demo.repository.KnjigaRepository;
 import com.example.demo.repository.StavkaPoliceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -25,6 +26,11 @@ public class PolicaService {
     private StavkaPoliceService stavkaPoliceService;
     @Autowired
     private KnjigaService knjigaService;
+
+
+
+
+
 
     public List<Polica> findAll(){
         return policaRepository.findAll();
@@ -168,6 +174,9 @@ public class PolicaService {
         return false;
 
     }
+
+
+
 
 
 
