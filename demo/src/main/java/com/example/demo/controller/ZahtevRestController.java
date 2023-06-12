@@ -52,7 +52,7 @@ public class ZahtevRestController {
 
 
     @GetMapping("/api/zahtev/getZahtevi")
-    ResponseEntity<List<ZahtevDto>> listaZahteva(HttpSession session){
+    ResponseEntity<?> listaZahteva(HttpSession session){
         Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
         if (korisnik == null) {
             System.out.println("Nema sesije");
@@ -69,8 +69,7 @@ public class ZahtevRestController {
             }
             return ResponseEntity.ok(trazeni);
         }
-        System.out.println("Samo admin moze videti zahteve");
-        return null;
+        return ResponseEntity.badRequest().body("Samo admin moze videti zahteve");
     }
     @PostMapping("/api/zahtev/posalji")
     ResponseEntity<String> posaljiZahtev(@RequestBody ZahtevDto zahtevDto){

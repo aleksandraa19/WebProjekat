@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.KnjigaDto;
+import com.example.demo.dto.ZahtevDto;
+import com.example.demo.dto.AzuriranAutorDto;
 import com.example.demo.entity.Korisnik;
 import com.example.demo.entity.Knjiga;
 import com.example.demo.entity.Uloga;
@@ -60,5 +62,43 @@ public class AutorRestController {
 
         return ResponseEntity.ok("Kreirali ste novu knjigu!");
 
+    }
+    @PostMapping("/api/dodajAutora")
+    public ResponseEntity<?> dodajAutora(@RequestBody ZahtevDto zahtev, HttpSession session){
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+
+        Long userId = null;
+
+        if (loggedKorisnik == null) {
+            //return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nema sesije. Ulogujte se!",HttpStatus.UNAUTHORIZED);
+        } else {
+            userId = loggedKorisnik.getId();
+
+        }
+        if(loggedKorisnik.getUloga() == Korisnik.Uloga.ADMINISTRATOR){
+            Autor a = new Autor();
+            a.setAktivnost(true);
+            a.setMejlAdresa(zahtev.getEmail());
+            a.setUloga(Korisnik.Uloga.AUTOR);
+            autorService.save(a);
+            return ResponseEntity.ok("Autor je kreiran");
+        }
+
+        return ResponseEntity.badRequest().body("Niste administrator, ne mozete dodati autora");
+    }
+    @PutMapping("/api/azurirajAutora")
+    public ResponseEntity<?> azurirajAutora(@RequestBody AzuriranAutorDto autor, HttpSession session){
+        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+        if (korisnik == null) {
+            System.out.println("Nema sesije");
+            return ResponseEntity.badRequest().build();
+        }
+        if(korisnik.getUloga() == Korisnik.Uloga.AUTOR || korisnik.getUloga() == Korisnik.Uloga.ADMINISTRATOR){
+            Autor a = new Autor();
+            a = autorService.azuriraj(autor);
+            return ResponseEntity.ok("Autor je azuriran!");
+        }
+        return ResponseEntity.badRequest().body("Doslo je do greske, samo autor i administrator moze azurirati");
     }
 }

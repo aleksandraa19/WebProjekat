@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.AzuriranAutorDto;
 import com.example.demo.entity.Knjiga;
 import com.example.demo.entity.Zahtev;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,6 @@ public class AutorService {
 
     public Autor findByMejlAdresa(String mejl){return autorRepository.findByMejlAdresa(mejl);}
 
-
     public boolean sadrzi(Knjiga k, Long id){
         List<Autor> autors = autorRepository.findAll();
 
@@ -70,7 +70,11 @@ public class AutorService {
         }
     }
 
-
+    public Autor azuriraj(AzuriranAutorDto a){
+        Autor autor = new Autor();
+//        autor.
+        return autor;
+    }
 
 
 }

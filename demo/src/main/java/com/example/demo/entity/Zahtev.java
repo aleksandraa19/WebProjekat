@@ -71,6 +71,7 @@ public class Zahtev implements Serializable{
         this.poruka = poruka;
     }
 
+    public Zahtev() {}
 //    public String getDatum() {
 //        return datum;
 //    }

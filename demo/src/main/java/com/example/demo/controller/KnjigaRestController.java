@@ -42,12 +42,12 @@ public class KnjigaRestController {
     private StavkaPoliceService stavkaPoliceService;
 
 
-    @GetMapping("/api/knjiga/{zanr}")
-    public ResponseEntity<List<KnjigaDto>> getKnjigaZanr(@PathVariable(name = "zanr")Zanr zanr, HttpSession session){
+    @GetMapping("/api/knjiga/{zanrNaziv}")
+    public ResponseEntity<List<KnjigaDto>> getKnjigaZanr(@PathVariable(name = "zanrNaziv")String zanr, HttpSession session){
         List<Knjiga> knjige = knjigaService.findAll();
         List<KnjigaDto> trazene = new ArrayList<>();
         for(Knjiga k: knjige){
-            if(k.getZanr() == zanr){
+            if(k.getZanr().getNaziv() == zanr){
                 KnjigaDto dto = new KnjigaDto(k);
                 trazene.add(dto);
             }

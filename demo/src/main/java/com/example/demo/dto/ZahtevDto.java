@@ -55,6 +55,7 @@ public class ZahtevDto {
 //    public void setDatum(String datum) {
 //        this.datum = datum;
 //    }
+   public ZahtevDto(){}
     public ZahtevDto(Zahtev z) {
         ZahtevDto zahtev = null;
         zahtev.setEmail(z.getEmail());
