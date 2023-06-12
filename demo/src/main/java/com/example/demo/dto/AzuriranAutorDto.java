@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class AzuriranAutorDto {
     private boolean aktivnost;
-    private Set<Knjiga> spisakKnjiga = new HashSet<Knjiga>();
+    //private Set<Knjiga> spisakKnjiga = new HashSet<Knjiga>();
 
     private String ime;
 
@@ -69,12 +69,12 @@ public class AzuriranAutorDto {
         this.aktivnost = aktivnost;
     }
 
-    public Set<Knjiga> getSpisakKnjiga() {
+   /* public Set<Knjiga> getSpisakKnjiga() {
         return spisakKnjiga;
     }
 
     public void setSpisakKnjiga(Set<Knjiga> spisakKnjiga) {
         this.spisakKnjiga = spisakKnjiga;
-    }
+    }*/
 
 }

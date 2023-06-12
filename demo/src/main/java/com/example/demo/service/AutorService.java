@@ -70,10 +70,21 @@ public class AutorService {
         }
     }
 
-    public Autor azuriraj(AzuriranAutorDto a){
-        Autor autor = new Autor();
-//        autor.
-        return autor;
+    public void azuriraj(AzuriranAutorDto a, Long id){
+
+        List<Autor> autors = findAll();
+
+        for(Autor autor : autors){
+            if(autor.getId() == id){
+                autor.setIme(a.getIme());
+                autor.setPrezime(a.getPrezime());
+                autor.setKorisnickoIme(a.getKorisnickoIme());
+                autor.setDatumRodjenja(a.getDatumRodjenja());
+                autor.setProfilnaSlika(a.getProfilnaSlika());
+                save(autor);
+            }
+        }
+
     }
 
 

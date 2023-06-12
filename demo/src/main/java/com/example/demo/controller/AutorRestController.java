@@ -90,13 +90,17 @@ public class AutorRestController {
     @PutMapping("/api/azurirajAutora")
     public ResponseEntity<?> azurirajAutora(@RequestBody AzuriranAutorDto autor, HttpSession session){
         Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+        Long userId = null;
+
         if (korisnik == null) {
-            System.out.println("Nema sesije");
-            return ResponseEntity.badRequest().build();
+            //return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nema sesije. Ulogujte se!",HttpStatus.UNAUTHORIZED);
+        } else {
+            userId = korisnik.getId();
+
         }
         if(korisnik.getUloga() == Korisnik.Uloga.AUTOR || korisnik.getUloga() == Korisnik.Uloga.ADMINISTRATOR){
-            Autor a = new Autor();
-            a = autorService.azuriraj(autor);
+             autorService.azuriraj(autor,userId);
             return ResponseEntity.ok("Autor je azuriran!");
         }
         return ResponseEntity.badRequest().body("Doslo je do greske, samo autor i administrator moze azurirati");
