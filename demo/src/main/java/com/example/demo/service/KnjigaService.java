@@ -1,12 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.AzuriranaKnjigaDto;
-import com.example.demo.entity.Korisnik;
-import com.example.demo.entity.Zanr;
+import com.example.demo.entity.*;
 import com.example.demo.repository.ZanrRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
-import com.example.demo.entity.Knjiga;
 import com.example.demo.repository.KnjigaRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class KnjigaService {
@@ -23,6 +23,10 @@ public class KnjigaService {
     private KnjigaRepository knjigaRepository;
     @Autowired
     private ZanrService zanrService;
+    @Autowired
+    private KorisnikService korisnikService;
+    @Autowired
+    private PolicaService policaService;
 
     public List<Knjiga> findAll() {
         return knjigaRepository.findAll();
@@ -76,6 +80,21 @@ public class KnjigaService {
             }
         }
         return null;
+    }
+    public boolean findKnjigaOnPrimarnaPolica(Long citalacId, Long knjigaId){
+        Korisnik korisnik = korisnikService.findById(citalacId);
+        Set<Polica> korisnikovePolice = korisnik.getListaPolica();
+
+        for (Polica p : korisnikovePolice) {
+            if(policaService.daLiJePrimarna(p.getId())){
+                for (StavkaPolice stavka : p.getStavkaPolice()) {
+                    if (stavka.getKnjiga().getId() == knjigaId) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public Knjiga updateKnjigaAdmin(Long knjigaId, AzuriranaKnjigaDto updateKnjigaDto) {

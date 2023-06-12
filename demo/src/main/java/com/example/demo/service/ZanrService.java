@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.DodatZanrDto;
 import com.example.demo.entity.Autor;
 import com.example.demo.repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,4 +22,10 @@ public class ZanrService {
 
     public Zanr findById(Long id) { return zanrRepository.findZanrById(id);}
 
+    public Zanr save(Zanr z) { return zanrRepository.save(z); }
+    public Zanr kreiraj(DodatZanrDto zanrAddDto) {
+        Zanr zanr = new Zanr();
+        zanr.setNaziv(zanrAddDto.getNaziv());
+        return save(zanr);
+    }
 }

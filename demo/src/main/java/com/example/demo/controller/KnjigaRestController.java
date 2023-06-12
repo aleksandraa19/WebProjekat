@@ -57,42 +57,73 @@ public class KnjigaRestController {
 
 
     @PostMapping("/api/knjiga/{knjigaId}/dodajKnjiguNaPolicu/{policaId}")
-    public ResponseEntity<String> dodajKnjiguNaPolicu(@PathVariable(name = "knjigaId") Long knjigaId,@PathVariable(name = "policaId") Long policaId, HttpSession session) {
-        Korisnik citalac = (Korisnik) session.getAttribute("korisnik");
-        if (citalac == null) {
-            System.out.println("Nema sesije");
-            return ResponseEntity.badRequest().build();
-        }
-        if(!(citalac.getUloga() == Korisnik.Uloga.CITALAC || citalac.getUloga() == Korisnik.Uloga.AUTOR)){
-            return ResponseEntity.badRequest().body("Ne mozete pristupiti, niste citalac, ni autor!");
-        }
-        //return ResponseEntity.ok("Knjiga je vec dodata");
-        //}
-        boolean primarna = policaService.daLiJePrimarna(policaId);
-        //List<Knjiga> knjige = knjigaService.findByKorisnik(citalac);
-        Set<Polica> police = policaService.findByKorisnik(citalac);
-        Set<StavkaPolice> stavke = null;
-        Knjiga knjiga = knjigaService.getKnjigaById(knjigaId);
-        Polica polica = policaService.findByIdKorisnikove(policaId,police);
+    public ResponseEntity<?> dodajKnjiguNaPolicu(@PathVariable Long knjigaId,@PathVariable Long policaId,HttpSession session) throws ChangeSetPersister.NotFoundException {
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
 
+        if (loggedKorisnik.getUloga() == Korisnik.Uloga.CITALAC  || loggedKorisnik.getUloga() == Korisnik.Uloga.AUTOR ) {
+            Polica polica = policaService.findById(policaId);
 
-        if(primarna){
-             Polica nadjena = policaService.findPrimarnu(police,knjiga);
-             if(nadjena == null){
-                 return ResponseEntity.badRequest().body("Greska");
-             }
-             if(nadjena.getId() == policaId){
-                 return ResponseEntity.badRequest().body("Knjiga je vec dodata na policu");
-             }
-             try {
-                policaService.dodajKnjiguNaPolicu(knjigaId,policaId);
-             } catch (ChangeSetPersister.NotFoundException e) {
-                throw new RuntimeException(e);
-             }
-             //policaService.obrisiKnjiguSaPolice(knjigaId,nadjena.getId());
+            if(policaService.daLiJePrimarna(policaId)){ // Polica je primarna
+                if(knjigaService.findKnjigaOnPrimarnaPolica(loggedKorisnik.getId(), knjigaId)) {
+                    return new ResponseEntity<>("Knjiga vec postoji na nekoj od primarnih polica", HttpStatus.BAD_REQUEST);
+                } else{
+                    // Ovde moras paziti da li je stavlja na READ policu
+                    if(polica.getNaziv() == "Read"){
+                        policaService.dodajKnjiguNaPolicu(policaId, knjigaId);
+                        return new ResponseEntity<>("Knjiga je dodata na 'Read' policu", HttpStatus.OK);
+                    } else {
+                        policaService.dodajKnjiguNaPolicu(policaId, knjigaId);
+                        return new ResponseEntity<>("Knjiga je dodata na primarnu policu", HttpStatus.OK);
+                    }
+                }
+            } else { // Polica nije primarna
+                if(knjigaService.findKnjigaOnPrimarnaPolica(loggedKorisnik.getId(), knjigaId)){
+                    policaService.dodajKnjiguNaPolicu(policaId, knjigaId);
+                    return new ResponseEntity<>("Knjiga je dodata na policu koja nije primarna", HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>("Moras je prvo staviti na neku od primarnih polica", HttpStatus.BAD_REQUEST);
+                }
+            }
+
         }
-        return ResponseEntity.badRequest().body("Knjiga ne postoji u bazi!");
+        return new ResponseEntity<>("Vi niste taj citalac", HttpStatus.BAD_REQUEST);
     }
+//    public ResponseEntity<String> dodajKnjiguNaPolicu(@PathVariable(name = "knjigaId") Long knjigaId,@PathVariable(name = "policaId") Long policaId, HttpSession session) {
+//        Korisnik citalac = (Korisnik) session.getAttribute("korisnik");
+//        if (citalac == null) {
+//            System.out.println("Nema sesije");
+//            return ResponseEntity.badRequest().build();
+//        }
+//        if(!(citalac.getUloga() == Korisnik.Uloga.CITALAC || citalac.getUloga() == Korisnik.Uloga.AUTOR)){
+//            return ResponseEntity.badRequest().body("Ne mozete pristupiti, niste citalac, ni autor!");
+//        }
+//        //return ResponseEntity.ok("Knjiga je vec dodata");
+//        //}
+//        boolean primarna = policaService.daLiJePrimarna(policaId);
+//        //List<Knjiga> knjige = knjigaService.findByKorisnik(citalac);
+//        Set<Polica> police = policaService.findByKorisnik(citalac);
+//        Set<StavkaPolice> stavke = null;
+//        Knjiga knjiga = knjigaService.getKnjigaById(knjigaId);
+//        Polica polica = policaService.findByIdKorisnikove(policaId,police);
+//
+//
+//        if(primarna){
+//             Polica nadjena = policaService.findPrimarnu(police,knjiga);
+//             if(nadjena == null){
+//                 return ResponseEntity.badRequest().body("Greska");
+//             }
+//             if(nadjena.getId() == policaId){
+//                 return ResponseEntity.badRequest().body("Knjiga je vec dodata na policu");
+//             }
+//             try {
+//                policaService.dodajKnjiguNaPolicu(knjigaId,policaId);
+//             } catch (ChangeSetPersister.NotFoundException e) {
+//                throw new RuntimeException(e);
+//             }
+//             //policaService.obrisiKnjiguSaPolice(knjigaId,nadjena.getId());
+//        }
+//        return ResponseEntity.badRequest().body("Knjiga ne postoji u bazi!");
+//    }
 
 
     @GetMapping("/api/knjige/{naslov}")
@@ -128,7 +159,7 @@ public class KnjigaRestController {
     }
     @PutMapping("api/knjiga/{id}/update_knjiga")
     public ResponseEntity<?> updateKnjigaAdminAutor(@RequestBody AzuriranaKnjigaDto azuriranaKnjigaDto, @PathVariable("id") Long knjigaId, HttpSession session) {
-        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("employee");
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(loggedKorisnik.getUloga() == Korisnik.Uloga.ADMINISTRATOR || loggedKorisnik.getUloga() == Korisnik.Uloga.AUTOR){
             knjigaService.updateKnjigaAdmin(knjigaId, azuriranaKnjigaDto);
             return new ResponseEntity<>("Knjiga azurirana", HttpStatus.OK);
@@ -136,9 +167,5 @@ public class KnjigaRestController {
             return new ResponseEntity<>("Niste administrator", HttpStatus.BAD_REQUEST);
         }
     }
-
-
-
-
 
 }
