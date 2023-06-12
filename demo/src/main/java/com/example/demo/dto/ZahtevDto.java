@@ -4,7 +4,7 @@ package com.example.demo.dto;
 
 import com.example.demo.entity.Status;
 import com.example.demo.entity.Zahtev;
-import jdk.vm.ci.meta.Local;
+//import jdk.vm.ci.meta.Local;
 
 import java.time.LocalDate;
 

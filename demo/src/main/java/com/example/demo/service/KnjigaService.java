@@ -28,6 +28,9 @@ public class KnjigaService {
     @Autowired
     private PolicaService policaService;
 
+    @Autowired
+    private StavkaPoliceService stavkaPoliceService;
+
     public List<Knjiga> findAll() {
         return knjigaRepository.findAll();
     }
@@ -123,7 +126,7 @@ public class KnjigaService {
         if (updatedISBN != null && !updatedISBN.isEmpty()) {
             knjiga.get().setISBN(updatedISBN);
         }
-        knjiga.get().setDatumObjavljivanja(AzuriranaKnjigaDto.getDatumObjavljivanja());
+        knjiga.get().setDatumObjavljivanja(updateKnjigaDto.getDatumObjavljivanja());
         knjiga.get().setBrStrana(updateKnjigaDto.getBrojStrana());
         knjiga.get().setOpis(updateKnjigaDto.getOpis());
         knjiga.get().setZanr(zanrService.findById(updateKnjigaDto.getZanrId()));
@@ -131,7 +134,43 @@ public class KnjigaService {
     }
 
 
-
+    public void deleteKnjiga(Long citalac_autor_Id, Long policaId, Long knjigaId) {
+        Knjiga knjiga = getKnjigaById(knjigaId);
+        Korisnik korisnik = korisnikService.findById(citalac_autor_Id);
+        Polica polica = policaService.findById(policaId);
+        Set<Polica> korisnikovePolice = korisnik.getListaPolica();
+        if(polica.getOznaka()){
+            if(polica.getNaziv().equals("Read")){
+                for (Polica p : korisnikovePolice) {
+                    if (p.getStavkaPolice().stream().anyMatch(stavka -> stavka.getKnjiga().equals(knjiga))) {
+                        for (StavkaPolice stavka : p.getStavkaPolice()) {
+                            if (stavka.getKnjiga().equals(knjiga)) {
+                                stavkaPoliceService.deleteStavkaPolice(p.getId(), stavka.getId());
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                for (Polica p : korisnikovePolice) {
+                    if (p.getStavkaPolice().stream().anyMatch(stavka -> stavka.getKnjiga().equals(knjiga))) {
+                        for (StavkaPolice stavka : p.getStavkaPolice()) {
+                            if (stavka.getKnjiga().equals(knjiga)) {
+                                stavka.setKnjiga(null);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            for (StavkaPolice stavka : polica.getStavkaPolice()) {
+                if (stavka.getKnjiga().equals(knjiga)) {
+                    stavkaPoliceService.deleteStavkaPolice(policaId, stavka.getId());
+                }
+            }
+        }
+    }
 
 
 
