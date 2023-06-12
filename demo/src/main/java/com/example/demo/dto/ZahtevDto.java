@@ -7,10 +7,17 @@ import com.example.demo.entity.Zahtev;
 
 public class ZahtevDto {
 
+
     private String email;
     private String telefon;
     private String poruka;
+
     //private String datum;
+
+    private String datum;
+    //private Status status;
+
+
 
     public String getEmail() {
         return email;
@@ -36,6 +43,7 @@ public class ZahtevDto {
         this.poruka = poruka;
     }
 
+
 //    public String getDatum() {
 //        return datum;
 //    }
@@ -49,5 +57,13 @@ public class ZahtevDto {
         zahtev.setTelefon(z.getTelefon());
         zahtev.setPoruka(z.getPoruka());
         //zahtev.setStatus(z.getStatus(););
+
+    public String getDatum() {
+        return datum;
+    }
+
+    public void setDatum(String datum) {
+        this.datum = datum;
+
     }
 }
