@@ -129,7 +129,7 @@ public class PolicaService {
                 p = polica;
             }
         }
-        if (p.getNaziv().equals("Read") || p.getNaziv().equals("Want to Read") || p.getNaziv().equals("Currently Reading")){
+        if (p.getNaziv().equals("Read") || p.getNaziv().equals("Want To Read") || p.getNaziv().equals("CurrentlyReading")){
             return true;
         }
         return false;
