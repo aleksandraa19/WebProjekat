@@ -123,7 +123,7 @@ public class KnjigaService {
         if (updatedISBN != null && !updatedISBN.isEmpty()) {
             knjiga.get().setISBN(updatedISBN);
         }
-        knjiga.get().setDatumObjavljivanja(AzuriranaKnjigaDto.getDatumObjavljivanja());
+        knjiga.get().setDatumObjavljivanja(updateKnjigaDto.getDatumObjavljivanja());
         knjiga.get().setBrStrana(updateKnjigaDto.getBrojStrana());
         knjiga.get().setOpis(updateKnjigaDto.getOpis());
         knjiga.get().setZanr(zanrService.findById(updateKnjigaDto.getZanrId()));
