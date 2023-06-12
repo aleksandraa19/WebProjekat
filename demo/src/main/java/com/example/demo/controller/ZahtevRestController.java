@@ -44,8 +44,8 @@ public class ZahtevRestController {
     @Autowired
     private AutorService autorService;
 
-    // @Autowired
-    //private JavaMailSender emailSender;
+    @Autowired
+    private JavaMailSender emailSender;
 
     @Autowired
     private KorisnikService korisnikService;
@@ -83,6 +83,33 @@ public class ZahtevRestController {
         return ResponseEntity.ok("Zahtev je poslat!");
     }
 
+
+    @PostMapping("/api/zahtev/prihvati/{id}")
+    public ResponseEntity<String> prihvatiZahtev(@PathVariable(name = "id")Long zahtevId,HttpSession session){
+
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if(loggedKorisnik.getUloga() == Korisnik.Uloga.ADMINISTRATOR){
+
+            Zahtev zahtev = zahtevService.findOne(zahtevId);
+            zahtev.setStatus(Status.ODOBREN);
+            zahtevService.save(zahtev);
+
+            String meil = zahtev.getEmail();
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(meil);
+            message.setSubject("Odgovor na zahtev za aktivaciju naloga");
+            message.setText("Zahtev je prihvacen!! Uzivajte u pisanju novih knjiga.");
+
+            emailSender.send(message);
+
+
+        }
+
+
+        return new ResponseEntity<>("Niste administrator", HttpStatus.BAD_REQUEST);
+    }
 
 /*
     @PostMapping("/api/admin/zahtev/{id}/accept")

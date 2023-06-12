@@ -23,7 +23,9 @@ INSERT INTO STAVKA_POLICE(knjiga_id) VALUES (2);
 INSERT INTO POLICE(polica_id,stavka_police_id) VALUES (1,1);
 INSERT INTO POLICE(polica_id,stavka_police_id) VALUES (1,2);
 
-INSERT INTO ZAHTEV(email, telefon, poruka, datum, status) VALUES ('jovanovicjovi23@gmail.com', '060000111222', '', '2023-04-16', 'NACEKANJU');
+
+--INSERT INTO ZAHTEV(email, telefon, poruka, datum, status) VALUES ('jovanovicjovi23@gmail.com', '060000111222', '', '2023-16-04', 'NACEKANJU');
+
 
 INSERT INTO RECENZIJA(ocena, text, datum_recenzije, korisnik_id, stavka_id) VALUES (10, 'text1', '2023-10-04', 1 , 2);
 INSERT INTO RECENZIJA(ocena, text, datum_recenzije, korisnik_id, stavka_id) VALUES (8, 'fngcfb', '2000-08-11', 1, 2);

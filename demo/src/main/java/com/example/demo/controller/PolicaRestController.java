@@ -6,6 +6,7 @@ import com.example.demo.entity.Korisnik;
 
 import com.example.demo.dto.PolicaDto;
 import com.example.demo.entity.Korisnik;
+import com.example.demo.service.KnjigaService;
 import com.example.demo.service.KorisnikService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,10 @@ public class PolicaRestController {
 
     @Autowired
     private PolicaService policaService;
+
+    @Autowired
+    private KnjigaService knjigaService;
+
 
 
 //    @PostMapping("/api/dodajnapolicu")
@@ -124,6 +129,18 @@ public class PolicaRestController {
             dtos.add(dto);
         }
         return ResponseEntity.ok(dtos);
+    }
+
+
+    @DeleteMapping("/api/citalac/polica/{policaId}/knjiga/{knjigaId}")
+    public ResponseEntity<String> deleteKnjigaCitalac(@PathVariable Long policaId,@PathVariable Long knjigaId, HttpSession session) {
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+        if(loggedKorisnik.getUloga() == Korisnik.Uloga.CITALAC){
+            knjigaService.deleteKnjiga(loggedKorisnik.getId(), policaId,knjigaId);
+            return new ResponseEntity<>("Book deleted successfully", HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("You are not administrator", HttpStatus.OK);
+        }
     }
 
 
