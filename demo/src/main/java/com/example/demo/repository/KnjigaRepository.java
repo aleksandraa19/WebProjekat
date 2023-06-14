@@ -14,7 +14,7 @@ public interface KnjigaRepository  extends JpaRepository<Knjiga, Long>{
 
     Knjiga save(Knjiga knjiga);
 
-
+    void deleteById(Long id);
     Knjiga getByNaslov(String naslov);
     //List<Knjiga> findByKorisnik(Korisnik korisnik);
 

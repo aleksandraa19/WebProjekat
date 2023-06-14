@@ -19,7 +19,7 @@ public class ZahtevDto {
 
     private LocalDate datum;
 
-    //private Status status;
+    private Status status;
 
 
 
@@ -56,13 +56,30 @@ public class ZahtevDto {
 //        this.datum = datum;
 //    }
    public ZahtevDto(){}
-    public ZahtevDto(Zahtev z) {
-        ZahtevDto zahtev = null;
-        zahtev.setEmail(z.getEmail());
-        zahtev.setTelefon(z.getTelefon());
-        zahtev.setPoruka(z.getPoruka());
-        //zahtev.setStatus(z.getStatus(););
+
+    public ZahtevDto(String email, String telefon, String poruka, Status status) {
+        this.email = email;
+        this.telefon = telefon;
+        this.poruka = poruka;
+        this.status = status;
     }
+
+    //    public ZahtevDto(Zahtev z) {
+//        ZahtevDto zahtev = null;
+//        zahtev.setEmail(z.getEmail());
+//        zahtev.setTelefon(z.getTelefon());
+//        zahtev.setPoruka(z.getPoruka());
+//        //zahtev.setStatus(z.getStatus(););
+//    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public LocalDate getDatum() {
         return datum;
     }

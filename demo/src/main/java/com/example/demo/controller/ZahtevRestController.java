@@ -60,10 +60,10 @@ public class ZahtevRestController {
         }
         if(korisnik.getUloga() == Korisnik.Uloga.ADMINISTRATOR){
             List<Zahtev> sviZahtevi = zahtevService.findAll();
-            List<ZahtevDto> trazeni = null;
+            List<ZahtevDto> trazeni = new ArrayList<ZahtevDto>();
             for(Zahtev z: sviZahtevi){
                 if(z.getStatus() == Status.NACEKANJU){
-                    ZahtevDto zahtev = new ZahtevDto(z);
+                    ZahtevDto zahtev = new ZahtevDto(z.getEmail(),z.getTelefon(), z.getPoruka(), z.getStatus());
                     trazeni.add(zahtev);
                 }
             }
@@ -94,22 +94,34 @@ public class ZahtevRestController {
             zahtev.setStatus(Status.ODOBREN);
             zahtevService.save(zahtev);
 
-            String meil = zahtev.getEmail();
+            //String meil = zahtev.getEmail();
 
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo(meil);
-            message.setSubject("Odgovor na zahtev za aktivaciju naloga");
-            message.setText("Zahtev je prihvacen!! Uzivajte u pisanju novih knjiga.");
-
-            emailSender.send(message);
-
+//            SimpleMailMessage message = new SimpleMailMessage();
+//            message.setTo(meil);
+//            message.setSubject("Odgovor na zahtev za aktivaciju naloga");
+//            message.setText("Zahtev je prihvacen!! Uzivajte u pisanju novih knjiga.");
+//
+//            emailSender.send(message);
+             return ResponseEntity.ok("Odobren");
 
         }
 
 
         return new ResponseEntity<>("Niste administrator", HttpStatus.BAD_REQUEST);
     }
+    @DeleteMapping("/api/zahtev/odbij/{id}")
+    public ResponseEntity<String> odbijZahtev(@PathVariable(name = "id")Long zahtevId,HttpSession session){
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
 
+        if(loggedKorisnik.getUloga() == Korisnik.Uloga.ADMINISTRATOR){
+            Zahtev zahtev = zahtevService.findOne(zahtevId);
+            zahtev.setStatus(Status.ODOBREN);
+            List<Zahtev> sviZahtevi= zahtevService.findAll();
+            sviZahtevi.remove(zahtev);
+            return ResponseEntity.ok("Zahtev je odbijen!");
+        }
+        return ResponseEntity.badRequest().body("Niste admin!");
+    }
 /*
     @PostMapping("/api/admin/zahtev/{id}/accept")
     public ResponseEntity<?> zahtevAccept(@PathVariable("id") Long zahtevId, HttpSession session) {

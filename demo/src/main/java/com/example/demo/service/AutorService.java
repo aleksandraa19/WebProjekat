@@ -81,6 +81,7 @@ public class AutorService {
                 autor.setKorisnickoIme(a.getKorisnickoIme());
                 autor.setDatumRodjenja(a.getDatumRodjenja());
                 autor.setProfilnaSlika(a.getProfilnaSlika());
+                autor.setAktivnost(true);
                 save(autor);
             }
         }

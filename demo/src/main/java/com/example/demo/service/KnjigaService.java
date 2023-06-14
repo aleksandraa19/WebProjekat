@@ -54,9 +54,11 @@ public class KnjigaService {
         return null;
     }
 
+    public Knjiga save(Knjiga k) {
+        return knjigaRepository.save(k);
+    }
 
-
-    public void kreirajKnjigu(String naslov, int brstrana, String isbn, Zanr zanr, LocalDate datum, String foto,String opis){
+    public Knjiga kreirajKnjigu(String naslov, int brstrana, String isbn, Zanr zanr, LocalDate datum, String foto,String opis){
 
         Knjiga knjiga = new Knjiga();
         knjiga.setBrStrana(brstrana);
@@ -66,13 +68,10 @@ public class KnjigaService {
         knjiga.setDatumObjavljivanja(datum);
         knjiga.setNaslovnaFotografija(foto);
         knjiga.setZanr(zanr);
+        save(knjiga);
+        return knjiga;
+        //knjigaRepository.save(knjiga);
 
-        knjigaRepository.save(knjiga);
-
-    }
-
-    public Knjiga save(Knjiga k) {
-        return knjigaRepository.save(k);
     }
     public Long napraviKnjigu(String naslov, int brstrana, String isbn, LocalDate datum, String foto,String opis, double ocena){
         Knjiga knjiga = new Knjiga();
@@ -132,7 +131,9 @@ public class KnjigaService {
         knjiga.get().setZanr(zanrService.findById(updateKnjigaDto.getZanrId()));
         return save(knjiga.get());
     }
-
+    public void obrisiIzBaze(Long id){
+        knjigaRepository.deleteById(id);
+    }
 
     public void deleteKnjiga(Long citalac_autor_Id, Long policaId, Long knjigaId) {
         Knjiga knjiga = getKnjigaById(knjigaId);
