@@ -28,11 +28,13 @@ public class RecenzijaRestController {
     private KnjigaService knjigaService;
 
     @GetMapping("/api/recenzije")
+    @CrossOrigin
     public ResponseEntity<List<RecenzijaDto>> getRecenzije(HttpSession session){
         List<RecenzijaDto> dtos = recenzijaService.findAll();
         return ResponseEntity.ok(dtos);
     }
     @GetMapping("api/recenzije/{recenzijaId}")
+    @CrossOrigin
     public ResponseEntity<RecenzijaDto> getRecenzijapoId(@PathVariable(name = "recenzijaId") Long id){
         Recenzija recenzija = recenzijaService.findById(id);
         RecenzijaDto dto = new RecenzijaDto(recenzija.getId(), recenzija.getOcena(), recenzija.getText(), recenzija.getDatumRecenzije(), recenzija.getKorisnik());

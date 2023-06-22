@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Genres</h2>
+    <h2>Genre</h2>
     <table>
       <thead>
         <tr>
@@ -44,5 +44,7 @@ export default {
 </script>
 
 <style scoped>
-/* Add any desired component styles here */
+.background{
+    color: #a2a8d3;
+}
 </style>

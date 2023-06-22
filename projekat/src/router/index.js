@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import RegistrationView from '../views/RegistrationView.vue'
 import ZanrView from '../views/ZanrView.vue'
+import RecenzijaView from '../views/RecenzijaView.vue'
+import KorisnikView from '../views/KorisnikView.vue'
 
 const routes = [
   {
@@ -18,6 +20,16 @@ const routes = [
     path: '/zanrovi',
     name: 'Zanrovi',
     component: ZanrView
+  },
+  {
+    path: '/recenzije',
+    name: 'Recenzije',
+    component: RecenzijaView
+  },
+  {
+    path: '/korisnici',
+    name: 'Korisnici',
+    component: KorisnikView
   }
 ]
 

@@ -7,7 +7,9 @@
     <br><br>
   <div class="container">  
     <div class="sidebar">
-    <router-link to="/zanrovi">Zanrovi</router-link>
+    <router-link to="/zanrovi">Zanrovi</router-link><br>
+    <router-link to="/recenzije">Recenzije</router-link><br>
+    <router-link to="/korisnici">Korisnici</router-link>
     </div>
   </div>  
     <router-view></router-view>

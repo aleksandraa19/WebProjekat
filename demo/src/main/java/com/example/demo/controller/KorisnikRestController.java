@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.dto.KorisnikDto;
 import com.example.demo.dto.RegistracijaDto;
 
 import com.example.demo.dto.LoginDto;
@@ -104,7 +105,23 @@ public class KorisnikRestController {
 
     }
 
+    @GetMapping("/api/korisnici")
+    @CrossOrigin
+    public ResponseEntity<List<KorisnikDto>> getKorisnici(){
 
+        List<Korisnik> korisnici = korisnikService.findAll();
+        List<KorisnikDto> trazeni = new ArrayList<KorisnikDto>();
+
+        if(korisnici == null){
+            return null;
+        }
+        for(Korisnik k: korisnici){
+            KorisnikDto dto = new KorisnikDto(k);
+            trazeni.add(dto);
+        }
+        return ResponseEntity.ok(trazeni);
+
+    }
     @GetMapping("/api/korisnici/{korisnickoIme}")
     public Korisnik getKorisnik(@PathVariable(name = "korisnickoIme")String korisnickoIme){
 
