@@ -25,6 +25,7 @@ public class ZanrRestController {
     private ZanrService zanrService;
 
     @GetMapping("api/zanrovi")
+    @CrossOrigin
     public ResponseEntity<List<ZanrDto>> getZanrovi(){
         List<ZanrDto> trazeni = new ArrayList<>();
         List<Zanr> zanrovi = zanrService.findAll();
