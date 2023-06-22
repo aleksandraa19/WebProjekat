@@ -53,6 +53,7 @@ public class KorisnikRestController {
 //        return ResponseEntity.ok("Korisnik je registrovan");
 //    }
     @PostMapping("api/registracija")
+    @CrossOrigin
     public ResponseEntity<?> registerUser(@RequestBody RegistracijaDto registerDto){
 
         if(korisnikService.existsMail(registerDto.getMejlAdresa())){
