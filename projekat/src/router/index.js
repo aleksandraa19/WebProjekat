@@ -10,6 +10,8 @@ import LoginView from '../views/LoginView.vue'
 import KnjigaView from '../views/KnjigaView.vue'
 import SearchBookView from '../views/SearchBookView.vue'
 
+import ZahtevZaAutoraView from '../views/ZahtevZaAutoraView.vue'
+
 
 const routes = [
   {
@@ -47,6 +49,12 @@ const routes = [
     path: '/knjige',
     name: 'Knjige',
     component: KnjigaView
+
+  },
+  {
+    path: '/zahtev/posalji',
+    name: 'ZahtevZaAutora',
+    component: ZahtevZaAutoraView
 
   },
   {

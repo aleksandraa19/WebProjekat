@@ -72,6 +72,7 @@ public class ZahtevRestController {
         return ResponseEntity.badRequest().body("Samo admin moze videti zahteve");
     }
     @PostMapping("/api/zahtev/posalji")
+    @CrossOrigin
     ResponseEntity<String> posaljiZahtev(@RequestBody ZahtevDto zahtevDto){
         Zahtev zahtev = new Zahtev();
         zahtev.setEmail(zahtevDto.getEmail());

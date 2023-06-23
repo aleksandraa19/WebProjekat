@@ -119,6 +119,7 @@ public class PolicaRestController {
         return ResponseEntity.ok(dtos);
     }
     @GetMapping("/api/getpolice/{korisnikId}")
+    @CrossOrigin
     public ResponseEntity<List<PolicaDto>> getKorisnikovePolice(HttpSession session, @PathVariable Long korisnikId) {
         Korisnik k = korisnikService.findById(korisnikId);
         Set<Polica> policeList = policaService.findByKorisnik(k);

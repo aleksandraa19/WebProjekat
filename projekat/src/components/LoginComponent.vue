@@ -32,7 +32,7 @@ export default {
         lozinka: this.password
       };
 
-      axios.post('api/login', loginData)
+      axios.post('http://localhost:9090/api/login', loginData)
         .then(response => {
           // Proveriti status odgovora
           if (response.status === 200) {

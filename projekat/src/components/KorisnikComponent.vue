@@ -11,6 +11,7 @@
           <th>DATUM RODJENJA</th>
           <th>OPIS</th>
           <th>ULOGA</th>
+          <th>Akcije</th>
         </tr>
       </thead>
       <tbody>
@@ -23,9 +24,7 @@
           <td>{{ korisnik.opis }}</td>
           <td>{{ korisnik.uloga }}</td>
           <td>
-            <button class="SeeMore" v-on:click="seeMore(korisnik)">
-              See more
-            </button>
+            <button @click="openUserPolice(korisnik.id)">See More</button>
           </td>
         </tr>
       </tbody>
@@ -39,7 +38,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-    korisnici  : [],
+      korisnici: []
     };
   },
   mounted() {
@@ -56,12 +55,17 @@ export default {
           console.error('Error:', error);
         });
     },
-    /*seeMore: function (korisnici) {
-      this.$router.push("/korisnik?id=" + korisnik.id);
-    },*/
-  },
+    openUserPolice(korisnikId) {
+      window.open(`/api/getpolice/${korisnikId}`, '_blank');
+    }
+  }
 };
 </script>
 
 <style>
+/*.table {
+
+  justify-content: right;
+  color: #00008B;
+}*/
 </style>

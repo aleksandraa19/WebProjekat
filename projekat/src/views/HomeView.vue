@@ -4,7 +4,8 @@
    <h1>WELCOME to READER</h1>
     <div class="top-right">
     <router-link to="/registration">Go to Registration</router-link><br>
-    <router-link to="/login">Go to Login</router-link>
+    <router-link to="/login">Go to Login</router-link><br>
+    <router-link to="/zahtev/posalji">Posalji zahtev</router-link>
     </div>
     <div class="search-bar">
     <h3>Pretrazite knjigu</h3>
@@ -19,7 +20,7 @@
 
     <router-link to="/zanrovi">Zanrovi</router-link><br>
     <router-link to="/recenzije">Recenzije</router-link><br>
-    <router-link to="/korisnici">Korisnici</router-link>
+    <router-link to="/korisnici">Korisnici</router-link><br>
 
     <router-link to="/zanrovi">Zanrovi</router-link>
     <br><br>
