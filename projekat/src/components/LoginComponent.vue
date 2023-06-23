@@ -1,16 +1,13 @@
 <template>
-  <div>
-    <h2>Login</h2>
-    <form @submit="login">
-      <label for="username">Username:</label>
-      <input type="text" id="username" v-model="username" required>
-      <br>
-      <label for="password">Password:</label>
-      <input type="password" id="password" v-model="password" required>
-      <br>
-      <button type="submit">Login</button>
-    </form>
-  </div>
+  <form @submit.prevent="login">
+    <label for="username">Username:</label>
+    <input type="text" id="username" v-model="username">
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" v-model="password">
+    <br>
+    <button type="submit">Login</button>
+  </form>
 </template>
 
 <script>
@@ -20,35 +17,28 @@ export default {
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
     };
   },
   methods: {
-    login(event) {
-      event.preventDefault();
-
+    login() {
       const loginData = {
         korisnickoIme: this.username,
-        lozinka: this.password
+        lozinka: this.password,
       };
-
-      axios.post('api/login', loginData)
+      axios.post('http://localhost:9090/api/login', loginData)
         .then(response => {
-          // Proveriti status odgovora
-          if (response.status === 200) {
-            // Uspesno logovanje
-            alert('Successfully logged in!');
-            // Redirekcija na drugu stranicu ili obavljanje dodatnih akcija
-          } else {
-            // Neuspesno logovanje
-            alert('User does not exist!');
-          }
+          // Handle successful login
+          const user = response.data;
+          //localStorage.setItem('user', JSON.stringify(user));
+          this.$emit('login-success');
         })
         .catch(error => {
-          // Prikazati gresku u konzoli ili preduzeti odgovarajuce akcije
-          console.error(error);
+          console.error('Error:', error);
+          alert("greska");
+          // Handle login error
         });
-    }
-  }
+    },
+  },
 };
 </script>

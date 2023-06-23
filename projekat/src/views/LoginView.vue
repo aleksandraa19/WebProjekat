@@ -1,60 +1,35 @@
 <template>
   <div>
-    <form @submit.prevent="login">
-      <label for="username">Username:</label>
-      <input type="text" id="username" v-model="username" required>
-      <br>
-      <label for="password">Password:</label>
-      <input type="password" id="password" v-model="password" required>
-      <br>
-      <button type="submit">Login</button>
-    </form>
-    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <h1>Login</h1>
+    <login-component @login-success="handleLoginSuccess"></login-component>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import LoginComponent from '@/components/LoginComponent.vue';
 
 export default {
-  data() {
-    return {
-      username: '',
-      password: '',
-      errorMessage: ''
-    };
+  components: {
+    LoginComponent,
   },
   methods: {
-    login() {
-      if (this.username && this.password) {
-        const credentials = {
-          korisnickoIme: this.username,
-          lozinka: this.password
-        };
-
-        // Slanje POST zahteva na server
-        axios.post('/api/login', credentials)
-          .then(response => {
-            // Uspešno prijavljivanje korisnika
-            // Možete implementirati preusmeravanje na drugu stranicu
-            console.log('Successfully logged in:', response.data);
-          })
-          .catch(error => {
-            // Greška pri prijavljivanju korisnika
-            this.errorMessage = 'Failed to login. Please check your credentials.';
-            console.error('Login failed:', error);
-          });
-      } else {
-        this.errorMessage = 'Please enter username and password.';
+    handleLoginSuccess() {
+      // Redirect the user to the appropriate view based on their role
+      const userRole = JSON.parse(localStorage.getItem('user')).uloga;
+      switch (userRole) {
+        case 'CITALAC':
+          this.$router.push('/citalac-home');
+          break;
+        case 'AUTOR':
+          this.$router.push('/autor-home');
+          break;
+        case 'ADMINISTRATOR':
+          this.$router.push('/admin-home');
+          break;
+        default:
+          break;
       }
-    }
-  }
+    },
+  },
 };
 </script>
-
-<style>
-.error-message {
-  color: red;
-  margin-top: 10px;
-}
-</style>
