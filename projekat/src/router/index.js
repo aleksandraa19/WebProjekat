@@ -11,6 +11,11 @@ import KnjigaView from '../views/KnjigaView.vue'
 import SearchBookView from '../views/SearchBookView.vue'
 
 import ZahtevZaAutoraView from '../views/ZahtevZaAutoraView.vue'
+import CitalacHomeView from '../views/CitalacHomeView.vue'
+import AdminHomeView from '../views/AdminHomeView.vue'
+import AutorHomeView from '../views/AutorHomeView.vue'
+import PolicaView from '../views/PolicaView.vue'
+
 
 
 const routes = [
@@ -63,8 +68,28 @@ const routes = [
     component: SearchBookView
 
 
-  }
+  },
 
+  {
+    path: '/citalac-home',
+    name: 'CitalacHomeView',
+    component: CitalacHomeView
+  },
+  {
+    path: '/autor-home',
+    name: 'AutorHomeView',
+    component: AutorHomeView
+  },
+  {
+    path: '/admin-home',
+    name: 'AdminHomeView',
+    component: AdminHomeView
+  },
+  {
+    path: '/police-nazivi',
+    name: 'PolicaView',
+    component: PolicaView
+  }
 
 ]
 

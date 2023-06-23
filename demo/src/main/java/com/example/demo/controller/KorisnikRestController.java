@@ -75,7 +75,7 @@ public class KorisnikRestController {
 
     @PostMapping("api/login")
     @CrossOrigin
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto,HttpSession session){
+    public ResponseEntity<Korisnik> login(@RequestBody LoginDto loginDto,HttpSession session){
 
         if(loginDto.getKorisnickoIme().isEmpty() || loginDto.getLozinka().isEmpty()){
             return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
@@ -84,11 +84,11 @@ public class KorisnikRestController {
 
         Korisnik loggedKorisnik = korisnikService.login(loginDto.getKorisnickoIme(), loginDto.getLozinka());
         if(loggedKorisnik == null){
-            return new ResponseEntity<>("User does not exist!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         session.setAttribute("korisnik",loggedKorisnik);
-        return ResponseEntity.ok("Successfully logged in!");
+        return ResponseEntity.ok(loggedKorisnik);
 
     }
 
