@@ -2,7 +2,8 @@
  <div>
     <h1>Welcome to the Home Page!</h1>
     <div class="top-right">
-    <router-link to="/registration">Go to Registration</router-link>
+    <router-link to="/registration">Go to Registration</router-link><br>
+    <router-link to="/login">Go to Login</router-link>
     </div>
     <br><br>
   <div class="container">  

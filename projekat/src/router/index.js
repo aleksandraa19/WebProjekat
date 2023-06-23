@@ -4,6 +4,7 @@ import RegistrationView from '../views/RegistrationView.vue'
 import ZanrView from '../views/ZanrView.vue'
 import RecenzijaView from '../views/RecenzijaView.vue'
 import KorisnikView from '../views/KorisnikView.vue'
+import LoginView from '../views/LoginView.vue'
 
 const routes = [
   {
@@ -15,6 +16,11 @@ const routes = [
     path: '/registration',
     name: 'Registracija',
     component: RegistrationView
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginView
   },
   {
     path: '/zanrovi',

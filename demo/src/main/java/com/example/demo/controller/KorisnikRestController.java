@@ -74,6 +74,7 @@ public class KorisnikRestController {
 
 
     @PostMapping("api/login")
+    @CrossOrigin
     public ResponseEntity<String> login(@RequestBody LoginDto loginDto,HttpSession session){
 
         if(loginDto.getKorisnickoIme().isEmpty() || loginDto.getLozinka().isEmpty()){

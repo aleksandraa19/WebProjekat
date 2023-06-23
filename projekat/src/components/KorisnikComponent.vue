@@ -57,7 +57,7 @@ export default {
         });
     },
     /*seeMore: function (korisnici) {
-      this.$router.push("/employee?id=" + employee.id);
+      this.$router.push("/korisnik?id=" + korisnik.id);
     },*/
   },
 };
