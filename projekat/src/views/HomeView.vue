@@ -1,29 +1,46 @@
 <template>
  <div>
-    <h1>Welcome to the Home Page!</h1>
+   
+   <h1>WELCOME to READER</h1>
     <div class="top-right">
     <router-link to="/registration">Go to Registration</router-link>
     </div>
+    <div class="search-bar">
+    <h3>Pretrazite knjigu</h3>
+    <input type="text" v-model="searchTerm" placeholder="Ime knjige">
+    <button @click="search">Pretrazi</button>
+    </div>
+    
     <br><br>
-  <div class="container">  
+     
+  <div class="container">   
     <div class="sidebar">
     <router-link to="/zanrovi">Zanrovi</router-link>
+    <br><br>
+    <router-link to="/knjige">Knjige</router-link>
     </div>
-  </div>  
+  </div> 
+  
+
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
-export default { 
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
-}
+export default {
+  data() {
+    return {
+      searchTerm: '',
+    };
+  },
+  methods: {
+    search() {
+      if (this.searchTerm) {
+        this.$router.push({ path: '/search', query: { searchTerm: this.searchTerm } });
+      }
+    },
+  },
+};
 </script>
 
 <style>
@@ -46,6 +63,15 @@ body{
   width: 200px;
   background-color: rgb(197, 233, 232);
 }
+
+.search-bar {
+  position:absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(202, 140, 184, 0.41);
+}
+
+
 
 </style>
 

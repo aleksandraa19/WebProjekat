@@ -127,6 +127,7 @@ public class KnjigaRestController {
 
 
     @GetMapping("/api/knjige/{naslov}")
+    @CrossOrigin
     public ResponseEntity<KnjigaDto> getKnjigaPoNaslovu(@PathVariable(name = "naslov")String naslov){
 
         Knjiga k = knjigaService.getKnjigaByName(naslov);
@@ -142,6 +143,7 @@ public class KnjigaRestController {
     }
 
     @GetMapping("/api/knjige")
+    @CrossOrigin
     public ResponseEntity<List<KnjigaDto>> getKnjige(){
 
         List<Knjiga> listaknjiga = knjigaService.findAll();
