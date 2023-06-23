@@ -9,7 +9,7 @@
     </div>
     <div class="search-bar">
     <h3>Pretrazite knjigu</h3>
-    <input type="text" v-model="searchTerm" placeholder="Ime knjige">
+    <input type="text" v-model ="searchTerm" placeholder ="Ime knjige">
     <button @click="search">Pretrazi</button>
     </div>
     

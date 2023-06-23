@@ -30,6 +30,7 @@ public class AutorRestController {
     private KnjigaService knjigaService;
 //prebaci u knjigarest
     @PostMapping("/api/autor/dodajKnjige")
+    @CrossOrigin
     public ResponseEntity<String> napraviKnjigu(@RequestBody KnjigaDto knjigaDto, HttpSession session) {
 
         Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
@@ -87,6 +88,7 @@ public class AutorRestController {
         return ResponseEntity.badRequest().body("Niste administrator, ne mozete dodati autora");
     }
     @PutMapping("/api/azurirajAutora")
+    @CrossOrigin
     public ResponseEntity<?> azurirajAutora(@RequestBody AzuriranAutorDto autor, HttpSession session){
         Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
         Long userId = null;

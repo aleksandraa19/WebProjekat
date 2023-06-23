@@ -16,7 +16,9 @@ import AdminHomeView from '../views/AdminHomeView.vue'
 import AutorHomeView from '../views/AutorHomeView.vue'
 import PolicaView from '../views/PolicaView.vue'
 
-
+import DodajKnjiguView from '../views/DodajKnjiguView.vue'
+import AzurirajAutoraView from '../views/AzurirajAutoraView'
+import PregledZahtevaView from '../views/PregledZahtevaView'
 
 const routes = [
   {
@@ -69,7 +71,6 @@ const routes = [
 
 
   },
-
   {
     path: '/citalac-home',
     name: 'CitalacHomeView',
@@ -89,6 +90,21 @@ const routes = [
     path: '/police-nazivi',
     name: 'PolicaView',
     component: PolicaView
+  },
+  {
+    path: '/dodajKnjigu',
+    name: 'DodajKnjiguView',
+    component: DodajKnjiguView
+  },
+  {
+    path: '/azurirajAutora',
+    name: 'AzurirajAutoraView',
+    component: AzurirajAutoraView
+  },
+  {
+    path: '/pregledZahteva',
+    name: 'PregledZahtevaView',
+    component: PregledZahtevaView
   }
 
 ]

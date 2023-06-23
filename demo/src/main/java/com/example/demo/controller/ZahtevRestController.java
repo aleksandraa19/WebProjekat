@@ -52,6 +52,7 @@ public class ZahtevRestController {
 
 
     @GetMapping("/api/zahtev/getZahtevi")
+    @CrossOrigin
     ResponseEntity<?> listaZahteva(HttpSession session){
         Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
         if (korisnik == null) {
