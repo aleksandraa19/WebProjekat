@@ -53,7 +53,6 @@ export default {
 
       axios.post('http://localhost:9090/api/registracija', this.registerData)
         .then(response => {
-          // Registration successful
           this.registrationStatus = response.data;
           alert("Registrovani ste");
         })

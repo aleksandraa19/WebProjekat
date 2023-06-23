@@ -42,11 +42,11 @@ export default {
         .then(response => {
           console.log('Success:', response.data);
           this.successMessage = 'Zahtev je uspešno poslat!';
-          this.errorMessage = ''; // Resetujte poruku o grešci ako je bila prikazana
+          this.errorMessage = '';
         })
         .catch(error => {
           console.error('Error:', error);
-          this.successMessage = ''; // Resetujte poruku o uspehu ako je bila prikazana
+          this.successMessage = '';
           this.errorMessage = 'Došlo je do greške prilikom slanja zahteva.';
         });
     }

@@ -16,5 +16,4 @@ export default {
 </script>
 
 <style>
-/* Stilizacija view-a */
 </style>

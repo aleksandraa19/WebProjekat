@@ -14,7 +14,6 @@ export default {
   },
   methods: {
     handleLoginSuccess() {
-      // Redirect the user to the appropriate view based on their role
       const userRole = JSON.parse(localStorage.getItem('user')).uloga;
       switch (userRole) {
         case 'CITALAC':

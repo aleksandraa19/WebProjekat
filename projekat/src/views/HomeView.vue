@@ -17,13 +17,13 @@
      
   <div class="container">   
     <div class="sidebar">
-      
+
     <router-link to="/zanrovi">Zanrovi</router-link>
     <br><br>
     <router-link to="/recenzije">Recenzije</router-link>
     <br><br>
     <router-link to="/korisnici">Korisnici</router-link>
-
+    <br><br>
     <router-link to="/zanrovi">Zanrovi</router-link>
     <br><br>
     <router-link to="/knjige">Knjige</router-link>
