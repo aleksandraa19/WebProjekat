@@ -5,12 +5,12 @@
       <li v-for="book in books" :key="book.naslov">
         {{ book.naslov }}
         <p>{{ book.naslovnaFotografija }}</p>
-        <p>{{ book.ISBN }}</p>
-        <p>{{ book.datumObjavljivanja }}</p>
-        <p>{{ book.brStrana }}</p>
-        <p>{{ book.opis }}</p>
-        <p>{{ book.zanr }}</p>
-        <p>{{ book.ocena }}</p>
+        <p>ISBN: {{ book.ISBN }}</p>
+        <p>DATUM: {{ book.datumObjavljivanja }}</p>
+        <p>BROJ STRANA: {{ book.brStrana }}</p>
+        <p>OPIS: {{ book.opis }}</p>
+        <p>ZANR: {{ book.zanr }}</p>
+        <p>OCENA: {{ book.ocena }}</p>
       </li>
     </ul>
   </div>

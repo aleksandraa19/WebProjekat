@@ -53,13 +53,13 @@ public class ZahtevRestController {
 
     @GetMapping("/api/zahtev/getZahtevi")
     @CrossOrigin
-    ResponseEntity<?> listaZahteva(HttpSession session){
-        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
-        if (korisnik == null) {
-            System.out.println("Nema sesije");
-            return ResponseEntity.badRequest().build();
-        }
-        if(korisnik.getUloga() == Korisnik.Uloga.ADMINISTRATOR){
+    ResponseEntity<?> listaZahteva(/*HttpSession session*/){
+//        Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+//        if (korisnik == null) {
+//            System.out.println("Nema sesije");
+//            return ResponseEntity.badRequest().build();
+//        }
+        //if(korisnik.getUloga() == Korisnik.Uloga.ADMINISTRATOR){
             List<Zahtev> sviZahtevi = zahtevService.findAll();
             List<ZahtevDto> trazeni = new ArrayList<ZahtevDto>();
             for(Zahtev z: sviZahtevi){
@@ -69,8 +69,8 @@ public class ZahtevRestController {
                 }
             }
             return ResponseEntity.ok(trazeni);
-        }
-        return ResponseEntity.badRequest().body("Samo admin moze videti zahteve");
+//        }
+//        return ResponseEntity.badRequest().body("Samo admin moze videti zahteve");
     }
     @PostMapping("/api/zahtev/posalji")
     @CrossOrigin
@@ -86,6 +86,7 @@ public class ZahtevRestController {
 
 
     @PostMapping("/api/zahtev/prihvati/{id}")
+    @CrossOrigin
     public ResponseEntity<String> prihvatiZahtev(@PathVariable(name = "id")Long zahtevId,HttpSession session){
 
         Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");

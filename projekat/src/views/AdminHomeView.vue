@@ -2,29 +2,24 @@
   <div>
     <h1>Welcome Admin!</h1>
     <div class="container">   
-    <div class="sidebar">
-
-    <router-link to="/zanrovi">Zanrovi</router-link>
-    <br><br>
-    <router-link to="/recenzije">Recenzije</router-link>
-    <br><br>
-    <router-link to="/korisnici">Korisnici</router-link>
-    <br><br>
-    <router-link to="/zanrovi">Zanrovi</router-link>
-    <br><br>
-    <router-link to="/knjige">Knjige</router-link>
-
-    </div>
-</div> 
-    <div class = "funkc">
+      <div class="sidebar">
+        <router-link to="/zanrovi">Zanrovi</router-link>
+        <br><br>
+        <router-link to="/recenzije">Recenzije</router-link>
+        <br><br>
+        <router-link to="/korisnici">Korisnici</router-link>
+        <br><br>
+        <router-link to="/zanrovi">Zanrovi</router-link>
+        <br><br>
+        <router-link to="/knjige">Knjige</router-link>
+      </div>
+    </div> 
+    <div class="funkc">
       <router-link to="/dodajKnjigu">Dodaj knjigu</router-link><br>
       <router-link to="/azurirajAutora">Azuriraj profil</router-link><br>
-      <router-link to="/pregledZahteva">Pregled zahteva</router-link><br
+      <router-link to="/pregledZahteva">Pregled zahteva</router-link><br>
     </div>
-
     <router-view></router-view>
-  </div>
-   
   </div>
 </template>
 

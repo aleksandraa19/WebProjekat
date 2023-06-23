@@ -2,7 +2,7 @@
   <div>
     <h2>Korisnikove Police</h2>
     <ul>
-      <li v-for="polica in police" :key="polica.id">{{ polica.name }}</li>
+      <li v-for="polica in police" :key="polica.name">{{ polica.name }}</li>
     </ul>
   </div>
 </template>
@@ -17,13 +17,13 @@ export default {
     };
   },
   mounted() {
-    this.fetchKorisnikovePolice(korisnik);
+    this.fetchKorisnikovePolice();
   },
   methods: {
-    fetchKorisnikovePolice(korisnik) {
-      const korisnikId = korisnik.id;
+    fetchKorisnikovePolice() {
+      const korisnik = 1;
       axios
-        .get(`/api/getpolice/${korisnikId}`)
+        .get(`http://localhost:9090/api/getpolice/${korisnikId}`)
         .then(response => {
           this.police = response.data;
         })
