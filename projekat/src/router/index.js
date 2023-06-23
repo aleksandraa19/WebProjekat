@@ -19,6 +19,7 @@ import PolicaView from '../views/PolicaView.vue'
 import DodajKnjiguView from '../views/DodajKnjiguView.vue'
 import AzurirajAutoraView from '../views/AzurirajAutoraView'
 import PregledZahtevaView from '../views/PregledZahtevaView'
+import DodajZanrView from '../views/DodajZanrView'
 
 const routes = [
   {
@@ -105,6 +106,11 @@ const routes = [
     path: '/pregledZahteva',
     name: 'PregledZahtevaView',
     component: PregledZahtevaView
+  },
+  {
+    path: '/dodajZanr',
+    name: 'DodajZanrView',
+    component: DodajZanrView
   }
 
 ]

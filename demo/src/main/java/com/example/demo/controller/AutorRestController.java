@@ -49,7 +49,6 @@ public class AutorRestController {
             return new ResponseEntity("Nemate odobrenje, samo autor i admin moze da dodati knjigu!", HttpStatus.BAD_REQUEST);
         }
 
-
         Knjiga k = knjigaService.kreirajKnjigu(knjigaDto.getNaslov(),knjigaDto.getBrStrana(),knjigaDto.getISBN(),knjigaDto.getZanr(),knjigaDto.getDatumObjavljivanja(),knjigaDto.getNaslovnaFotografija(),knjigaDto.getOpis());
 
         boolean daLi = autorService.sadrzi(k,userId);

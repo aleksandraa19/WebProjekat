@@ -38,13 +38,14 @@ public class ZanrRestController {
     }
 
     @PostMapping("/api/dodajZanr")
-    public ResponseEntity<?> dodajZanr(@RequestBody DodatZanrDto zanrAddDto, HttpSession session) {
-        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
-        if(loggedKorisnik.getUloga() == Korisnik.Uloga.ADMINISTRATOR){
+    @CrossOrigin
+    public ResponseEntity<?> dodajZanr(@RequestBody DodatZanrDto zanrAddDto/*, HttpSession session*/) {
+//        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+//        if(loggedKorisnik.getUloga() == Korisnik.Uloga.ADMINISTRATOR){
             zanrService.kreiraj(zanrAddDto);
             return new ResponseEntity<>("Zanr added seccessfully", HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>("You are not administrator", HttpStatus.BAD_REQUEST);
-        }
+//        }else {
+//            return new ResponseEntity<>("You are not administrator", HttpStatus.BAD_REQUEST);
+//        }
     }
 }

@@ -36,7 +36,7 @@ export default {
       axios.post('http://localhost:9090/api/azurirajAutora', this.autor)
         .then(response => {
           console.log('Success:', response.data);
-          this.successMessage = 'Zahtev je uspešno poslat!';
+          this.successMessage = 'Azuriran je!';
           this.errorMessage = '';
         })
         .catch(error => {

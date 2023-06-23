@@ -45,16 +45,7 @@ export default {
   },
 
   methods: {
-    /*dodaj() {
-      const knjigaDto = {
-        naslov: this.naslov,
-        brStrana: this.brStrana,
-        ISBN: this.ISBN,
-        zanr: this.zanr,
-        datumObjavljivanja: this.datumObjavljivanja,
-        naslovnaFotografija: this.naslovnaFotografija,
-        opis: this.opis
-      };
+    handleSubmit() {
       axios.post('http://localhost:9090/api/autor/dodajKnjige', this.knjigaDto)
         .then(response => {
           alert('Uspešno ste dodali knjigu!');
@@ -65,8 +56,8 @@ export default {
           alert("greska");
     
         });
-    },*/
-    async handleSubmit(e) {
+    }
+    /*async handleSubmit(e) {
       e.preventDefault();
 
       try {
@@ -87,7 +78,7 @@ export default {
           alert('Došlo je do greške. Proverite unesene podatke!');
         }
       }
-    }
+    }*/
   }
 };
 </script>

@@ -11,7 +11,6 @@
           <th>DATUM RODJENJA</th>
           <th>OPIS</th>
           <th>ULOGA</th>
-          <th>Akcije</th>
         </tr>
       </thead>
       <tbody>
@@ -23,9 +22,6 @@
           <td>{{ korisnik.datumRodjenja }}</td>
           <td>{{ korisnik.opis }}</td>
           <td>{{ korisnik.uloga }}</td>
-          <td>
-            <router-link :to="`/police/korisnik`">Korisnikove Police</router-link>
-          </td>
         </tr>
       </tbody>
     </table>

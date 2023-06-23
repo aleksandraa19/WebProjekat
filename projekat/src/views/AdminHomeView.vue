@@ -18,6 +18,8 @@
       <router-link to="/dodajKnjigu">Dodaj knjigu</router-link><br>
       <router-link to="/azurirajAutora">Azuriraj profil</router-link><br>
       <router-link to="/pregledZahteva">Pregled zahteva</router-link><br>
+      <router-link to="/dodajZanr">Dodaj zanr</router-link><br>
+
     </div>
     <router-view></router-view>
   </div>
