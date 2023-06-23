@@ -24,7 +24,7 @@
           <td>{{ korisnik.opis }}</td>
           <td>{{ korisnik.uloga }}</td>
           <td>
-            <button @click="openUserPolice(korisnik.id)">See More</button>
+            <router-link :to="`/police/korisnik`">Korisnikove Police</router-link>
           </td>
         </tr>
       </tbody>
@@ -55,8 +55,11 @@ export default {
           console.error('Error:', error);
         });
     },
-    openUserPolice(korisnikId) {
-      window.open(`/api/getpolice/${korisnikId}`, '_blank');
+    /*openUserPolice(korisnik) {
+      window.open(`/police/korisnik`, '_blank');
+    }*/
+    openUserPolice(korisnik){
+        this.$router.push("/korisnik?id=" + this.korisnik.id);
     }
   }
 };

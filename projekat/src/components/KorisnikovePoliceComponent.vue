@@ -1,26 +1,9 @@
 <template>
   <div>
-    <h2>Police</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>KORISNIK</th>
-          <th>OCENA</th>
-          <th>TEXT</th>
-          <th>DATUM RECENZIJE</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="recenzija in recenzije" :key="recenzija.id">
-          <td>{{ recenzija.id }}</td>
-          <td>{{ recenzija.korisnik.korisnickoIme }}</td>
-          <td>{{ recenzija.ocena }}</td>
-          <td>{{ recenzija.text }}</td>
-          <td>{{ recenzija.datumRecenzije }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <h2>Korisnikove Police</h2>
+    <ul>
+      <li v-for="polica in police" :key="polica.id">{{ polica.name }}</li>
+    </ul>
   </div>
 </template>
 
@@ -30,21 +13,22 @@ import axios from 'axios';
 export default {
   data() {
     return {
-    recenzije  : [],
+      police: [],
     };
   },
   mounted() {
-    this.fetchRecenzije();
+    this.fetchKorisnikovePolice(korisnik);
   },
   methods: {
-    fetchRecenzije() {
+    fetchKorisnikovePolice(korisnik) {
+      const korisnikId = korisnik.id;
       axios
-        .get('http://localhost:9090/api/recenzije')
+        .get(`/api/getpolice/${korisnikId}`)
         .then(response => {
-          this.recenzije = response.data;
+          this.police = response.data;
         })
         .catch(error => {
-          console.error('Error:', error);
+          console.error('Failed to fetch korisnikove police:', error);
         });
     },
   },
@@ -52,4 +36,5 @@ export default {
 </script>
 
 <style>
+
 </style>
