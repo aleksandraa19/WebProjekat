@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.*;
 
@@ -18,11 +19,13 @@ public class Recenzija implements Serializable {
     private String text;
 
     @Column
-    private String datumRecenzije;
+    private LocalDate datumRecenzije;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "korisnik_id")
     private Korisnik korisnik;
+
+    public Recenzija() {}
 
     public Long getId() {
         return id;
@@ -48,11 +51,11 @@ public class Recenzija implements Serializable {
         this.text = text;
     }
 
-    public String getDatumRecenzije() {
+    public LocalDate getDatumRecenzije() {
         return datumRecenzije;
     }
 
-    public void setDatumRecenzije(String datumRecenzije) {
+    public void setDatumRecenzije(LocalDate datumRecenzije) {
         this.datumRecenzije = datumRecenzije;
     }
 

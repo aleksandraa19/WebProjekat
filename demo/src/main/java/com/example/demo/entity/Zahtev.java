@@ -1,14 +1,13 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.persistence.*;
 
 
-enum Status{NACEKANJU,ODOBREN,ODBIJEN}
-
 @Entity
 public class Zahtev implements Serializable{
-
+    //public enum Status {NACEKANJU, ODOBREN, ODBIJEN}
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,11 +22,22 @@ public class Zahtev implements Serializable{
     private String poruka;
 
     @Column
-    private String datum;
+    private LocalDate datum;
 
     @Column
     @Enumerated(value = EnumType.STRING)
-    private Status status;
+    public Status status;
+
+    @OneToOne
+    private Korisnik korisnik;
+
+    public Korisnik getKorisnik() {
+        return korisnik;
+    }
+
+    public void setKorisnik(Korisnik korisnik) {
+        this.korisnik = korisnik;
+    }
 
     public Long getId() {
         return id;
@@ -61,14 +71,22 @@ public class Zahtev implements Serializable{
         this.poruka = poruka;
     }
 
-    public String getDatum() {
+    public Zahtev() {}
+//    public String getDatum() {
+//        return datum;
+//    }
+//
+//    public void setDatum(String Datum) {
+//        datum = Datum;
+//    }
+    public LocalDate getDatum() {
         return datum;
     }
 
-    public void setDatum(String Datum) {
-        datum = Datum;
-    }
+    public void setDatum(LocalDate datum) {
+        this.datum = datum;
 
+    }
     public Status getStatus() {
         return status;
     }
@@ -89,4 +107,5 @@ public class Zahtev implements Serializable{
                 ", status=" + status +
                 '}';
     }
+
 }

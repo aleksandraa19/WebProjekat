@@ -68,6 +68,10 @@ public class DemoApplication implements CommandLineRunner {
 		System.out.println();
 		System.out.println("Testiranje klase Polica:");
 		List<Polica> lista_polica = this.policaRepository.findAll();
+//		Polica p1 = new Polica("polica3",true);
+//		Polica p2 = new Polica("polica4",false);
+//		lista_polica.add(p1);
+//		lista_polica.add(p2);
 		for(Polica p: lista_polica){
 			System.out.println(p);
 		}
@@ -75,8 +79,10 @@ public class DemoApplication implements CommandLineRunner {
 		//recenzija
 		System.out.println();
 		System.out.println("Testiranje klase Recenzija:");
-		Recenzija r1 = this.recenzijaRepository.findRecenzijaByDatumRecenzije("16.4.2023.");
-		System.out.println(r1);
+		//Recenzija r1 = this.recenzijaRepository.findRecenzijaByDatumRecenzije("16.4.2023.");
+		//Recenzija r1 = new Recenzija(10, "text1", "2023-16-04", lista_korisnika.get(1));
+		//this.recenzijaRepository.save(r1);
+	//	System.out.println(r1);
 
 		//stavka police
 		System.out.println();

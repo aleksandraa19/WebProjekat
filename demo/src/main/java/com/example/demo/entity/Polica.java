@@ -21,9 +21,17 @@ public class Polica implements Serializable {
 
     @ManyToMany
     @JoinTable( name = "police",
-            joinColumns = @JoinColumn(name = "stavka_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "stavkaPolice_id", referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "polica_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "stavka_police_id", referencedColumnName = "id"))
     private Set<StavkaPolice> stavkaPolice = new HashSet<>();
+
+    /*public Polica(String naziv, boolean oznaka){
+        this.naziv = naziv;
+        this.oznaka = oznaka;
+    }*/
+
+    public Polica(){}
+
 
     public Long getId() {
         return id;
@@ -41,7 +49,7 @@ public class Polica implements Serializable {
         this.naziv = naziv;
     }
 
-    public boolean isOznaka() {
+    public boolean getOznaka() {
         return oznaka;
     }
 

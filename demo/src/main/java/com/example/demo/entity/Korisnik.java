@@ -8,13 +8,10 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-
-enum Uloga {CITALAC, AUTOR, ADMINISTRATOR}
-
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Korisnik  implements Serializable {
-
+    public enum Uloga {CITALAC, AUTOR, ADMINISTRATOR};
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -43,10 +40,34 @@ public class Korisnik  implements Serializable {
     private String profilnaSlika;
 
     //lista polica da se doda
-    @OneToMany(fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade =  CascadeType.ALL)
     @JoinColumn(name = "korisnik_id")
     private Set<Polica> listaPolica = new HashSet<>();
 
+    public  void napraviPrimarne(){
+        boolean oznaka = true;
+        /*Polica p1 = new Polica("Want to Read",oznaka);
+        Polica p2 = new Polica("Currently Reading",oznaka);
+        Polica p3 = new Polica("Read",oznaka);*/
+
+        Polica p1 = new Polica();
+        p1.setNaziv("Want to Read");
+        p1.setOznaka(oznaka);
+
+        Polica p2 =  new Polica();
+        p2.setNaziv("Currently Reading");
+        p2.setOznaka(oznaka);
+
+        Polica p3 = new Polica();
+        p3.setNaziv("Read");
+        p3.setOznaka(oznaka);
+
+        listaPolica.add(p1);
+        listaPolica.add(p2);
+        listaPolica.add(p3);
+
+    }
+    
 
     @Column
     private String opis;
@@ -54,7 +75,7 @@ public class Korisnik  implements Serializable {
 
     @Column
     @Enumerated(value = EnumType.STRING)
-    private Uloga uloga;
+    public Uloga uloga;
 
     public Long getId() {
         return id;

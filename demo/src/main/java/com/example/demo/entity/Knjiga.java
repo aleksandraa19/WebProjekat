@@ -37,6 +37,8 @@ public class Knjiga  implements Serializable{
     @Column
     private double ocena;
 
+    public Knjiga(){}
+
     public Long getId() {
         return id;
     }
@@ -50,7 +52,7 @@ public class Knjiga  implements Serializable{
     }
 
     public void setNaslov(String naslov) {
-        naslov = naslov;
+        this.naslov = naslov;
     }
 
     public String getISBN() {
@@ -99,6 +101,14 @@ public class Knjiga  implements Serializable{
 
     public void setOcena(double ocena) {
         this.ocena = ocena;
+    }
+
+    public String getNaslovnaFotografija() {
+        return naslovnaFotografija;
+    }
+
+    public void setNaslovnaFotografija(String naslovnaFotografija) {
+        this.naslovnaFotografija = naslovnaFotografija;
     }
 
     @Override
